@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/news/2016/10/17/announcing-scalajs-0.6.13/">
+
+    <title> Announcing Scala.js 0.6.13 - Scala.js</title>
+
+    <meta property="og:title" content="Announcing Scala.js 0.6.13" /><meta property="og:type" content="article" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" /><meta property="article:published_time" content="2016-10-17T00:00:00-04:00" /><meta property="article:tag" content="releases" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li class="active"><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Announcing Scala.js 0.6.13</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="small">Oct 17, 2016.</span>
+            </p>
+            <p>We are excited to announce the release of Scala.js 0.6.13!</p>
+
+<p>This release contains one particularly anticipated feature: the ability to generate CommonJS modules with Scala.js!
+It also standardizes on Node.js as the default runner for all sbt projects (with <code class="highlighter-rouge">sbt run</code> and <code class="highlighter-rouge">sbt test</code>), which constitutes a breaking change for builds.
+Read on for more details!</p>
+
+<!--more-->
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>If you are new to Scala.js, head over to
+<a href="/tutorial/">the tutorial</a>.</p>
+
+<h2 id="release-notes">Release notes</h2>
+
+<p>As a minor release, 0.6.13 is backward source and binary compatible with previous releases in the 0.6.x series, although <em>build</em> definitions are not.
+Libraries compiled with earlier versions can be used with 0.6.13 without change.
+However, it is not forward compatible: libraries compiled with 0.6.13 cannot be used by projects using 0.6.{0-12}.</p>
+
+<p>Please report any issues <a href="https://github.com/scala-js/scala-js/issues">on GitHub</a>.</p>
+
+<h2 id="breaking-changes">Breaking changes</h2>
+
+<p>This release changes the default JavaScript interpreters used to perform <code class="highlighter-rouge">sbt run</code> and <code class="highlighter-rouge">sbt test</code>.
+Until 0.6.12 (and since 0.6.6), the defaults were:</p>
+
+<ul>
+  <li>Rhino by default</li>
+  <li>Node.js with <code class="highlighter-rouge">scalaJSUseRhino in Global := false</code></li>
+  <li>PhantomJS with <code class="highlighter-rouge">scalaJSUseRhino in Global := false</code> and <code class="highlighter-rouge">jsDependencies += RuntimeDOM</code></li>
+</ul>
+
+<p>The new defaults are the following:</p>
+
+<ul>
+  <li>Node.js by default</li>
+  <li>Node.js + <a href="https://github.com/tmpvar/jsdom"><code class="highlighter-rouge">jsdom</code></a> with <code class="highlighter-rouge">jsDependencies += RuntimeDOM</code></li>
+</ul>
+
+<p>Note that Node.js and jsdom need to be installed separately on your system.</p>
+
+<ul>
+  <li><a href="https://nodejs.org/en/download/">Download Node.js here</a></li>
+  <li>Install jsdom with <code class="highlighter-rouge">npm install jsdom</code> (either in your project’s root directory, or <a href="https://docs.npmjs.com/getting-started/installing-npm-packages-globally">globally</a>)</li>
+</ul>
+
+<p>We decided to standardize on Node.js for all command-line executions by default because it is always the best alternative.
+Rhino is extremely slow.
+Although using it by default works out-of-the-box, it caused a number of users to stick to it and discovering months or years later that their tests could run 10x-100x faster by switching to Node.js.
+PhantomJS, on the other hand, <a href="https://github.com/scala-js/scala-js/issues/1881">reportedly suffers from significant issues</a>.
+<code class="highlighter-rouge">jsdom</code> seems to be better maintained at this point.</p>
+
+<p>You can restore the previous behaviors with the following sbt settings:</p>
+
+<ul>
+  <li>Rhino: <code class="highlighter-rouge">scalaJSUseRhino in Global := true</code>.
+Rhino is however <em>deprecated</em>, and will not be supported anymore in 1.0.0.</li>
+  <li>PhantomJS: <code class="highlighter-rouge">jsEnv := PhantomJSEnv().value</code>.</li>
+</ul>
+
+<p>Remember that you can also use Selenium with Scala.js, using <a href="https://github.com/scala-js/scala-js-env-selenium">scalajs-env-selenium</a>.</p>
+
+<h2 id="deprecation-jsglobalscope-replaces-extends-jsglobalscope">Deprecation: <code class="highlighter-rouge">@JSGlobalScope</code> replaces <code class="highlighter-rouge">extends js.GlobalScope</code></h2>
+
+<p>As indicated by a deprecation warning, <code class="highlighter-rouge">extends js.GlobalScope</code> should not be used anymore.
+Instead, you should annotate the object with <code class="highlighter-rouge">@JSGlobalScope</code>.
+For example, this old snippet:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.scalajs.js</span>
+
+<span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="k">object</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">GlobalScope</span></code></pre></figure>
+
+<p>should be replaced with</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.scalajs.js</span>
+<span class="k">import</span> <span class="nn">js.annotation._</span>
+
+<span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSGlobalScope</span>
+<span class="k">object</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span></code></pre></figure>
+
+<h2 id="jsimport-and-emitting-commonjs-modules"><code class="highlighter-rouge">@JSImport</code> and emitting CommonJS modules</h2>
+
+<p>This is a long-awaited feature!
+Scala.js can now emit CommonJS modules (i.e., those used by Node.js, as well as several bundlers).</p>
+
+<h3 id="enabling-commonjs-module">Enabling CommonJS module</h3>
+
+<p>You can enable emission of a CommonJS module with the following sbt setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalaJSModuleKind</span> <span class="o">:=</span> <span class="nc">ModuleKind</span><span class="o">.</span><span class="nc">CommonJSModule</span></code></pre></figure>
+
+<p>When emitting a CommonJS module, top-level <code class="highlighter-rouge">@JSExport</code>ed classes and objects are stored in the <code class="highlighter-rouge">exports</code> object, so that they can be required from other CommonJS modules.</p>
+
+<p>Obviously, this requires that you use Node.js for <code class="highlighter-rouge">sbt run</code> and <code class="highlighter-rouge">sbt test</code> (should you use them at all), and that you use a JavaScript bundler such as <a href="https://webpack.github.io/docs/">Webpack</a> to create a bundle fit for use in the browser.
+At the moment, Scala.js does not provide any facility to do so.</p>
+
+<p>Emitting CommonJS modules is also not compatible with <code class="highlighter-rouge">persistLauncher := true</code>, as a different launcher needs to be emitted for fastOpt versus fullOpt.</p>
+
+<p>You can find more information on module support <a href="/doc/project/module.html">in the documentation</a>.</p>
+
+<h3 id="importing-stuff-from-other-commonjs-modules">Importing stuff from other CommonJS modules</h3>
+
+<p>To import other CommonJS modules from Scala.js, you should use <code class="highlighter-rouge">@JSImport</code> (<a href="https://www.scala-js.org/api/scalajs-library/0.6.13/#scala.scalajs.js.annotation.JSImport">Scaladoc</a>).
+Semantically speaking, <code class="highlighter-rouge">@JSImport</code> is an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import">ECMAScript 2015 import</a>, but Scala.js desugars it into a CommonJS <code class="highlighter-rouge">require</code>.
+Let us see an example first:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.scalajs.js</span>
+<span class="k">import</span> <span class="nn">js.annotation._</span>
+
+<span class="c1">// ES6:      import { Foo } from "bar.js"
+// CommonJS: var Foo = require("bar.js").Foo;
+</span><span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSImport</span><span class="o">(</span><span class="s">"bar.js"</span><span class="o">,</span> <span class="s">"Foo"</span><span class="o">)</span>
+<span class="k">class</span> <span class="nc">Foobaz</span><span class="o">(</span><span class="k">var</span> <span class="n">bar</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span>
+
+<span class="k">val</span> <span class="n">foo</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Foobaz</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span> <span class="o">//</span> <span class="nc">JS</span><span class="k">:</span> <span class="kt">new</span> <span class="kt">Foo</span><span class="o">(</span><span class="err">5</span><span class="o">)</span></code></pre></figure>
+
+<p>If the module exports top-level functions or variables, you should create an <code class="highlighter-rouge">object</code> representing the module itself, like this:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// ES6:      import * as bar from "bar.js"
+// CommonJS: var bar = require("bar.js");
+</span><span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSImport</span><span class="o">(</span><span class="s">"bar.js"</span><span class="o">,</span> <span class="nc">JSImport</span><span class="o">.</span><span class="nc">Namespace</span><span class="o">)</span>
+<span class="k">object</span> <span class="nc">Bar</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">aFunction</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">result</span> <span class="k">=</span> <span class="nc">Bar</span><span class="o">.</span><span class="n">aFunction</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span> <span class="o">//</span> <span class="nc">JS</span><span class="k">:</span> <span class="kt">bar.aFunction</span><span class="o">(</span><span class="err">5</span><span class="o">)</span></code></pre></figure>
+
+<p>Note that importing with <code class="highlighter-rouge">@JSImport</code> is completely incompatible with the <code class="highlighter-rouge">jsDependencies</code> mechanism.
+If you use <code class="highlighter-rouge">@JSImport</code>, you have to manage your JavaScript dependencies on your own (possibly through <code class="highlighter-rouge">npm</code>).</p>
+
+<p>You can find more information on <code class="highlighter-rouge">@JSImport</code> <a href="/doc/interoperability/facade-types.html#import">in the facade types documentation</a>.</p>
+
+<h3 id="new-java-libraries">New Java libraries</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">java.util.Timer</code></li>
+  <li><code class="highlighter-rouge">java.util.concurrent.atomic.AtomicLongArray</code></li>
+  <li><code class="highlighter-rouge">java.io.DataInputStream</code> (was already available with <code class="highlighter-rouge">scalajs-javalib-ex</code>, but is now available by default)</li>
+</ul>
+
+<h2 id="bug-fixes">Bug fixes</h2>
+
+<p>Among others, the following bugs have been fixed in 0.6.13:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2592">#2592</a> Yet another String.split() inconcistency</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2598">#2598</a> FrameworkDetector swallows the stderr output of the JS env</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2602">#2602</a> Linker thinks it’s used concurrently when in fact it’s been made invalid after an exception</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2603">#2603</a> Inner def with default param in a Scala.js-defined JS class produces invalid IR</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2625">#2625</a> Outer pointer checks fail in 2.12 (not fixed in 2.12.0-RC1)</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2382">#2382</a> Name clash for $outer pointers of two different nesting levels, only for 2.12.0-RC2 onwards (not fixed in 2.10, 2.11, nor 2.12.0-RC1)</li>
+</ul>
+
+<p>You can find the full list <a href="https://github.com/scala-js/scala-js/milestone/41?closed=1">on GitHub</a>.</p>
+
+            <div class="spacing"></div>
+            <nav>
+                <ul class="pager">
+                    
+                    <li class="previous"><a href="/news/2016/09/01/announcing-scalajs-0.6.12/"
+                                            title="Announcing Scala.js 0.6.12">&larr; Previous</a></li>
+                    
+                    
+                    <li class="next"><a href="/news/2016/12/21/announcing-scalajs-0.6.14/"
+                                        title="Announcing Scala.js 0.6.14">Next &rarr;</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

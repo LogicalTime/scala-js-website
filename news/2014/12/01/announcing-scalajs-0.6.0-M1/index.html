@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/news/2014/12/01/announcing-scalajs-0.6.0-M1/">
+
+    <title> Announcing Scala.js 0.6.0-M1 - Scala.js</title>
+
+    <meta property="og:title" content="Announcing Scala.js 0.6.0-M1" /><meta property="og:type" content="article" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" /><meta property="article:published_time" content="2014-12-01T00:00:00-05:00" /><meta property="article:tag" content="releases" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li class="active"><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Announcing Scala.js 0.6.0-M1</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="small">Dec 1, 2014.</span>
+            </p>
+            <p>We are excited to announce the first milestone of Scala.js 0.6.0, aka 0.6.0-M1!</p>
+
+<p>This development release is mostly intended for testing purposes, and as a synchronization point with library authors so that they can start upgrading in preparation for the final release.</p>
+
+<p>As the change in “major” version number witnesses, this release is <em>not</em> binary compatible with 0.5.x.
+Libraries need to be recompiled and republished using this milestone to be compatible.</p>
+
+<p>More importantly, this release is not source compatible with 0.5.x either.
+We expect, however, that further milestones and 0.6.x will stay source compatible with this first milestone.
+<!--more--></p>
+
+<p>Please report any issues <a href="https://github.com/scala-js/scala-js/issues">on GitHub</a>.</p>
+
+<p>The following libraries and testing frameworks have already been upgraded and published for 0.6.0-M1:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js-dom">DOM types</a>: 0.7.0</li>
+  <li><a href="https://github.com/lihaoyi/scala.rx">Scala.rx</a>: 0.2.7-M1</li>
+  <li><a href="https://github.com/lihaoyi/scalatags">ScalaTags</a>: 0.4.3-M1</li>
+  <li><a href="https://github.com/lihaoyi/autowire">Autowire</a>: 0.2.4-M1</li>
+  <li><a href="https://github.com/lihaoyi/utest">µTest</a>: 0.2.5-M1</li>
+  <li><a href="https://github.com/lihaoyi/upickle">µPickle</a>: 0.2.6-M1</li>
+</ul>
+
+<h2 id="preparations-before-upgrading-from-06x">Preparations before upgrading from 0.6.x</h2>
+
+<h3 id="upgrade-to-056-if-not-already-done">Upgrade to 0.5.6 if not already done</h3>
+
+<p>Before upgrading to 0.6.0-M1, <strong>we strongly recommend that you upgrade to Scala.js 0.5.6</strong>, and address all deprecation warnings.
+Scala.js 0.5.6 contains warnings for the most vicious breaking changes of 0.6.x.</p>
+
+<h3 id="migrate-away-from-the-jasmine-test-framework">Migrate away from the Jasmine test framework</h3>
+
+<p>If you use the Jasmine test framework, migrate away from it to one of the other testing frameworks for Scala.js.
+The Jasmine test framework is <em>not</em> a good testing framework for Scala.js code, and is being <em>removed</em> in 0.6.x.</p>
+
+<p>Possible replacements:</p>
+
+<ul>
+  <li><a href="https://github.com/lihaoyi/utest">uTest</a></li>
+  <li><a href="https://github.com/eecolor/little-spec">Little Spec</a></li>
+  <li><a href="https://github.com/cgta/otest">otest</a></li>
+</ul>
+
+<p>Note that these testing frameworks also need to upgrade to 0.6.0-M1 before you can use them.
+You might need to disable your testing infrastructure in the meantime, if you want to start using 0.6.0-M1 before they are ready.</p>
+
+<h2 id="upgrade-to-060-m1-from-056">Upgrade to 0.6.0-M1 from 0.5.6</h2>
+
+<p>Basically, you need to apply the same kind of changes to your build files as in <a href="https://github.com/sjrd/scala-js-example-app/commit/09861f30793a35ff102fdb75f449a16fa849fde2">this commit</a>, which mostly consists in:</p>
+
+<ul>
+  <li>Upgrade to sbt &gt;= 0.13.6 (the current version is 0.13.7).</li>
+  <li>Adaptations to new groupId and artifact names for Scala.js packages.</li>
+  <li>Adaptation to the new <code class="highlighter-rouge">AutoPlugin</code> infrastructure of the sbt plugin.</li>
+  <li>Drop the prefix <code class="highlighter-rouge">ScalaJSKeys.</code> for Scala.js-specific sbt keys, as they are not needed anymore.</li>
+  <li>Upgrade to 0.6.0-M1-enabled versions of your dependencies.</li>
+  <li>(Temporarily) use <code class="highlighter-rouge">%%%!</code> instead of <code class="highlighter-rouge">%%%</code> because <a href="https://github.com/scala-js/scala-js/issues/1331">the latter is broken</a></li>
+</ul>
+
+<p>On the sbt command line, not much changes, except the way you use the <code class="highlighter-rouge">fastOpt</code> and <code class="highlighter-rouge">fullOpt</code> mode.
+In Scala 0.5.x, you could run in <code class="highlighter-rouge">fastOpt</code> mode with:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; fastOptStage::run
+</code></pre></div></div>
+
+<p>In 0.6.x, the mode is regulated by the setting <code class="highlighter-rouge">scalaJSStage</code>, which is one of:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">PreLinkStage</code> (default): uses Rhino</li>
+  <li><code class="highlighter-rouge">FastOptStage</code>: <code class="highlighter-rouge">fastOpt</code> mode, uses Node.js or PhantomJS</li>
+  <li><code class="highlighter-rouge">FullOptStage</code>: <code class="highlighter-rouge">fullOpt</code> mode, uses Node.js or PhantomJS</li>
+</ul>
+
+<p>You can change it from the command line with</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; set scalaJSStage := FastOptStage
+&gt; run # runs in fastOptMode
+</code></pre></div></div>
+
+<p>In a multi-project build, you’ll want to change it for all projects, which can be done with <code class="highlighter-rouge">in Global</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; set scalaJSStage in Global := FastOptStage
+</code></pre></div></div>
+
+<h2 id="major-changes">Major changes</h2>
+
+<p>This section discusses major changes affecting compatibility, which may or may not apply to your project.</p>
+
+<h3 id="classcastexception-becomes-an-undefined-behavior"><code class="highlighter-rouge">ClassCastException</code> becomes an undefined behavior</h3>
+
+<p>The JVM, in its incommensurable magnanimity, throws nicely specified exceptions when you do something bad with your code.
+For example, it will nicely throw a <code class="highlighter-rouge">ClassCastException</code> if you perform an invalid <code class="highlighter-rouge">.asInstanceOf</code>, or an <code class="highlighter-rouge">ArithmeticException</code> if you divide an integer by 0.</p>
+
+<p>Since the beginning of time, Scala.js has handled most of these things as <em>undefined behavior</em>, i.e., <em>anything can happen</em> if these cases happen.
+Until 0.5.x, <code class="highlighter-rouge">ClassCastException</code>s were properly reported, though.
+We have found, however, that checking these buggy cases costs up to 100% overhead to the overall execution time of a Scala.js program.</p>
+
+<p>In Scala.js 0.6.x, therefore, invalid casts become an undefined behavior as well.
+However, the compiler will <em>still</em> be nice with you <em>in fastOpt mode</em>, by throwing an <code class="highlighter-rouge">UndefinedBehaviorError</code> if you perform an invalid cast (instead of a <code class="highlighter-rouge">ClassCastException</code>).
+<code class="highlighter-rouge">UndefinedBehaviorError</code> is a <em>fatal</em> error, meaning it won’t be caught by <code class="highlighter-rouge">case NonFatal(e)</code> handlers.
+In fullOpt mode, the checks are removed for maximum efficiency.</p>
+
+<p>You <em>must not catch</em> <code class="highlighter-rouge">UndefinedBehaviorError</code>, since that would cause your program to behave differently in fastOpt mode than in fullOpt.
+The idea of <code class="highlighter-rouge">UndefinedBehaviorError</code> is that you can enjoy strict checks and stack traces while developing.</p>
+
+<p>If you really want <code class="highlighter-rouge">ClassCastException</code>s to be thrown reliably (both in fastOpt and fullOpt modes), you can enable them in your application, at the expense of runtime performance, with the following sbt setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalaJSSemantics</span> <span class="o">~=</span> <span class="o">{</span> <span class="k">_</span><span class="o">.</span><span class="n">withAsInstanceOfs</span><span class="o">(</span><span class="n">org</span><span class="o">.</span><span class="n">scalajs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">sem</span><span class="o">.</span><span class="nc">CheckedBehavior</span><span class="o">.</span><span class="nc">Compliant</span><span class="o">)</span> <span class="o">}</span></code></pre></figure>
+
+<p>This applies to the entire application, including dependencies.
+There is no way to select parts of the application where this applies, because there is no way to make that sensical.</p>
+
+<h3 id="jsnative-in-facade-types"><code class="highlighter-rouge">js.native</code> in facade types</h3>
+
+<p>When writing facade types, it was previously recommended to use <code class="highlighter-rouge">???</code> as a fake body for fields and methods.
+You should now use <code class="highlighter-rouge">js.native</code> instead, as in:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">var</span> <span class="n">bar</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+  <span class="k">def</span> <span class="n">foobar</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>The compiler will emit a warning if you use any other body.
+The warning will become an error in 1.0.0.</p>
+
+<h3 id="jsexport-exports-to-fully-qualified-names-by-default"><code class="highlighter-rouge">@JSExport</code> exports to fully qualified names by default</h3>
+
+<p>As announced by deprecation warnings in the 0.5.6 compiler, putting <code class="highlighter-rouge">@JSExport</code> without an explicit name on an <code class="highlighter-rouge">object</code> or <code class="highlighter-rouge">class</code> changes meaning between 0.5.x and 0.6.x.
+Consider this code:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">package</span> <span class="nn">babar</span>
+
+<span class="nd">@JSExport</span>
+<span class="k">class</span> <span class="nc">Foo</span></code></pre></figure>
+
+<p>In 0.5.x, <code class="highlighter-rouge">Foo</code> is exported as <code class="highlighter-rouge">Foo</code>.
+In 0.6.x, it is exported as <code class="highlighter-rouge">babar.Foo</code> instead.</p>
+
+<h3 id="testing-frameworks-adaptations">Testing frameworks adaptations</h3>
+
+<p>If you are not a testing framework implementor, this section does not apply to you.
+Please follow the migration guidelines of any testing framework you may use.</p>
+
+<p>Until 0.5.x, Scala.js had a custom, ad-hoc substitute for the sbt testing interface, which allows testing frameworks to integrate with sbt.
+Although quite good in its own right, it suffered from several limitations, including the inability for one project to use more than one testing framework at the same time.
+Scala.js 0.6.x now supports its JS version of the original sbt testing interface, with all its power, API, and usability features.
+We also offer tools to make your testing framework fully source-compatible with the JVM and JS variants of the testing interface, without a single line of platform-specific source code.</p>
+
+<p>An existing barebone cross-compiling testing framework can be found <a href="https://github.com/scala-js/scala-js/tree/v0.6.0-M1/sbt-plugin-test">in our tests</a>.
+Some highlights:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/blob/v0.6.0-M1/sbt-plugin-test/build.sbt#L47-L70">Build definition for the cross-compiling framework</a></li>
+  <li><a href="https://github.com/scala-js/scala-js/tree/v0.6.0-M1/sbt-plugin-test/testFramework/src/main/scala/sbttest/framework">(Cross-compiling) source code of the testing framework</a></li>
+  <li><a href="https://github.com/scala-js/scala-js/blob/v0.6.0-M1/sbt-plugin-test/build.sbt#L72-L97">Build definition for a cross-compiling project using the framework</a></li>
+  <li><a href="https://github.com/scala-js/scala-js/tree/v0.6.0-M1/sbt-plugin-test/multiTest">Source code of the project using the framework</a></li>
+</ul>
+
+<p>Adapting your testing framework to follow this structure is likely to be the easiest path of migration.
+You may also want to take a look at <a href="https://github.com/lihaoyi/utest/pull/45">the PR we made to uTest</a> to migrate to Scala.js 0.6.x.</p>
+
+<p>Should you run into trouble, don’t hesitate to ask on the mailing list!</p>
+
+<h2 id="enhancements">Enhancements</h2>
+
+<h3 id="faster">Faster!</h3>
+
+<p>Scala.js 0.6.x benefits from many performance improvements, most notably:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">asInstanceOf</code>s are unchecked (see above), giving <code class="highlighter-rouge">fullOpt</code> code up to twice as fast as before</li>
+  <li><code class="highlighter-rouge">Range.foreach</code>, aka the <code class="highlighter-rouge">for (i &lt;- 0 until n)</code> kind of loops, is inlined away, giving the same performance as an explicit <code class="highlighter-rouge">while</code> loop.</li>
+  <li>Higher-order operations on <code class="highlighter-rouge">js.Array</code>s (such as <code class="highlighter-rouge">foreach</code>, <code class="highlighter-rouge">map</code>, etc.) are inlined away as <code class="highlighter-rouge">while</code> loops.</li>
+  <li>Various improvements to the optimizer.</li>
+</ul>
+
+<h3 id="scala-collection-api-for-jsarraya-and-jsdictionarya">Scala collection API for <code class="highlighter-rouge">js.Array[A]</code> and <code class="highlighter-rouge">js.Dictionary[A]</code></h3>
+
+<p>The title says it all: <code class="highlighter-rouge">js.Array[A]</code> and <code class="highlighter-rouge">js.Dictionary[A]</code> receive the entire Scala collection API, respectively of <code class="highlighter-rouge">mutable.Buffer[A]</code> and <code class="highlighter-rouge">mutable.Map[String, A]</code>.</p>
+
+<p><code class="highlighter-rouge">js.Array</code> becomes the default implementation of <code class="highlighter-rouge">mutable.Buffer</code>, i.e., <code class="highlighter-rouge">mutable.Buffer.empty</code> returns a <code class="highlighter-rouge">js.Array</code> wrapped in a <code class="highlighter-rouge">js.WrappedArray</code>.</p>
+
+<h3 id="on-demand-strict-floats">On-demand strict floats</h3>
+
+<p>Scala.js under-specifies <code class="highlighter-rouge">Float</code> operations by default, saying that they can sometimes behave as if they were <code class="highlighter-rouge">Double</code>s.
+In 0.6.x, you can configure your application to use <em>strict-float semantics</em>, guaranteeing that all <code class="highlighter-rouge">Float</code> operations behave as on the JVM, with the appropriate truncation of precision (with the notable exception of <code class="highlighter-rouge">.toString()</code>).
+The following sbt setting enables this:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalaJSSemantics</span> <span class="o">~=</span> <span class="o">{</span> <span class="k">_</span><span class="o">.</span><span class="n">withStrictFloats</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">}</span></code></pre></figure>
+
+<p>Beware that this can have a major impact on performance on VMs that do not support the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/fround"><code class="highlighter-rouge">Math.fround</code></a> function.</p>
+
+<h3 id="we-publish-to-maven-central">We publish to Maven Central</h3>
+
+<p>This should probably not affect sbt users, but it now becomes possible to imagine a Maven plugin for Scala.js.
+To this effect, the sbt plugin codebase has also been refactored, and all parts that are not strictly bound to sbt as a build tool have been extracted in Mavenized artifacts.
+An enthusiast Maven user could therefore build a Maven plugin with relatively few lines of code.
+As a measurable figure, the code specific to sbt contains only 1,211 lines of code.</p>
+
+<h2 id="bugfixes">Bugfixes</h2>
+
+<p>Amongst others, the following bugs have been fixed since 0.5.6:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/1324">#1324</a> Date.parse should return a Double, not an Int</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/1192">#1192</a> hashCode for floating points has a very bad distribution</li>
+</ul>
+
+<p>See the <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av0.6.0-M1+is%3Aclosed">full list</a> on GitHub.</p>
+
+<h2 id="known-issues">Known issues</h2>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/1331">#1331</a> <code class="highlighter-rouge">%%%</code> seems broken with “illegal dynamic reference” (workaround available in the issue)</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/1335">#1335</a> Source maps to Scala library are broken</li>
+</ul>
+
+            <div class="spacing"></div>
+            <nav>
+                <ul class="pager">
+                    
+                    <li class="previous"><a href="/news/2014/11/19/announcing-scalajs-0.5.6/"
+                                            title="Announcing Scala.js 0.5.6">&larr; Previous</a></li>
+                    
+                    
+                    <li class="next"><a href="/news/2014/12/05/announcing-scalajs-0.6.0-M2/"
+                                        title="Announcing Scala.js 0.6.0-M2">Next &rarr;</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

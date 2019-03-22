@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/news/2016/09/01/announcing-scalajs-0.6.12/">
+
+    <title> Announcing Scala.js 0.6.12 - Scala.js</title>
+
+    <meta property="og:title" content="Announcing Scala.js 0.6.12" /><meta property="og:type" content="article" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" /><meta property="article:published_time" content="2016-09-01T00:00:00-04:00" /><meta property="article:tag" content="releases" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li class="active"><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Announcing Scala.js 0.6.12</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="small">Sep 1, 2016.</span>
+            </p>
+            <p>We are pleased to announce the release of Scala.js 0.6.12!</p>
+
+<p>This release exclusively contains bug fixes, and a few internal changes to support the upcoming Scala 2.12.0-RC1.</p>
+
+<!--more-->
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>If you are new to Scala.js, head over to
+<a href="/tutorial/">the tutorial</a>.</p>
+
+<h2 id="release-notes">Release notes</h2>
+
+<p>If upgrading from 0.6.5 or earlier, please also read the <a href="/news/2016/01/25/announcing-scalajs-0.6.6/">release notes of 0.6.6</a>, which contains some breaking changes.</p>
+
+<p>As a minor release, 0.6.12 is backward source and binary compatible with previous releases in the 0.6.x series.
+Libraries compiled with earlier versions can be used with 0.6.12 without change.
+0.6.12 is also forward binary compatible with 0.6.8 through 0.6.11, but not with earlier releases: libraries compiled with 0.6.12 cannot be used by projects using 0.6.{0-7}.</p>
+
+<p>Please report any issues <a href="https://github.com/scala-js/scala-js/issues">on GitHub</a>.</p>
+
+<h2 id="potentially-breaking-change">Potentially breaking change</h2>
+
+<p>This release fixes <a href="https://github.com/scala-js/scala-js/issues/2573">#2573</a>, which potentially constitutes a breaking change, if you relied on the previously buggy behavior.
+Until Scala.js 0.6.11, the behavior of <code class="highlighter-rouge">java.util.regex.Pattern.split()</code> (and consequently <code class="highlighter-rouge">String.split()</code>) was aligned with the behavior of the JDK 7.
+The fix for <a href="https://github.com/scala-js/scala-js/issues/2573">#2573</a> changes this behavior to align with the JDK 8.
+This will change the result of <code class="highlighter-rouge">split()</code> when a zero-width separator is matched at the beginning of the string.</p>
+
+<h2 id="bug-fixes">Bug fixes</h2>
+
+<p>The following bugs have been fixed in 0.6.12:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2547">#2547</a> Overriding a JS native method with default parameters leads to <code class="highlighter-rouge">AssertionError</code> in the compiler</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2553">#2553</a> Constructing a <code class="highlighter-rouge">String</code> from a large byte array throws “Maximum call stack size exceeded”</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2554">#2554</a> Wrong codegen in the presence of pattern match + boxed value class</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2559">#2559</a> <code class="highlighter-rouge">Throwable</code> constructor with cause should use the cause’s message</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2565">#2565</a> <code class="highlighter-rouge">java.util.Date.toString()</code> result is missing dd part</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2573">#2573</a> <code class="highlighter-rouge">split("")</code> is not identical to JVM split</li>
+</ul>
+
+<p>You can find the full list <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av0.6.12+is%3Aclosed">on GitHub</a>.</p>
+
+            <div class="spacing"></div>
+            <nav>
+                <ul class="pager">
+                    
+                    <li class="previous"><a href="/news/2016/07/27/announcing-scalajs-0.6.11/"
+                                            title="Announcing Scala.js 0.6.11">&larr; Previous</a></li>
+                    
+                    
+                    <li class="next"><a href="/news/2016/10/17/announcing-scalajs-0.6.13/"
+                                        title="Announcing Scala.js 0.6.13">Next &rarr;</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/doc/sjs-for-js/es6-to-scala-part3.html">
+
+    <title> From ES6 to Scala: Advanced - Scala.js</title>
+
+    <meta property="og:title" content="From ES6 to Scala: Advanced" /><meta property="og:type" content="website" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li ><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>From ES6 to Scala: Advanced</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-9">
+            <p>Scala is a feature rich language that is easy to learn but takes time to master. Depending on your programming
+background, typically you start by writing Scala as you would’ve written the language you know best (JavaScript, Java or
+C# for example) and gradually learn more and more idiomatic Scala paradigms to use. In this section we cover some of the
+more useful design patterns and features, to get you started quickly.</p>
+
+<h2 id="pattern-matching">Pattern matching</h2>
+
+<p>In the Basics part we already saw simple examples of <em>pattern matching</em> as a replacement for JavaScript’s <code class="highlighter-rouge">switch</code>
+statement. However, it can be used for much more, for example checking the type of input.</p>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">ES6</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">printType</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s2">"string"</span><span class="p">:</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`It's a string: </span><span class="p">${</span><span class="nx">o</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="s2">"number"</span><span class="p">:</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`It's a number: </span><span class="p">${</span><span class="nx">o</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="s2">"boolean"</span><span class="p">:</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`It's a boolean: </span><span class="p">${</span><span class="nx">o</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="nl">default</span><span class="p">:</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`It's something else`</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">printType</span><span class="o">(</span><span class="n">o</span><span class="k">:</span> <span class="kt">Any</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="n">o</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="n">s</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=&gt;</span>
+      <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"It's a string: $s"</span><span class="o">)</span>
+    <span class="k">case</span> <span class="n">i</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=&gt;</span>
+      <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"It's an int: $i"</span><span class="o">)</span>
+    <span class="k">case</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=&gt;</span>
+      <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"It's a boolean: $b"</span><span class="o">)</span>
+    <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span>
+      <span class="n">println</span><span class="o">(</span><span class="s">"It's something else"</span><span class="o">)</span>
+<span class="o">}</span></code></pre></figure>
+</div>
+</div>
+
+<p>Pattern matching uses something called <em>partial functions</em> which means it can be used in place of regular functions, for
+example in a call to <code class="highlighter-rouge">filter</code> or <code class="highlighter-rouge">map</code>. You can also add a <em>guard clause</em> in the form of an <code class="highlighter-rouge">if</code>, to limit the match. If
+you need to match to a variable, use backticks to indicate that.</p>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">ES6</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">parse</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">magicKey</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">c</span> <span class="k">of</span> <span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">c</span> <span class="o">===</span> <span class="nx">magicKey</span><span class="p">)</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">"magic"</span><span class="p">);</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/</span><span class="se">\d</span><span class="sr">/</span><span class="p">))</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">"digit"</span><span class="p">);</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/</span><span class="se">\w</span><span class="sr">/</span><span class="p">))</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">"letter"</span><span class="p">);</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/</span><span class="se">\s</span><span class="sr">/</span><span class="p">))</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">" "</span><span class="p">);</span>
+    <span class="k">else</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">"char"</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">const</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">parse</span><span class="p">(</span><span class="s2">"JB/007"</span><span class="p">,</span> <span class="s1">'/'</span><span class="p">);</span>
+<span class="c1">// [letter, letter, magic, digit, digit, digit]</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">parse</span><span class="o">(</span><span class="n">str</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">magicKey</span><span class="k">:</span> <span class="kt">Char</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="n">str</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="n">c</span> <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="n">magicKey</span> <span class="k">=&gt;</span>
+      <span class="s">"magic"</span>
+    <span class="k">case</span> <span class="n">c</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isDigit</span> <span class="k">=&gt;</span>
+      <span class="s">"digit"</span>
+    <span class="k">case</span> <span class="n">c</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isLetter</span> <span class="k">=&gt;</span>
+      <span class="s">"letter"</span>
+    <span class="k">case</span> <span class="n">c</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isWhitespace</span> <span class="k">=&gt;</span>
+      <span class="s">" "</span>
+    <span class="k">case</span> <span class="n">c</span> <span class="k">=&gt;</span>
+      <span class="s">"char"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="k">val</span> <span class="n">r</span> <span class="k">=</span> <span class="n">parse</span><span class="o">(</span><span class="s">"JB/007"</span><span class="o">,</span> <span class="sc">'/'</span><span class="o">)</span>
+<span class="o">//</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">letter</span><span class="o">,</span> <span class="n">letter</span><span class="o">,</span> <span class="n">magic</span><span class="o">,</span> <span class="n">digit</span><span class="o">,</span> <span class="n">digit</span><span class="o">,</span> <span class="n">digit</span><span class="o">)</span></code></pre></figure>
+</div>
+</div>
+
+<h4 id="destructuring">Destructuring</h4>
+
+<p>Where pattern matching really shines is at destructuring. This means matching to a more complex pattern and extracting
+values inside that structure. ES6 also supports destructuring (yay!) in assignments and function parameters, but not
+in matching.</p>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">ES6</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span><span class="na">first</span><span class="p">:</span> <span class="s2">"James"</span><span class="p">,</span> <span class="na">last</span><span class="p">:</span> <span class="s2">"Bond"</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">42</span><span class="p">};</span>
+<span class="kd">const</span> <span class="p">{</span><span class="nx">first</span><span class="p">,</span> <span class="nx">last</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="nx">years</span><span class="p">}</span> <span class="o">=</span> <span class="nx">person</span><span class="p">;</span>
+<span class="c1">// first = "James", last = "Bond", years = 42</span>
+<span class="kd">const</span> <span class="nx">seq</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+<span class="kd">const</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="p">,</span> <span class="p">...</span><span class="nx">c</span><span class="p">]</span> <span class="o">=</span> <span class="nx">seq</span><span class="p">;</span>
+<span class="c1">// a = 1, b = 2, c = [4, 5]</span>
+
+<span class="kd">const</span> <span class="nx">seq2</span> <span class="o">=</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">].</span><span class="nx">concat</span><span class="p">(</span><span class="nx">c</span><span class="p">);</span> <span class="c1">// [1, 2, 4, 5]</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="n">first</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">last</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">person</span> <span class="k">=</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"James"</span><span class="o">,</span> <span class="s">"Bond"</span><span class="o">,</span> <span class="mi">42</span><span class="o">)</span>
+<span class="k">val</span> <span class="nc">Person</span><span class="o">(</span><span class="n">first</span><span class="o">,</span> <span class="n">last</span><span class="o">,</span> <span class="n">years</span><span class="o">)</span> <span class="k">=</span> <span class="n">person</span>
+<span class="c1">// first = "James", last = "Bond", years = 42
+</span><span class="k">val</span> <span class="n">seq</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span>
+<span class="k">val</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="k">_</span><span class="o">,</span> <span class="n">c</span> <span class="k">@</span> <span class="k">_</span><span class="o">*)</span> <span class="k">=</span> <span class="n">seq</span>
+<span class="c1">// a = 1, b = 2, c = Seq(4, 5)
+</span>
+<span class="k">val</span> <span class="n">seq2</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span> <span class="o">++</span> <span class="n">c</span> <span class="o">//</span> <span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span></code></pre></figure>
+</div>
+</div>
+
+<p>In Scala the destructuring and rebuilding have nice symmetry making it easy to remember how to do it. Use <code class="highlighter-rouge">_</code> to skip
+values in destructuring.</p>
+
+<p>In pattern matching the use of destructuring results in clean, simple and understandable code.</p>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">ES6</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">ageSum</span><span class="p">(</span><span class="nx">persons</span><span class="p">,</span> <span class="nx">family</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">persons</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">p</span> <span class="o">=&gt;</span> <span class="nx">p</span><span class="p">.</span><span class="nx">last</span> <span class="o">===</span> <span class="nx">family</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">p</span><span class="p">.</span><span class="nx">age</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kd">const</span> <span class="nx">persons</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span><span class="na">first</span><span class="p">:</span> <span class="s2">"James"</span><span class="p">,</span> <span class="na">last</span><span class="p">:</span> <span class="s2">"Bond"</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">42</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">first</span><span class="p">:</span> <span class="s2">"Hillary"</span><span class="p">,</span> <span class="na">last</span><span class="p">:</span> <span class="s2">"Bond"</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">first</span><span class="p">:</span> <span class="s2">"James"</span><span class="p">,</span> <span class="na">last</span><span class="p">:</span> <span class="s2">"Smith"</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">55</span><span class="p">}</span>
+<span class="p">];</span>
+
+<span class="nx">ageSum</span><span class="p">(</span><span class="nx">persons</span><span class="p">,</span> <span class="s2">"Bond"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">77</span><span class="p">;</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">ageSum</span><span class="o">(</span><span class="n">persons</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Person</span><span class="o">],</span>
+    <span class="n">family</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="n">persons</span><span class="o">.</span><span class="n">collect</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Person</span><span class="o">(</span><span class="k">_</span><span class="o">,</span> <span class="n">last</span><span class="o">,</span> <span class="n">age</span><span class="o">)</span> <span class="k">if</span> <span class="n">last</span> <span class="o">==</span> <span class="n">family</span> <span class="k">=&gt;</span>
+      <span class="n">age</span>
+  <span class="o">}.</span><span class="n">sum</span>
+<span class="o">}</span>
+<span class="k">val</span> <span class="n">persons</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span>
+  <span class="nc">Person</span><span class="o">(</span><span class="s">"James"</span><span class="o">,</span> <span class="s">"Bond"</span><span class="o">,</span> <span class="mi">42</span><span class="o">),</span>
+  <span class="nc">Person</span><span class="o">(</span><span class="s">"Hillary"</span><span class="o">,</span> <span class="s">"Bond"</span><span class="o">,</span> <span class="mi">35</span><span class="o">),</span>
+  <span class="nc">Person</span><span class="o">(</span><span class="s">"James"</span><span class="o">,</span> <span class="s">"Smith"</span><span class="o">,</span> <span class="mi">55</span><span class="o">)</span>
+<span class="o">)</span>
+
+<span class="n">ageSum</span><span class="o">(</span><span class="n">persons</span><span class="o">,</span> <span class="s">"Bond"</span><span class="o">)</span> <span class="o">==</span> <span class="mi">77</span></code></pre></figure>
+</div>
+</div>
+
+<p>We could’ve implemented the Scala function using a <code class="highlighter-rouge">filter</code> and <code class="highlighter-rouge">foldLeft</code>, but it is more understandable using
+<a target="scaladoc" href="http://www.scala-lang.org/api/current/#scala.collection.Seq@collect[B](pf:PartialFunction[A,B]):Seq[B]"><code>collect</code></a> and pattern matching. It would be read
+as “Collect every person with a last name equaling <code class="highlighter-rouge">family</code> and extract the age of those persons. Then sum up the ages.”</p>
+
+<p>Another good use case for pattern matching is regular expressions (also in ES6!). Let’s extract a date in different
+formats.</p>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">ES6</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">convertToDate</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">YMD</span> <span class="o">=</span> <span class="sr">/</span><span class="se">(\d{4})</span><span class="sr">-</span><span class="se">(\d{1,2})</span><span class="sr">-</span><span class="se">(\d{1,2})</span><span class="sr">/</span>
+  <span class="kd">const</span> <span class="nx">MDY</span> <span class="o">=</span> <span class="sr">/</span><span class="se">(\d{1,2})\/(\d{1,2})\/(\d{4})</span><span class="sr">/</span>
+  <span class="kd">const</span> <span class="nx">DMY</span> <span class="o">=</span> <span class="sr">/</span><span class="se">(\d{1,2})\.(\d{1,2})\.(\d{4})</span><span class="sr">/</span>
+
+  <span class="kd">const</span> <span class="p">[,</span> <span class="nx">year</span><span class="p">,</span> <span class="nx">month</span><span class="p">,</span> <span class="nx">day</span><span class="p">]</span> <span class="o">=</span> <span class="nx">YMD</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="o">||</span> <span class="p">[];</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">year</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">year</span><span class="p">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">year</span><span class="p">),</span>
+      <span class="na">month</span><span class="p">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">month</span><span class="p">),</span>
+      <span class="na">day</span><span class="p">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">day</span><span class="p">)</span>
+    <span class="p">};</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">[,</span> <span class="nx">month</span><span class="p">,</span> <span class="nx">day</span><span class="p">,</span> <span class="nx">year</span><span class="p">]</span> <span class="o">=</span> <span class="nx">MDY</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="o">||</span> <span class="p">[];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">year</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="na">year</span><span class="p">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">year</span><span class="p">),</span>
+        <span class="na">month</span><span class="p">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">month</span><span class="p">),</span>
+        <span class="na">day</span><span class="p">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">day</span><span class="p">)</span>
+      <span class="p">};</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="p">[,</span> <span class="nx">day</span><span class="p">,</span> <span class="nx">month</span><span class="p">,</span> <span class="nx">year</span><span class="p">]</span> <span class="o">=</span> <span class="nx">DMY</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="o">||</span> <span class="p">[];</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">year</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+          <span class="na">year</span><span class="p">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">year</span><span class="p">),</span>
+          <span class="na">month</span><span class="p">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">month</span><span class="p">),</span>
+          <span class="na">day</span><span class="p">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">day</span><span class="p">)</span>
+        <span class="p">};</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">"Invalid date!"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">convertToDate</span><span class="p">(</span><span class="s2">"2015-10-9"</span><span class="p">);</span> <span class="c1">//{year:2015,month:10,day:9}</span>
+<span class="nx">convertToDate</span><span class="p">(</span><span class="s2">"10/9/2015"</span><span class="p">);</span> <span class="c1">//{year:2015,month:10,day:9}</span>
+<span class="nx">convertToDate</span><span class="p">(</span><span class="s2">"9.10.2015"</span><span class="p">);</span> <span class="c1">//{year:2015,month:10,day:9}</span>
+<span class="nx">convertToDate</span><span class="p">(</span><span class="s2">"10 Nov 2015"</span><span class="p">);</span> <span class="c1">// exception</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Date</span><span class="o">(</span><span class="n">year</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">month</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">day</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+
+<span class="k">def</span> <span class="n">convertToDate</span><span class="o">(</span><span class="n">d</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="nc">YMD</span> <span class="k">=</span> <span class="s">"""(\d{4})-(\d{1,2})-(\d{1,2})"""</span><span class="o">.</span><span class="n">r</span>
+  <span class="k">val</span> <span class="nc">MDY</span> <span class="k">=</span> <span class="s">"""(\d{1,2})/(\d{1,2})/(\d{4})"""</span><span class="o">.</span><span class="n">r</span>
+  <span class="k">val</span> <span class="nc">DMY</span> <span class="k">=</span> <span class="s">"""(\d{1,2})\.(\d{1,2})\.(\d{4})"""</span><span class="o">.</span><span class="n">r</span>
+  <span class="n">d</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">YMD</span><span class="o">(</span><span class="n">year</span><span class="o">,</span> <span class="n">month</span><span class="o">,</span> <span class="n">day</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="nc">Date</span><span class="o">(</span><span class="n">year</span><span class="o">.</span><span class="n">toInt</span><span class="o">,</span> <span class="n">month</span><span class="o">.</span><span class="n">toInt</span><span class="o">,</span> <span class="n">day</span><span class="o">.</span><span class="n">toInt</span><span class="o">)</span>
+    <span class="k">case</span> <span class="nc">MDY</span><span class="o">(</span><span class="n">month</span><span class="o">,</span> <span class="n">day</span><span class="o">,</span> <span class="n">year</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="nc">Date</span><span class="o">(</span><span class="n">year</span><span class="o">.</span><span class="n">toInt</span><span class="o">,</span> <span class="n">month</span><span class="o">.</span><span class="n">toInt</span><span class="o">,</span> <span class="n">day</span><span class="o">.</span><span class="n">toInt</span><span class="o">)</span>
+    <span class="k">case</span> <span class="nc">DMY</span><span class="o">(</span><span class="n">day</span><span class="o">,</span> <span class="n">month</span><span class="o">,</span> <span class="n">year</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="nc">Date</span><span class="o">(</span><span class="n">year</span><span class="o">.</span><span class="n">toInt</span><span class="o">,</span> <span class="n">month</span><span class="o">.</span><span class="n">toInt</span><span class="o">,</span> <span class="n">day</span><span class="o">.</span><span class="n">toInt</span><span class="o">)</span>
+    <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nc">Exception</span><span class="o">(</span><span class="s">"Invalid date!"</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">convertToDate</span><span class="o">(</span><span class="s">"2015-10-9"</span><span class="o">)</span> <span class="c1">// = Date(2015,10,9)
+</span><span class="n">convertToDate</span><span class="o">(</span><span class="s">"10/9/2015"</span><span class="o">)</span> <span class="c1">// = Date(2015,10,9)
+</span><span class="n">convertToDate</span><span class="o">(</span><span class="s">"9.10.2015"</span><span class="o">)</span> <span class="c1">// = Date(2015,10,9)
+</span><span class="n">convertToDate</span><span class="o">(</span><span class="s">"10 Nov 2015"</span><span class="o">)</span> <span class="o">//</span> <span class="n">exception</span></code></pre></figure>
+</div>
+</div>
+
+<p>Here we use triple-quoted strings that allow us to write regex without escaping special characters. The string is
+converted into a <a target="scaladoc" href="http://www.scala-lang.org/api/current/#scala.util.matching.Regex"><code>Regex</code></a> object with the <code class="highlighter-rouge">.r</code> method. Because regexes extract strings, we need
+to convert matched groups to integers ourselves.</p>
+
+<h2 id="functions-revisited">Functions revisited</h2>
+
+<p>We covered the basic use functions in <a href="es6-to-scala-part1.html">Part 1</a>, but Scala, being a functional programming
+language, provides much more when it comes to functions. Let’s explore some of the more advanced features and how they
+compare to JavaScript.</p>
+
+<h4 id="higher-order-functions">Higher-order functions</h4>
+
+<p>Scala, as JavaScript, allows the definition of higher-order functions. These are functions that take other functions as
+parameters, or whose result is a function. Higher-order functions should be familiar to JavaScript developers, because
+they often appear in form of functions that take callbacks as parameters.</p>
+
+<p>Typically higher-order functions are used to pass specific functionality to a general function, like in the case of
+<code class="highlighter-rouge">Array.prototype.filter</code> in ES6 or <code class="highlighter-rouge">Seq.filter</code> in Scala. We can use this to build a function to calculate a minimum and
+maximum from a sequence of values, using a function to extract the target value.</p>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">ES6</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">minmaxBy</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">f</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span>
+    <span class="p">([</span><span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">],</span> <span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">v</span> <span class="o">=</span> <span class="nx">f</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+      <span class="k">return</span> <span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">min</span><span class="p">,</span> <span class="nx">v</span><span class="p">),</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">max</span><span class="p">,</span> <span class="nx">v</span><span class="p">)]</span>
+    <span class="p">},</span> 
+    <span class="p">[</span><span class="nb">Number</span><span class="p">.</span><span class="nx">MAX_VALUE</span><span class="p">,</span> <span class="nb">Number</span><span class="p">.</span><span class="nx">MIN_VALUE</span><span class="p">]</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">const</span> <span class="p">[</span><span class="nx">youngest</span><span class="p">,</span> <span class="nx">oldest</span><span class="p">]</span> <span class="o">=</span> <span class="nx">minmaxBy</span><span class="p">(</span><span class="nx">persons</span><span class="p">,</span> <span class="nx">e</span> <span class="o">=&gt;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">minmaxBy</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">seq</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">T</span><span class="o">],</span> <span class="n">f</span><span class="k">:</span> <span class="kt">T</span> <span class="o">=&gt;</span> <span class="nc">Int</span><span class="o">)</span><span class="k">:</span> <span class="o">(</span><span class="kt">Int</span><span class="o">,</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="n">seq</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">((</span><span class="nc">Int</span><span class="o">.</span><span class="nc">MaxValue</span><span class="o">,</span> <span class="nc">Int</span><span class="o">.</span><span class="nc">MinValue</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="o">((</span><span class="n">min</span><span class="o">,</span> <span class="n">max</span><span class="o">),</span> <span class="n">e</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="k">val</span> <span class="n">v</span> <span class="k">=</span> <span class="n">f</span><span class="o">(</span><span class="n">e</span><span class="o">)</span>
+      <span class="o">(</span><span class="n">math</span><span class="o">.</span><span class="n">min</span><span class="o">(</span><span class="n">min</span><span class="o">,</span> <span class="n">v</span><span class="o">),</span> <span class="n">math</span><span class="o">.</span><span class="n">max</span><span class="o">(</span><span class="n">max</span><span class="o">,</span> <span class="n">v</span><span class="o">))</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="k">val</span> <span class="o">(</span><span class="n">youngest</span><span class="o">,</span> <span class="n">oldest</span><span class="o">)</span> <span class="k">=</span> <span class="n">minmaxBy</span><span class="o">[</span><span class="kt">Person</span><span class="o">](</span><span class="n">persons</span><span class="o">,</span> <span class="k">_</span><span class="o">.</span><span class="n">age</span><span class="o">)</span></code></pre></figure>
+</div>
+</div>
+
+<h4 id="call-by-name">Call-by-Name</h4>
+
+<p>In some cases you want to <em>defer</em> the evaluation of a parameter value until when it’s actually used in the function. For
+this purpose Scala offers <em>call-by-name</em> parameters. This can be useful when dealing with an expensive computation that
+is only optionally used by the function. In JavaScript the closest thing to this is to wrap a value in an anonymous
+function with no arguments and pass <em>that</em> as a parameter, but that’s more verbose and error-prone. You need to remember
+to both wrap the value and call the function.</p>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">ES6</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">compute</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">cPos</span><span class="p">,</span> <span class="nx">cNeg</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nx">cPos</span><span class="p">();</span>
+  <span class="k">else</span>
+    <span class="k">return</span> <span class="nx">cNeg</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">compute</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">expCalc</span><span class="p">(),</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">expCalc2</span><span class="p">());</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">compute</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">cPos</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Int</span><span class="o">,</span> <span class="n">cNeg</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span>
+    <span class="n">cPos</span>
+  <span class="k">else</span>
+    <span class="n">cNeg</span>
+<span class="o">}</span>
+
+<span class="n">compute</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">expCalc</span><span class="o">,</span> <span class="n">expCalc2</span><span class="o">)</span></code></pre></figure>
+</div>
+</div>
+
+<h4 id="recursive-functions">Recursive functions</h4>
+
+<p>Recursive functions can be very expressive, but they may also cause spurious stack overflows if the recursion gets too
+deep. Scala automatically optimizes recursive functions that are <em>tail recursive</em>, allowing you to use them without
+fear of overflowing the stack. To make sure your function is actually tail recursive, use the <code class="highlighter-rouge">@tailrec</code> annotation,
+which will cause the Scala compiler to report an error if your function is not tail recursive.</p>
+
+<p>Before ES6, JavaScript did not support tail call optimization, nor optimizing tail recursive functions. If you use a
+smart ES6 transpiler, it can actually convert a tail recursive function into a <code class="highlighter-rouge">while</code> loop, but there are no checks
+available to help you to verify the validity of tail recursion.</p>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">ES6</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">fib</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">function</span> <span class="nx">fibIter</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">next</span><span class="p">,</span> <span class="nx">prev</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">prev</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">fibIter</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">next</span> <span class="o">+</span> <span class="nx">prev</span><span class="p">,</span> <span class="nx">next</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+  <span class="k">return</span> <span class="nx">fibIter</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="nd">@tailrec</span> 
+  <span class="k">def</span> <span class="n">fibIter</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">next</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">prev</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+      <span class="n">prev</span>
+    <span class="k">else</span>
+      <span class="n">fibIter</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">next</span> <span class="o">+</span> <span class="n">prev</span><span class="o">,</span> <span class="n">next</span><span class="o">)</span>
+  <span class="o">}</span>
+  <span class="n">fibIter</span><span class="o">(</span><span class="n">n</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="o">)</span>
+<span class="o">}</span></code></pre></figure>
+</div>
+</div>
+
+<h4 id="partially-applied-functions">Partially applied functions</h4>
+
+<p>In Scala you can call a function with only some of its arguments and get back a function taking those missing arguments.
+You do this by using <code class="highlighter-rouge">_</code> in place of the actual parameter. In JavaScript you can achieve the same by using the
+<code class="highlighter-rouge">Function.prototype.bind</code> function (although it limits you to providing parameters from left to right). For example we
+can define a function to create HTML tags by wrapping content within start and end tags.</p>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">ES6</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">tag</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">content</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="s2">`&lt;</span><span class="p">${</span><span class="nx">name</span><span class="p">}</span><span class="s2">&gt;</span><span class="p">${</span><span class="nx">content</span><span class="p">}</span><span class="s2">&lt;/</span><span class="p">${</span><span class="nx">name</span><span class="p">}</span><span class="s2">&gt;`</span> 
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">div</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">"div"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">"p"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">html</span> <span class="o">=</span> <span class="nx">div</span><span class="p">(</span><span class="nx">p</span><span class="p">(</span><span class="s2">"test"</span><span class="p">));</span> <span class="c1">// &lt;div&gt;&lt;p&gt;test&lt;/p&gt;&lt;/div&gt;</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">tag</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">content</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="n">s</span><span class="s">"&lt;$name&gt;$content&lt;/$name&gt;"</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">div</span> <span class="k">=</span> <span class="n">tag</span><span class="o">(</span><span class="s">"div"</span><span class="o">,</span> <span class="k">_:</span> <span class="kt">String</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">p</span> <span class="k">=</span> <span class="n">tag</span><span class="o">(</span><span class="s">"p"</span><span class="o">,</span> <span class="k">_:</span> <span class="kt">String</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">html</span> <span class="k">=</span> <span class="n">div</span><span class="o">(</span><span class="n">p</span><span class="o">(</span><span class="s">"test"</span><span class="o">))</span> <span class="o">//</span> <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">test</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;&lt;/</span><span class="n">div</span><span class="o">&gt;</span></code></pre></figure>
+</div>
+</div>
+
+<h4 id="multiple-parameter-lists">Multiple parameter lists</h4>
+
+<p>Scala allows a function to be defined with multiple parameter lists. In Scala this is quite common as it provides some
+powerful secondary benefits besides the usual currying functionality. JavaScript does not directly support multiple
+parameter lists in its syntax, but you can emulate it by returning a chain of functions, or by using libraries like
+<a href="https://lodash.com/docs#curry">lodash</a> that do it for you.</p>
+
+<p>Let’s use currying to define the <code class="highlighter-rouge">tag</code> function from previous example.</p>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">ES6</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">tag</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">content</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="s2">`&lt;</span><span class="p">${</span><span class="nx">name</span><span class="p">}</span><span class="s2">&gt;</span><span class="p">${</span><span class="nx">content</span><span class="p">}</span><span class="s2">&lt;/</span><span class="p">${</span><span class="nx">name</span><span class="p">}</span><span class="s2">&gt;`</span><span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">div</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">(</span><span class="s2">"div"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">(</span><span class="s2">"p"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">html</span> <span class="o">=</span> <span class="nx">div</span><span class="p">(</span><span class="nx">p</span><span class="p">(</span><span class="s2">"test"</span><span class="p">));</span> <span class="c1">// &lt;div&gt;&lt;p&gt;test&lt;/p&gt;&lt;/div&gt;</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">tag</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)(</span><span class="n">content</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="n">s</span><span class="s">"&lt;$name&gt;$content&lt;/$name&gt;"</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">div</span> <span class="k">=</span> <span class="n">tag</span><span class="o">(</span><span class="s">"div"</span><span class="o">)</span> <span class="k">_</span>
+<span class="k">val</span> <span class="n">p</span> <span class="k">=</span> <span class="n">tag</span><span class="o">(</span><span class="s">"p"</span><span class="o">)</span> <span class="k">_</span>
+<span class="k">val</span> <span class="n">html</span> <span class="k">=</span> <span class="n">div</span><span class="o">(</span><span class="n">p</span><span class="o">(</span><span class="s">"test"</span><span class="o">))</span> <span class="o">//</span> <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">test</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;&lt;/</span><span class="n">div</span><span class="o">&gt;</span></code></pre></figure>
+</div>
+</div>
+
+<p>Multiple parameter lists also helps with <em>type inference</em>, meaning we don’t need to tell the compiler the types
+explicitly. For example we can rewrite the <code class="highlighter-rouge">minmaxBy</code> function as curried, which allows us to leave the <code class="highlighter-rouge">Person</code> type
+out when calling it, as it is automatically inferred from the first parameter. This is why methods like <code class="highlighter-rouge">foldLeft</code> are
+defined with multiple parameter lists.</p>
+
+<div class="row">
+<div class="col-md-9"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">minmaxBy</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">seq</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">T</span><span class="o">])(</span><span class="n">f</span><span class="k">:</span> <span class="kt">T</span> <span class="o">=&gt;</span> <span class="nc">Int</span><span class="o">)</span><span class="k">:</span> <span class="o">(</span><span class="kt">Int</span><span class="o">,</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="n">seq</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">((</span><span class="nc">Int</span><span class="o">.</span><span class="nc">MaxValue</span><span class="o">,</span> <span class="nc">Int</span><span class="o">.</span><span class="nc">MinValue</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="o">((</span><span class="n">min</span><span class="o">,</span> <span class="n">max</span><span class="o">),</span> <span class="n">e</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="k">val</span> <span class="n">v</span> <span class="k">=</span> <span class="n">f</span><span class="o">(</span><span class="n">e</span><span class="o">)</span>
+      <span class="o">(</span><span class="n">math</span><span class="o">.</span><span class="n">min</span><span class="o">(</span><span class="n">min</span><span class="o">,</span> <span class="n">v</span><span class="o">),</span> <span class="n">math</span><span class="o">.</span><span class="n">max</span><span class="o">(</span><span class="n">max</span><span class="o">,</span> <span class="n">v</span><span class="o">))</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="k">val</span> <span class="o">(</span><span class="n">youngest</span><span class="o">,</span> <span class="n">oldest</span><span class="o">)</span> <span class="k">=</span> <span class="n">minmaxBy</span><span class="o">(</span><span class="n">persons</span><span class="o">)(</span><span class="k">_</span><span class="o">.</span><span class="n">age</span><span class="o">)</span></code></pre></figure>
+</div>
+</div>
+
+<h2 id="implicits">Implicits</h2>
+
+<p>Being type safe is great in Scala, but sometimes the type system can be a bit prohibitive when you want to do something
+else, like add methods to existing classes. To allow you to do this in a type safe manner, Scala provides <em>implicits</em>.
+You can think of implicits as something that’s available in the scope when you need it, and the compiler can
+automatically provide it. For example we can provide a function to automatically convert a JavaScript <a target="jsdoc" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date"><code>Date</code></a>
+into a Scala/Java <code class="highlighter-rouge">Date</code>.</p>
+
+<div class="row">
+<div class="col-md-9"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scalajs.js</span>
+
+<span class="k">implicit</span> <span class="k">def</span> <span class="n">convertFromJSDate</span><span class="o">(</span><span class="n">d</span><span class="k">:</span> <span class="kt">js.Date</span><span class="o">)</span><span class="k">:</span> <span class="kt">java.util.Date</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="nc">Date</span><span class="o">(</span><span class="n">d</span><span class="o">.</span><span class="n">getMilliseconds</span><span class="o">())</span>
+<span class="o">}</span>
+
+<span class="k">implicit</span> <span class="k">def</span> <span class="n">convertToJSDate</span><span class="o">(</span><span class="n">d</span><span class="k">:</span> <span class="kt">java.util.Date</span><span class="o">)</span><span class="k">:</span> <span class="kt">js.Date</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">new</span> <span class="n">js</span><span class="o">.</span><span class="nc">Date</span><span class="o">(</span><span class="n">d</span><span class="o">.</span><span class="n">getTime</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">joined</span><span class="k">:</span> <span class="kt">js.Date</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">p</span> <span class="k">=</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"James Bond"</span><span class="o">,</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="nc">Date</span><span class="o">)</span></code></pre></figure>
+</div>
+</div>
+
+<p>When these implicit conversion functions are in lexical scope, you can use JS and Scala dates interchangeably. Outside
+the scope they are not visible and you must use correct types or explicitly convert between each other.</p>
+
+<h4 id="implicit-conversions-for-monkey-patching">Implicit conversions for “monkey patching”</h4>
+
+<p>The monkey patching term became famous among Ruby developers and it has been adopted into JavaScript to describe
+a way of extending existing classes with new methods. It has several pitfalls in dynamic languages and is generally
+not a recommended practice. Especially dangerous is to patch JavaScript’s host objects like <code class="highlighter-rouge">String</code> or <code class="highlighter-rouge">DOM.Node</code>. This
+technique is, however, commonly used to provide support for new JavaScript functionality missing from older JS engines.
+The practice is known as <em>polyfilling</em> or <em>shimming</em>.</p>
+
+<p>In Scala providing extension methods via implicits is <em>perfectly safe</em> and even a <em>recommended</em> practice. The Scala
+standard library does it all the time. For example did you notice the <code class="highlighter-rouge">.r</code> or <code class="highlighter-rouge">.toInt</code> functions that were used on
+strings in the regex example? Both are extension methods coming from implicit classes.</p>
+
+<p>Let’s use the <code class="highlighter-rouge">convertToDate</code> we defined before and add a <code class="highlighter-rouge">toDate</code> extension method to <code class="highlighter-rouge">String</code> by defining an <em>implicit
+class</em>.</p>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">ES6</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toDate</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">convertToDate</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="s2">"2015-10-09"</span><span class="p">.</span><span class="nx">toDate</span><span class="p">();</span> <span class="c1">// = {year:2015,month:10,day:9}</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">implicit</span> <span class="k">class</span> <span class="nc">StrToDate</span><span class="o">(</span><span class="k">val</span> <span class="n">s</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">toDate</span> <span class="k">=</span> <span class="n">convertToDate</span><span class="o">(</span><span class="n">s</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="s">"2015-10-09"</span><span class="o">.</span><span class="n">toDate</span> <span class="o">//</span> <span class="k">=</span> <span class="nc">Date</span><span class="o">(</span><span class="mi">2015</span><span class="o">,</span><span class="mi">10</span><span class="o">,</span><span class="mi">9</span><span class="o">)</span></code></pre></figure>
+</div>
+</div>
+
+<p>Note that the JavaScript version modifies the global <code class="highlighter-rouge">String</code> class (dangerous!), whereas the Scala version only
+introduces a conversion from <code class="highlighter-rouge">String</code> to a custom <code class="highlighter-rouge">StrToDate</code> class providing an additional method. Implicit classes are
+<em>safe</em> because they are lexically scoped, meaning the <code class="highlighter-rouge">StrToDate</code> is not available in other parts of the program unless
+explicitly imported. The <code class="highlighter-rouge">toDate</code> method is not added to the <code class="highlighter-rouge">String</code> class in any way, instead the compiler generates
+appropriate code to call it when required. Basically <code class="highlighter-rouge">"2010-10-09".toDate</code> is converted into <code class="highlighter-rouge">new
+StrToDate("2010-10-09").toDate</code>.</p>
+
+<p>Scala IDEs are also smart enough to know what implicit extension methods are in scope and will show them to you next
+to the other methods.</p>
+
+<p><img src="/assets/img/implicitIDE.png" onload="this.width/=2;this.onload=null;" /></p>
+
+<p>Implicit extension methods are safe and easy to refactor. If you, say, rename or remove a method, the compiler will
+immediately give errors in places where you use that method. IDEs provide great tools for automatically renaming all
+instances when you make the change, keeping your code base operational. You can even do complex changes like add new
+method parameters or reorder them and the IDE can take care of the refactoring for you, safely and automatically, thanks
+to strict typing.</p>
+
+<p>Finally we’ll make DOM’s <code class="highlighter-rouge">NodeList</code> behave like a regular Scala collection to make it easier to work with them. Or to be
+more accurate, we are extending <code class="highlighter-rouge">DOMList[T]</code> which provides a type for the nodes. <code class="highlighter-rouge">NodeList</code> is actually just a
+<code class="highlighter-rouge">DOMList[Node]</code>.</p>
+
+<div class="row">
+<div class="col-md-12"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">implicit</span> <span class="k">class</span> <span class="nc">NodeListSeq</span><span class="o">[</span><span class="kt">T</span> <span class="k">&lt;:</span> <span class="kt">Node</span><span class="o">](</span><span class="n">nodes</span><span class="k">:</span> <span class="kt">DOMList</span><span class="o">[</span><span class="kt">T</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">IndexedSeq</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">foreach</span><span class="o">[</span><span class="kt">U</span><span class="o">](</span><span class="n">f</span><span class="k">:</span> <span class="kt">T</span> <span class="o">=&gt;</span> <span class="n">U</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">i</span> <span class="k">&lt;-</span> <span class="mi">0</span> <span class="n">until</span> <span class="n">nodes</span><span class="o">.</span><span class="n">length</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">f</span><span class="o">(</span><span class="n">nodes</span><span class="o">(</span><span class="n">i</span><span class="o">))</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="n">length</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="n">length</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">idx</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">T</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">(</span><span class="n">idx</span><span class="o">)</span>
+<span class="o">}</span></code></pre></figure>
+</div>
+</div>
+
+<p>Defining just those three functions, we now have access to all the usual collection functionality like <code class="highlighter-rouge">map</code>, <code class="highlighter-rouge">filter</code>,
+<code class="highlighter-rouge">find</code>, <code class="highlighter-rouge">slice</code>, <code class="highlighter-rouge">foldLeft</code>, etc. This makes working with <code class="highlighter-rouge">NodeList</code>s a lot easier and safer. The implicit class makes
+use of Scala generics, providing implementation for all types that extend <code class="highlighter-rouge">Node</code>. Note that <code class="highlighter-rouge">NodeListSeq</code> <a href="https://github.com/scala-js/scala-js-dom/blob/28503dc40b75ac7ec77777e85424c5a96e0cf797/src/main/scala/org/scalajs/dom/ext/package.scala#L9-L10">is available</a> as <code class="highlighter-rouge">PimpedNodeList</code> in the <code class="highlighter-rouge">scala-js-dom</code> library; just <code class="highlighter-rouge">import org.scalajs.dom.ext._</code> to use it.</p>
+
+<div class="row">
+<div class="col-md-12"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// cast to correct element type
+</span><span class="k">val</span> <span class="n">images</span> <span class="k">=</span> <span class="n">dom</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">querySelectorAll</span><span class="o">(</span><span class="s">"img"</span><span class="o">).</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">NodeListOf</span><span class="o">[</span><span class="kt">HTMLImageElement</span><span class="o">]]</span>
+<span class="c1">// get all image source URLs
+</span><span class="k">val</span> <span class="n">urls</span> <span class="k">=</span> <span class="n">images</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="n">i</span><span class="o">.</span><span class="n">src</span><span class="o">)</span>
+<span class="c1">// filter images that have "class" attribute set
+</span><span class="k">val</span> <span class="n">withClass</span> <span class="k">=</span> <span class="n">images</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="n">i</span><span class="o">.</span><span class="n">className</span><span class="o">.</span><span class="n">nonEmpty</span><span class="o">)</span>
+<span class="c1">// set an event listener to 10 widest images
+</span><span class="n">images</span><span class="o">.</span><span class="n">sortBy</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="o">-</span><span class="n">i</span><span class="o">.</span><span class="n">width</span><span class="o">).</span><span class="n">take</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="n">foreach</span> <span class="o">{</span> <span class="n">i</span> <span class="k">=&gt;</span>
+  <span class="n">i</span><span class="o">.</span><span class="n">onclick</span> <span class="k">=</span> <span class="o">(</span><span class="n">e</span><span class="k">:</span> <span class="kt">MouseEvent</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">"Image clicked!"</span><span class="o">)</span>
+<span class="o">}</span></code></pre></figure>
+</div>
+</div>
+
+<h2 id="futures">Futures</h2>
+
+<p>Writing asynchronous JavaScript code used to be painful due to the number of callbacks required to handle chained
+asynchronous calls. This is affectionately known as <em>callback hell</em>. Then came the various <code class="highlighter-rouge">Promise</code> libraries that
+alleviated this issue a lot, but were not fully compatible with each other. ES6 standardizes the <a target="jsdoc" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"><code>Promise</code></a>
+interface so that all implementations (ES6’s own included) can happily coexist.</p>
+
+<p>In Scala a similar concept is the <a target="scaladoc" href="http://www.scala-lang.org/api/current/#scala.concurrent.Future"><code>Future</code></a>. On the JVM, futures can be used for both parallel
+and asynchronous processing, but under Scala.js only the latter is possible. Like a JavaScript <code class="highlighter-rouge">Promise</code>, a <code class="highlighter-rouge">Future</code> is a
+placeholder object for a value that may not yet exist. Both <code class="highlighter-rouge">Promise</code> and <code class="highlighter-rouge">Future</code> can complete successfully, providing
+a value, or fail with an error/exception. Let’s look at a typical use case of fetching data from server using AJAX.</p>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">ES6</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// using jQuery</span>
+
+<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">(</span><span class="s2">"http://api.openweathermap.org/"</span> <span class="o">+</span>
+    <span class="s2">"data/2.5/weather?q=Tampere"</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span>
+   <span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">textStatus</span><span class="p">,</span> <span class="nx">jqXHR</span><span class="p">)</span> <span class="o">=&gt;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+<span class="p">);</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.scalajs.dom</span>
+<span class="k">import</span> <span class="nn">dom.ext.Ajax</span>
+
+<span class="nc">Ajax</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"http://api.openweathermap.org/"</span> <span class="o">+</span>
+    <span class="s">"data/2.5/weather?q=Tampere"</span><span class="o">).</span><span class="n">foreach</span> <span class="o">{</span>
+  <span class="n">xhr</span> <span class="k">=&gt;</span>
+    <span class="n">println</span><span class="o">(</span><span class="n">xhr</span><span class="o">.</span><span class="n">responseText</span><span class="o">)</span>
+<span class="o">}</span></code></pre></figure>
+</div>
+</div>
+
+<p>The JavaScript code above is using jQuery to provide similar helper for making Ajax calls returning promises as is
+available in the Scala.js DOM library.</p>
+
+<p>Here is a comparison between Scala’s <code class="highlighter-rouge">Future</code> and JavaScript’s <code class="highlighter-rouge">Promise</code> for the most commonly used methods.</p>
+
+<table class="table table-bordered">
+  <thead>
+    <tr><th><a target="scaladoc" href="http://www.scala-lang.org/api/current/#scala.concurrent.Future"><code>Future</code></a></th><th><a target="jsdoc" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"><code>Promise</code></a></th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>foreach(func)</code></td><td><code>then(func)</code></td><td>Executes <code>func</code> for its side-effects when the future completes.</td></tr>
+    <tr><td><code>map(func)</code></td><td><code>then(func)</code></td><td>The result of <code>func</code> is wrapped in a new future.</td></tr>
+    <tr><td><code>flatMap(func)</code></td><td><code>then(func)</code></td><td><code>func</code> must return a future.</td></tr>
+    <tr><td><code>recover(func)</code></td><td><code>catch(func)</code></td><td>Handles an error. The result of <code>func</code> is wrapped in a new future.</td></tr>
+    <tr><td><code>recoverWith(func)</code></td><td><code>catch(func)</code></td><td>Handles an error. <code>func</code> must return a future.</td></tr>
+    <tr><td><code>filter(predicate)</code></td><td>N/A</td><td>Creates a new future by filtering the value of the current future with a predicate.</td></tr>
+    <tr><td><code>zip(that)</code></td><td>N/A</td><td>Zips the values of <code>this</code> and <code>that</code> future, and creates a new future holding the tuple of their results.</td></tr>
+    <tr><td><code>Future.successful(value)</code></td><td><code>Promise.resolve(value)</code></td><td>Returns a successful future containing <code>value</code></td></tr>
+    <tr><td><code>Future.failed(exception)</code></td><td><code>Promise.reject(value)</code></td><td>Returns a failed future containing <code>exception</code></td></tr>
+    <tr><td><code>Future.sequence(iterable)</code></td><td><code>Promise.all(iterable)</code></td><td>Returns a future that completes when all of the futures in the iterable argument have been completed.</td></tr>
+    <tr><td><code>Future.firstCompletedOf(iterable)</code></td><td><code>Promise.race(iterable)</code></td><td>Returns a future that completes as soon as one of the futures in the iterable completes.</td></tr>
+  </tbody>
+</table>
+
+<p>Note that Scala has different functions corresponding to JavaScript’s <code class="highlighter-rouge">then</code>, mainly <code class="highlighter-rouge">map</code> and <code class="highlighter-rouge">flatMap</code>.
+<code class="highlighter-rouge">then</code> is not type-safe, because it will flatten promises “all the way down”, even if that was not your intention.
+In contrast, <code class="highlighter-rouge">map</code> never flattens, and <code class="highlighter-rouge">flatMap</code> always flattens once, tracking the appropriate static result type.</p>
+
+<p><code class="highlighter-rouge">foreach</code> is a slight variation of <code class="highlighter-rouge">map</code> that does not return a new future.
+It is typically used instead of <code class="highlighter-rouge">map</code> to communicate the intent that the callback
+is executed for its side-effects rather than its result value.</p>
+
+<h4 id="futures-from-callbacks">Futures from callbacks</h4>
+
+<p>Even though ES6 brought the standard promise API to browsers, all asynchronous functions still require the use of
+callbacks. To convert a callback into a <code class="highlighter-rouge">Future</code> in Scala you need to use a <code class="highlighter-rouge">Promise</code>. Wait, what? Yes, in addition to
+<code class="highlighter-rouge">Future</code>, Scala also has a <code class="highlighter-rouge">Promise</code> class which actually implements the <code class="highlighter-rouge">Future</code> trait.</p>
+
+<p>As an example, let’s convert the <code class="highlighter-rouge">onload</code> event of an <code class="highlighter-rouge">img</code> tag into a <code class="highlighter-rouge">Future</code>.</p>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">ES6</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">onLoadPromise</span><span class="p">(</span><span class="nx">img</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">complete</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">src</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">success</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">img</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">success</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">src</span><span class="p">);</span>
+      <span class="p">};</span>
+    <span class="p">});</span>
+    <span class="k">return</span> <span class="nx">p</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">img</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"#mapimage"</span><span class="p">);</span>
+<span class="nx">onLoadPromise</span><span class="p">(</span><span class="nx">img</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">url</span> <span class="o">=&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Image </span><span class="p">${</span><span class="nx">url</span><span class="p">}</span><span class="s2"> loaded`</span><span class="p">)</span>
+<span class="p">);</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">onLoadFuture</span><span class="o">(</span><span class="n">img</span><span class="k">:</span> <span class="kt">HTMLImageElement</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">img</span><span class="o">.</span><span class="n">complete</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span><span class="o">(</span><span class="n">img</span><span class="o">.</span><span class="n">src</span><span class="o">)</span>
+  <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">p</span> <span class="k">=</span> <span class="nc">Promise</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
+    <span class="n">img</span><span class="o">.</span><span class="n">onload</span> <span class="k">=</span> <span class="o">{</span> <span class="o">(</span><span class="n">e</span><span class="k">:</span> <span class="kt">Event</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="n">p</span><span class="o">.</span><span class="n">success</span><span class="o">(</span><span class="n">img</span><span class="o">.</span><span class="n">src</span><span class="o">)</span>
+    <span class="o">}</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">future</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">img</span> <span class="k">=</span> <span class="n">dom</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">querySelector</span><span class="o">(</span><span class="s">"#mapimage"</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">HTMLImageElement</span><span class="o">]</span>
+<span class="n">onLoadFuture</span><span class="o">(</span><span class="n">img</span><span class="o">).</span><span class="n">foreach</span> <span class="o">{</span> <span class="n">url</span> <span class="k">=&gt;</span>
+  <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Image $url loaded"</span><span class="o">)</span>
+<span class="o">}</span></code></pre></figure>
+</div>
+</div>
+
+<p>Because the image might have already loaded when we create the promise, we must check for that separately and just return a
+completed future in that case.</p>
+
+<p>Next we’ll add an <code class="highlighter-rouge">onloadF</code> extension method to the <a target="scaladoc" href="http://www.scala-js.org/api/scalajs-dom/0.8/#org.scalajs.dom.raw.HTMLImageElement"><code>HTMLImageElement</code></a> class, to make it really easy to
+use the futurized version.</p>
+
+<div class="row">
+<div class="col-md-12"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">implicit</span> <span class="k">class</span> <span class="nc">HTMLImageElementOps</span><span class="o">(</span><span class="k">val</span> <span class="n">img</span><span class="k">:</span> <span class="kt">HTMLImageElement</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">AnyVal</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">onloadF</span> <span class="k">=</span> <span class="n">onLoadFuture</span><span class="o">(</span><span class="n">img</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">img</span> <span class="k">=</span> <span class="n">dom</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">querySelector</span><span class="o">(</span><span class="s">"#mapimage"</span><span class="o">).</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">HTMLImageElement</span><span class="o">]</span>
+<span class="n">img</span><span class="o">.</span><span class="n">onloadF</span><span class="o">.</span><span class="n">foreach</span> <span class="o">{</span> <span class="n">url</span> <span class="k">=&gt;</span>
+  <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Image $url loaded"</span><span class="o">)</span>
+<span class="o">}</span></code></pre></figure>
+</div>
+</div>
+
+<p>While we are playing with DOM images, let’s create a future that completes once all the images on the page have
+finished loading. Here we’ll take advantage of the <code class="highlighter-rouge">NodeListSeq</code> extension class to provide us with the <code class="highlighter-rouge">map</code> method
+on the <a target="scaladoc" href="http://www.scala-js.org/api/scalajs-dom/0.8/#org.scalajs.dom.raw.NodeList"><code>NodeList</code></a> returned from <a target="scaladoc" href="http://www.scala-js.org/api/scalajs-dom/0.8/#org.scalajs.dom.raw.Document@querySelectorAll(selectors:String):org.scalajs.dom.raw.NodeList"><code>querySelectorAll</code></a>.</p>
+
+<div class="row">
+<div class="col-md-12"><h6 class="code-block-header">Scala</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">images</span> <span class="k">=</span> <span class="n">dom</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">querySelectorAll</span><span class="o">(</span><span class="s">"img"</span><span class="o">).</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">NodeListOf</span><span class="o">[</span><span class="kt">HTMLImageElement</span><span class="o">]]</span>
+<span class="k">val</span> <span class="n">loaders</span> <span class="k">=</span> <span class="n">images</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="n">i</span><span class="o">.</span><span class="n">onloadF</span><span class="o">)</span>
+
+<span class="nc">Future</span><span class="o">.</span><span class="n">sequence</span><span class="o">(</span><span class="n">loaders</span><span class="o">).</span><span class="n">foreach</span> <span class="o">{</span> <span class="n">urls</span> <span class="k">=&gt;</span>
+  <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"All ${urls.size} images loaded!"</span><span class="o">)</span>
+<span class="o">}</span></code></pre></figure>
+</div>
+</div>
+
+            <div class="spacing"></div>
+        </div>
+        <div class="col-md-3">
+            <nav class="toc" role="navigation">
+                
+<ul>
+    
+    <li>
+        <a href="/doc/">
+            
+            
+            Introduction
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/tutorial/">
+            
+            
+            Tutorials
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/tutorial/basic/">
+            
+            
+            Basic tutorial
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/">
+            
+            
+            Scala.js for JavaScript developers
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part1.html">
+            
+            
+            From ES6 to Scala: Basics
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part2.html">
+            
+            
+            From ES6 to Scala: Collections
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part3.html">
+            
+            
+            <b>From ES6 to Scala: Advanced</b>
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/project/">
+            
+            
+            Project setup
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/project/building.html">
+            
+            
+            Building the application
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/dependencies.html">
+            
+            
+            Dependencies
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/module.html">
+            
+            
+            Emitting modules
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/js-environments.html">
+            
+            
+            JavaScript Environments
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/cross-build.html">
+            
+            
+            Cross-building
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/testing.html">
+            
+            
+            Testing
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/interoperability/">
+            
+            
+            JavaScript interoperability
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/interoperability/types.html">
+            
+            
+            JavaScript types
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/facade-types.html">
+            
+            
+            Write facade types for JS APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/global-scope.html">
+            
+            
+            Access to the JavaScript global scope (1.x only)
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/export-to-javascript.html">
+            
+            
+            Export Scala.js APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/sjs-defined-js-classes.html">
+            
+            
+            Write JavaScript classes in Scala.js
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/exceptions.html">
+            
+            
+            Working with Exceptions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/api.html">
+            
+            
+            Scala.js API
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/all-api.html">
+            
+            
+            APIs of previous versions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/semantics.html">
+            
+            
+            Semantics of Scala.js
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/">
+            
+            
+            Internals
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/internals/performance.html">
+            
+            
+            Performance
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/downloads.html">
+            
+            
+            Standalone distribution
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/version-history.html">
+            
+            
+            Version history
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/faq.html">
+            
+            
+            FAQ
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

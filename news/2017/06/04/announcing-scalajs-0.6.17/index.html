@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/news/2017/06/04/announcing-scalajs-0.6.17/">
+
+    <title> Announcing Scala.js 0.6.17 - Scala.js</title>
+
+    <meta property="og:title" content="Announcing Scala.js 0.6.17" /><meta property="og:type" content="article" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" /><meta property="article:published_time" content="2017-06-04T00:00:00-04:00" /><meta property="article:tag" content="releases" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li class="active"><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Announcing Scala.js 0.6.17</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="small">Jun 4, 2017.</span>
+            </p>
+            <p>We are excited to announce the release of Scala.js 0.6.17!</p>
+
+<p>This release is mostly a bug-fix release, but it also brings a few new features.</p>
+
+<p>One bug fix which we would like to highlight is <a href="https://github.com/scala-js/scala-js/issues/2943">#2943</a>/<a href="https://github.com/scala-js/scala-js/issues/2827">#2827</a>.
+The optimizer exposed a quadratic behavior which meant insanely long times of <code class="highlighter-rouge">fastOptJS</code> on some codebases, which we have now fixed.
+This was particularly true in test suites using ScalaTest.</p>
+
+<p>The main new feature of this release is the ability for facade libraries to support both the traditional <code class="highlighter-rouge">NoModule</code> style, where JS libraries are exposed as global variables and accessed through <code class="highlighter-rouge">@JSGlobal</code>, and the <code class="highlighter-rouge">CommonJSModule</code> style, where JS libraries are imported through <code class="highlighter-rouge">@JSImport</code>.</p>
+
+<p>Read on for more details.</p>
+
+<!--more-->
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>If you are new to Scala.js, head over to
+<a href="/tutorial/">the tutorial</a>.</p>
+
+<h2 id="release-notes">Release notes</h2>
+
+<p>If upgrading from Scala.js 0.6.14 or earlier, make sure to read <a href="/news/2017/03/21/announcing-scalajs-0.6.15/">the release notes of 0.6.15</a>, which contain important migration information.</p>
+
+<p>As a minor release, 0.6.17 is backward source and binary compatible with previous releases in the 0.6.x series.
+Libraries compiled with earlier versions can be used with 0.6.17 without change.
+However, it is not forward compatible: libraries compiled with 0.6.17 cannot be used by projects using 0.6.{0-16}.</p>
+
+<p>Please report any issues <a href="https://github.com/scala-js/scala-js/issues">on GitHub</a>.</p>
+
+<h2 id="new-features">New features</h2>
+
+<h3 id="double-support-for-global-variablesimports-in-facade-types">Double support for global variables/imports in facade types</h3>
+
+<p>Since Scala.js 0.6.13, Scala.js codebases have had the option to <a href="/doc/project/module.html">emit CommonJS modules</a>, using the <code class="highlighter-rouge">CommonJSModule</code> module kind.
+In that mode, JS libraries are imported through facade types with <code class="highlighter-rouge">@JSImport</code>.
+For example, one might import jQuery as</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSImport</span><span class="o">(</span><span class="s">"jquery.js"</span><span class="o">,</span> <span class="nc">JSImport</span><span class="o">.</span><span class="nc">Default</span><span class="o">)</span>
+<span class="k">object</span> <span class="nc">JQuery</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">selector</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">JQuery</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>However, if one uses the more traditional “script” style (with the <code class="highlighter-rouge">NoModule</code> module kind), where JS libraries are exposed as global variables, the facade would have to look like the following:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSGlobal</span><span class="o">(</span><span class="s">"$"</span><span class="o">)</span>
+<span class="k">object</span> <span class="nc">JQuery</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">selector</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">JQuery</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>This means that there was no way to write a facade library that works both for applications using <code class="highlighter-rouge">NoModule</code> and <code class="highlighter-rouge">CommonJSModule</code>.</p>
+
+<p>In Scala.js 0.6.17, the facade can now be declared as follows to support both module kinds:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSImport</span><span class="o">(</span><span class="s">"jquery.js"</span><span class="o">,</span> <span class="nc">JSImport</span><span class="o">.</span><span class="nc">Default</span><span class="o">,</span> <span class="n">globalFallback</span> <span class="k">=</span> <span class="s">"$"</span><span class="o">)</span>
+<span class="k">object</span> <span class="nc">JQuery</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">selector</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">JQuery</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>When linking with <code class="highlighter-rouge">scalaJSModuleKind := ModuleKind.CommonJSModule</code>, this will behave as in the first example.
+When linking with <code class="highlighter-rouge">ModuleKind.NoModule</code>, the <code class="highlighter-rouge">globalFallback</code> is used, and the facade behaves as in the second example with <code class="highlighter-rouge">@JSGlobal("$")</code>.</p>
+
+<h3 id="opt-in-scalajsdefined-by-default">Opt-in <code class="highlighter-rouge">@ScalaJSDefined</code> by default</h3>
+
+<p>As a sneak peak of Scala.js 1.x, you can now opt-in for <code class="highlighter-rouge">@ScalaJSDefined</code> by default in your codebase.</p>
+
+<p>As you might know, in Scala.js 1.x, classes, traits and objects extending <code class="highlighter-rouge">js.Any</code> will be “Scala.js-defined” by default.
+In 0.6.x, the compiler forces you to choose between <code class="highlighter-rouge">@js.native</code> and <code class="highlighter-rouge">@ScalaJSDefined</code> with warnings.
+In 1.x however, the <code class="highlighter-rouge">@ScalaJSDefined</code> annotation will be deprecated and have no effect.</p>
+
+<p>In other words, when migrating from 0.6.x to 1.x, a class such as</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@ScalaJSDefined</span>
+<span class="k">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>will have to lose its annotation and simply become</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>In Scala.js 0.6.17, you can opt-in to the new behavior of Scala.js 1.x.
+To do so, give the option <code class="highlighter-rouge">-P:scalajs:sjsDefinedByDefault</code> to the Scala compiler.
+In sbt, you can do so with:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// For a Scala.js-only project
+</span><span class="k">lazy</span> <span class="k">val</span> <span class="n">foo</span> <span class="k">=</span> <span class="n">project</span><span class="o">.</span>
+  <span class="n">enablePlugins</span><span class="o">(</span><span class="nc">ScalaJSPlugin</span><span class="o">).</span>
+  <span class="n">settings</span><span class="o">(</span>
+    <span class="o">...</span>
+    <span class="n">scalacOptions</span> <span class="o">+=</span> <span class="s">"-P:scalajs:sjsDefinedByDefault"</span>
+  <span class="o">)</span>
+
+<span class="c1">// For a cross project:
+</span><span class="k">lazy</span> <span class="k">val</span> <span class="n">bar</span> <span class="k">=</span> <span class="n">crossProject</span><span class="o">.</span>
+  <span class="n">settings</span><span class="o">(</span>
+    <span class="o">...</span>
+  <span class="o">).</span>
+  <span class="n">jsSettings</span><span class="o">(</span>
+    <span class="o">...</span>
+    <span class="n">scalacOptions</span> <span class="o">+=</span> <span class="s">"-P:scalajs:sjsDefinedByDefault"</span>
+  <span class="o">)</span></code></pre></figure>
+
+<p>With this compiler option, you can safely remove all your <code class="highlighter-rouge">@ScalaJSDefined</code> annotations, and benefit from the cleaner syntax of Scala.js 1.x today!</p>
+
+<p>Codebases with and without the option are still interoperable between each other.
+Using the option does not prevent you from depending on libraries that do not use it, nor does it prevent codebases not using it from depending on your library.</p>
+
+<h2 id="bug-fixes">Bug fixes</h2>
+
+<p>Among others, the following bugs have been fixed in 0.6.17:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2943">#2943</a> Performance regression in the optimiser</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2827">#2827</a> Slow incremental linking times for fastOptJS (with ScalaTest)</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2979">#2979</a> <code class="highlighter-rouge">%%%</code> does not work in JVM projects</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2953">#2953</a> Type-matching arbitrary things against <code class="highlighter-rouge">Byte</code>/<code class="highlighter-rouge">Short</code>/<code class="highlighter-rouge">Int</code> ends up calling <code class="highlighter-rouge">toString</code></li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2928">#2928</a> <code class="highlighter-rouge">return x match {...}</code> crashes the compiler</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2927">#2927</a> JUnit <code class="highlighter-rouge">assertEquals(_: Double, _: Double)</code> not failing for JS, only for JVM</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2845">#2845</a> Scala.js compiler doesn’t pass through UTF-8 correctly for dependencies</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2798">#2798</a> Allow the sbt plugin to work if run on Java 9 (the optimizer will not be parallel)</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2786">#2786</a> Code which runs with fastOptJS but crashes with fullOptJS</li>
+</ul>
+
+<p>You can find the full list <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av0.6.17+is%3Aclosed">on GitHub</a>.</p>
+
+            <div class="spacing"></div>
+            <nav>
+                <ul class="pager">
+                    
+                    <li class="previous"><a href="/news/2017/04/29/announcing-scalajs-0.6.16/"
+                                            title="Announcing Scala.js 0.6.16">&larr; Previous</a></li>
+                    
+                    
+                    <li class="next"><a href="/news/2017/06/28/announcing-scalajs-0.6.18/"
+                                        title="Announcing Scala.js 0.6.18">Next &rarr;</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/news/2016/01/25/announcing-scalajs-0.6.6/">
+
+    <title> Announcing Scala.js 0.6.6 - Scala.js</title>
+
+    <meta property="og:title" content="Announcing Scala.js 0.6.6" /><meta property="og:type" content="article" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" /><meta property="article:published_time" content="2016-01-25T00:00:00-05:00" /><meta property="article:tag" content="releases" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li class="active"><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Announcing Scala.js 0.6.6</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="small">Jan 25, 2016.</span>
+            </p>
+            <p>We are excited to announce the release of Scala.js 0.6.6!</p>
+
+<p>It has been a long while since the last release, almost 5 months already.
+That was too long, and we apologize.
+In the future, we hope never to let more than 2 months elapse between consecutive releases.</p>
+
+<p>Besides bug fixes, this release brings several major improvements:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">js.TupleN</code>, a JS equivalent of Scala tuples</li>
+  <li>Support for JUnit</li>
+  <li>Better support of constructors of <code class="highlighter-rouge">@ScalaJSDefined</code> classes:
+they can now have overloads, default parameters and varargs</li>
+  <li>A completely redesigned internal API for the linker, whose main visible impact should be reduced memory usage and improved speed</li>
+  <li><code class="highlighter-rouge">js.ConstructorTag[C]</code>, a <code class="highlighter-rouge">ClassTag</code> equivalent to <code class="highlighter-rouge">js.constructorOf[C]</code></li>
+</ul>
+
+<!--more-->
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>If you are new to Scala.js, head over to
+<a href="/tutorial/">the tutorial</a>.</p>
+
+<h2 id="release-notes">Release notes</h2>
+
+<p>As a minor release, 0.6.6 is (almost, see Breaking changes below) backward source and binary compatible with previous releases in the 0.6.x series.
+Libraries compiled with earlier versions can be used with 0.6.6 without change.
+However, it is not forward compatible: libraries compiled with 0.6.6 cannot be used by projects using 0.6.{0-5}.</p>
+
+<p>Please report any issues <a href="https://github.com/scala-js/scala-js/issues">on GitHub</a>.</p>
+
+<h2 id="breaking-changes">Breaking changes</h2>
+
+<h3 id="running-in-nodejsphantomjs">Running in Node.js/PhantomJS</h3>
+
+<p>Until Scala.js 0.6.5, the following sbt setting would, as a side-effect, enable Node.js or PhantomJS:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scalaJSStage in Global := FastOptStage
+</code></pre></div></div>
+
+<p>As of Scala.js 0.6.6, this setting is redundant, as it is the default, but <code class="highlighter-rouge">run</code> and <code class="highlighter-rouge">test</code> will still use Rhino by default!
+To disable Rhino and use Node.js/PhantomJS in 0.6.6, use the following setting instead:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scalaJSUseRhino in Global := false
+</code></pre></div></div>
+
+<h3 id="tools-api">Tools API</h3>
+
+<p>The <a href="https://www.scala-js.org/api/scalajs-tools/0.6.6/#org.scalajs.core.tools.package">Tools API</a>,
+(the API to the Scala.js linker and optimizer) have been completely redesigned.
+Users of this API, such as <a href="http://www.scala-js-fiddle.com/">Scala.jsFiddle</a>, will experience breakages.
+Contact us if you need help porting your code.</p>
+
+<h2 id="improvements">Improvements</h2>
+
+<h3 id="javascript-tuple-types">JavaScript Tuple types</h3>
+
+<p>In the same spirit as <code class="highlighter-rouge">js.Function</code>s, <code class="highlighter-rouge">js.Array</code>, etc., we have added a series of types representing JavaScript “tuples”: <code class="highlighter-rouge">js.Tuple2</code> to <code class="highlighter-rouge">js.Tuple22</code>.
+The JavaScript representation of a tuple is, in fact, a heterogeneous array of fixed length.</p>
+
+<p>For example, the value</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>val t = js.Tuple2(45, "hello")
+</code></pre></div></div>
+
+<p>corresponds the JavaScript value</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[45, "hello"]
+</code></pre></div></div>
+
+<p>You should use <code class="highlighter-rouge">js.Tuple</code>s in facades to JavaScript libraries that take and return tuples as heterogeneous arrays.</p>
+
+<p>JavaScript tuples are convertible back and forth to Scala tuples, and you can use deconstruction to extract all values of a JavaScript at the same time.
+For example:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>val scalaT: (Int, String) = t
+val t2: js.Tuple2[Int, String] = scalaT
+val js.Tuple2(a, b) = t2
+</code></pre></div></div>
+
+<h3 id="support-for-junit">Support for JUnit</h3>
+
+<p>It is now possible to write JUnit tests for Scala.js!
+We have ported the JUnit API to Scala.js, so that it is now possible to write cross-compiling unit tests with JUnit.</p>
+
+<p>To enable JUnit on your Scala.js project, add the appropriate sbt AutoPlugin using</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enablePlugins(ScalaJSJUnitPlugin)
+</code></pre></div></div>
+
+<p>(like you would with the basic <code class="highlighter-rouge">ScalaJSPlugin</code>).
+For a <code class="highlighter-rouge">crossProject</code>, this must be enabled only on the JS variant.
+For the JVM variant, use the usual <code class="highlighter-rouge">libraryDependencies</code> setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">lazy</span> <span class="k">val</span> <span class="n">myCrossProject</span> <span class="k">=</span> <span class="n">crossProject</span><span class="o">.</span>
+  <span class="n">jsConfigure</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">enablePlugins</span><span class="o">(</span><span class="nc">ScalaJSJUnitPlugin</span><span class="o">)).</span>
+  <span class="n">jvmSettings</span><span class="o">(</span>
+    <span class="n">libraryDependencies</span> <span class="o">+=</span>
+      <span class="s">"com.novocode"</span> <span class="o">%</span> <span class="s">"junit-interface"</span> <span class="o">%</span> <span class="s">"0.9"</span> <span class="o">%</span> <span class="s">"test"</span>
+  <span class="o">)</span></code></pre></figure>
+
+<h3 id="jsconstructortagc"><code class="highlighter-rouge">js.ConstructorTag[C]</code></h3>
+
+<p><a href="https://www.scala-js.org/api/scalajs-library/0.6.6/#scala.scalajs.js.ConstructorTag"><code class="highlighter-rouge">js.ConstructorTag[C]</code></a> is to <a href="https://www.scala-js.org/api/scalajs-library/0.6.6/#scala.scalajs.js.package@constructorOf[T&lt;:scala.scalajs.js.Any]:scala.scalajs.js.Dynamic"><code class="highlighter-rouge">js.constructorOf[C]</code></a> as <code class="highlighter-rouge">ClassTag[C]</code> is to <code class="highlighter-rouge">classOf[C]</code>, i.e., you can use an <code class="highlighter-rouge">implicit</code> parameter of type <code class="highlighter-rouge">js.ConstructorTag[C]</code> to implicitly get a <code class="highlighter-rouge">js.constructorOf[C]</code>.
+For example:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">instantiate</span><span class="o">[</span><span class="kt">C</span> <span class="k">&lt;:</span> <span class="kt">js.Any</span> <span class="kt">:</span> <span class="kt">js.ConstructorTag</span><span class="o">]</span><span class="k">:</span> <span class="kt">C</span> <span class="o">=</span>
+  <span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">newInstance</span><span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="n">constructorTag</span><span class="o">[</span><span class="kt">C</span><span class="o">].</span><span class="n">constructor</span><span class="o">)().</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">C</span><span class="o">]</span>
+  
+<span class="k">val</span> <span class="n">newEmptyJSArray</span> <span class="k">=</span> <span class="n">instantiate</span><span class="o">[</span><span class="kt">js.Array</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span></code></pre></figure>
+
+<p>Implicit expansion will desugar the above code into:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">instantiate</span><span class="o">[</span><span class="kt">C</span> <span class="k">&lt;:</span> <span class="kt">js.Any</span><span class="o">](</span><span class="k">implicit</span> <span class="n">tag</span><span class="k">:</span> <span class="kt">js.ConstructorTag</span><span class="o">[</span><span class="kt">C</span><span class="o">])</span><span class="k">:</span> <span class="kt">C</span> <span class="o">=</span>
+  <span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">newInstance</span><span class="o">(</span><span class="n">tag</span><span class="o">.</span><span class="n">constructor</span><span class="o">)().</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">C</span><span class="o">]</span>
+  
+<span class="k">val</span> <span class="n">newEmptyJSArray</span> <span class="k">=</span> <span class="n">instantiate</span><span class="o">[</span><span class="kt">js.Array</span><span class="o">[</span><span class="kt">Int</span><span class="o">]](</span>
+    <span class="k">new</span> <span class="n">js</span><span class="o">.</span><span class="nc">ConstructorTag</span><span class="o">[</span><span class="kt">C</span><span class="o">](</span><span class="n">js</span><span class="o">.</span><span class="n">constructorOf</span><span class="o">[</span><span class="kt">js.Array</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]))</span></code></pre></figure>
+
+<p>although you cannot write the desugared version in user code because the constructor of <code class="highlighter-rouge">js.ConstructorTag</code> is private.</p>
+
+<p>This feature is particularly useful for Scala.js libraries wrapping JavaScript frameworks expecting to receive JavaScript constructors as parameters.</p>
+
+<h3 id="query-for-development-versus-production-mode">Query for Development versus Production mode</h3>
+
+<p>The new methods <code class="highlighter-rouge">isDevelopmentMode</code> and <code class="highlighter-rouge">isProductionMode</code> allow you to query in your code whether you are running in a Development build or a Production build (for all practical purposes, aka <code class="highlighter-rouge">fastOptJS</code> and <code class="highlighter-rouge">fullOptJS</code>, resp.).
+The methods are located in <a href="https://www.scala-js.org/api/scalajs-library/0.6.6/#scala.scalajs.LinkingInfo$"><code class="highlighter-rouge">scala.scalajs.LinkingInfo</code></a>.
+These methods can be used by libraries to provide domain-specific “optimizations” for production, e.g., eliminate expensive run-time checks useful for debugging.
+Using these methods should be done with great care as, by definition, they will alter the behavior of your program between <code class="highlighter-rouge">fastOpt</code> and <code class="highlighter-rouge">fullOpt</code>.</p>
+
+<h3 id="java-library-additions">Java library additions</h3>
+
+<ul>
+  <li>Methods of <code class="highlighter-rouge">java.lang.Long</code> dealing with unsigned values</li>
+  <li>Several JDK8 methods of <code class="highlighter-rouge">java.lang.Math</code></li>
+  <li><code class="highlighter-rouge">java.util.Comparator.reversed</code>: the first of the <em>default</em> methods of JDK8</li>
+  <li><code class="highlighter-rouge">java.util.ArrayDeque</code></li>
+  <li><code class="highlighter-rouge">java.net.URLDecoder</code></li>
+  <li><code class="highlighter-rouge">java.util.concurrent.locks.ReentrantLock</code></li>
+  <li><code class="highlighter-rouge">java.util.Objects</code></li>
+</ul>
+
+<h2 id="bug-fixes">Bug fixes</h2>
+
+<p>Among others, the following bugs have been fixed:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/1635">#1635</a> Touching a file in <code class="highlighter-rouge">src/test/resources</code> triggers <code class="highlighter-rouge">test:fastOptJS</code></li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/1891">#1891</a> Class with constructors with optional parameters can’t be embedded in objects that extend <code class="highlighter-rouge">js.Object</code></li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/1899">#1899</a> Some members of <code class="highlighter-rouge">new js.Object {...}</code> are not visible from JavaScript</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/1975">#1975</a> Inner function in <code class="highlighter-rouge">@ScalaJSDefined</code> method doesn’t get parameter</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/1979">#1979</a> <a href="https://github.com/scala-js/scala-js/issues/2042">#2042</a> Bugs in <code class="highlighter-rouge">java.math.BigDecimal.divideToIntegralValue</code></li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/1984">#1984</a> <code class="highlighter-rouge">-8 % 8</code> evaluates to negative 0, which then blows up if cast to Integer (duplicate <a href="https://github.com/scala-js/scala-js/issues/2068">#2068</a>)</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2045">#2045</a> <code class="highlighter-rouge">BigInt.pow(31)</code> return the negative of the expected number</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2067">#2067</a> Better implicits for combinations of <code class="highlighter-rouge">js.|</code> and <code class="highlighter-rouge">js.UndefOr</code></li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2114">#2114</a> <code class="highlighter-rouge">CharBuffer.wrap(CharSequence,Int,Int)</code> interprets <code class="highlighter-rouge">end</code> as <code class="highlighter-rouge">length</code></li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2158">#2158</a> Parsing very large <code class="highlighter-rouge">Long</code> does not fail properly</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2159">#2159</a> <code class="highlighter-rouge">java.math.BigInteger</code> violate equals/hashCode law</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2178">#2178</a> sbt <code class="highlighter-rouge">test:run</code> on Scala.js projects runs it under the JVM</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2180">#2180</a> <code class="highlighter-rouge">Character.isWhitespace</code> discrepancies</li>
+</ul>
+
+<p>You can find the full list <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av0.6.6+is%3Aclosed">on GitHub</a>.</p>
+
+<h2 id="known-issues">Known issues</h2>
+
+<p>The following issues were discovered too late to be fixed in v0.6.6:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2195">#2195</a> Source maps to the Scala library are broken</li>
+</ul>
+
+            <div class="spacing"></div>
+            <nav>
+                <ul class="pager">
+                    
+                    <li class="previous"><a href="/news/2015/11/23/new-website/"
+                                            title="A new website for Scala.js">&larr; Previous</a></li>
+                    
+                    
+                    <li class="next"><a href="/news/2016/02/12/announcing-scalajs-0.6.7/"
+                                        title="Announcing Scala.js 0.6.7">Next &rarr;</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

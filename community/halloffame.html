@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/community/halloffame.html">
+
+    <title> Hall of Fame - Scala.js</title>
+
+    <meta property="og:title" content="Hall of Fame" /><meta property="og:type" content="website" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li class="active"><a href="/community/">COMMUNITY</a></li>
+        <li ><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Hall of Fame</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-9">
+            <p>The Hall of Fame highlights occasions where the Scala.js project has contributed to other, larger projects.</p>
+
+<h3 id="nodejsv8-integer-arithmetic-bug">Node.js/V8: Integer Arithmetic Bug</h3>
+
+<p>Prior to Node.js 0.10.29, comparing <code class="highlighter-rouge">Int.MaxValue</code> with <code class="highlighter-rouge">Int.MinValue</code> could yield a wrong result.
+Notably:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span> <span class="nx">node</span>
+<span class="o">&gt;</span> <span class="mi">2147483647</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">2147483648</span>
+<span class="kc">false</span></code></pre></figure>
+
+<p>This <a href="https://github.com/nodejs/node-v0.x-archive/issues/7528">Node.js bug</a> was discovered by a <a href="https://github.com/scala/scala/blob/v2.11.7/test/files/run/range-unit.scala">test</a> in Scala’s partest suite that we run for Scala.js.</p>
+
+<h3 id="google-closure-compiler-bad-string-constant-folding">Google Closure Compiler: Bad String Constant Folding</h3>
+
+<p>The Google Closure Compiler (GCC) applied a wrong algorithm to convert number literals to strings during constant folding:
+Instead of a conversion conforming to the ECMAScript standard, GCC used Java’s implementation of <code class="highlighter-rouge">toString</code>.
+For example, GCC constant folded the following code:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">alert</span><span class="p">(</span><span class="s1">'A number: '</span> <span class="o">+</span> <span class="mf">1.2323919403474454</span><span class="nx">e</span><span class="o">+</span><span class="mi">21</span><span class="p">);</span></code></pre></figure>
+
+<p>into:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">alert</span><span class="p">(</span><span class="s2">"A number: 1.2323919403474454E21"</span><span class="p">);</span></code></pre></figure>
+
+<p>Whereas the following would be correct:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">alert</span><span class="p">(</span><span class="s2">"A number: 1.2323919403474454e+21"</span><span class="p">);</span></code></pre></figure>
+
+<p>This <a href="https://github.com/google/closure-compiler/issues/1262">GCC bug</a> was discovered while making <a href="https://github.com/scala-js/scala-js/pull/2007">improvements</a> to Scala.js’ constant folder.</p>
+
+<h3 id="react-dependency-on-inheritance-of-static-members">React: Dependency on Inheritance of Static Members</h3>
+
+<p>In the initial plans for React 0.14, React checked for the static flag <code class="highlighter-rouge">isReactClass</code> on classes extending <code class="highlighter-rouge">React.Component</code>.
+In ECMAScript 6, such static members are inherited by subclasses:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">class</span> <span class="nx">Foo</span> <span class="p">{}</span>
+<span class="nx">Foo</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="kd">class</span> <span class="nx">Bar</span> <span class="kd">extends</span> <span class="nx">Foo</span><span class="p">{}</span>
+<span class="nx">Bar</span><span class="p">.</span><span class="nx">x</span> <span class="c1">// -&gt; 5</span></code></pre></figure>
+
+<p>While this behavior is specified in ECMAScript 6, there is no reliable way to reproduce it in pure ECMAScript 5.
+This would have essentially meant that React would not work on some fully ECMAScript 5 compliant platforms, a notable example being Internet Explorer 10 and earlier.</p>
+
+<p>After the discussion on the <a href="https://github.com/scala-js/scala-js/issues/1900">Scala.js bug</a>, the React team changed the design and is now using a <a href="https://github.com/facebook/react/commit/83644185f4388834c0c482c7522a5f2f476d84a2">non-static method now</a>.</p>
+
+            <div class="spacing"></div>
+        </div>
+        <div class="col-md-3">
+            <nav class="toc" role="navigation">
+                
+<ul>
+    
+    <li>
+        <a href="/community/">
+            
+            
+            Community
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/community/presentations.html">
+            
+            
+            Presentations and videos
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/community/halloffame.html">
+            
+            
+            <b>Hall of Fame</b>
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

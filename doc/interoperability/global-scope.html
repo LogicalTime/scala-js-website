@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/doc/interoperability/global-scope.html">
+
+    <title> Access to the JavaScript global scope in Scala.js - Scala.js</title>
+
+    <meta property="og:title" content="Access to the JavaScript global scope in Scala.js" /><meta property="og:type" content="website" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li ><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Access to the JavaScript global scope in Scala.js</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-9">
+            <p><strong>This page applies to Scala.js 1.x only.</strong></p>
+
+<p>Unlike Scala, JavaScript has a <em>global scope</em>, where global variables are defined.
+For example, one can define a variable <code class="highlighter-rouge">foo</code> at the top-level of a script:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span></code></pre></figure>
+
+<p>which then makes it available in the global scope, so that another script can read or write it:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="o">(</span><span class="n">foo</span><span class="o">);</span>
+<span class="n">foo</span> <span class="k">=</span> <span class="mi">24</span><span class="o">;</span></code></pre></figure>
+
+<p>The <a href="./facade-types.html">facade types reference</a> explains how we can define facades for global variables.
+Here is a recap of the different ways:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSGlobalScope</span>
+<span class="k">object</span> <span class="nc">Globals</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">var</span> <span class="n">foo</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+<span class="o">}</span>
+
+<span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSGlobal</span>
+<span class="k">class</span> <span class="nc">Bar</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span>
+
+<span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSGlobal</span>
+<span class="k">object</span> <span class="nc">Bar</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span></code></pre></figure>
+
+<ul>
+  <li><code class="highlighter-rouge">@JSGlobal</code> specifies that the annotated entity (class or object) represents a <em>global variable</em>, in the JavaScript global scope.</li>
+  <li><code class="highlighter-rouge">@JSGlobalScope</code> specifies that the annotated object represents the global scope itself, which means its <em>members</em> are global variables.</li>
+</ul>
+
+<p>With the above definitions, the snippet</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="nc">Globals</span><span class="o">.</span><span class="n">foo</span>
+<span class="nc">Global</span><span class="o">.</span><span class="n">foo</span> <span class="k">=</span> <span class="mi">24</span>
+
+<span class="k">val</span> <span class="n">y</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Bar</span>
+<span class="k">val</span> <span class="n">z</span> <span class="k">=</span> <span class="nc">Bar</span></code></pre></figure>
+
+<p>would “translate” to</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">;</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="mi">24</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Bar</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">z</span> <span class="o">=</span> <span class="nx">Bar</span><span class="p">;</span></code></pre></figure>
+
+<p>There are two “consequences” to that.</p>
+
+<p>First, in any of the 4 above statements, if the referenced variable is not declared as a global variable, a <code class="highlighter-rouge">ReferenceError</code> will be thrown at run-time.
+This is also what would happen in JavaScript when accessing a non-existent global variable.</p>
+
+<p>Second, whereas <code class="highlighter-rouge">val x = Globals.foo</code> translates to <code class="highlighter-rouge">var x = foo</code>, <code class="highlighter-rouge">val g = Globals</code> has no valid translation in JavaScript, and is a compile-time error.
+Indeed, <em>since ECMAScript 2015</em>, there is no JavaScript value that <code class="highlighter-rouge">g</code> could assume, such that <code class="highlighter-rouge">g.foo</code> would evaluate to the global variable <code class="highlighter-rouge">foo</code> (until ECMAScript 5.1, <code class="highlighter-rouge">g</code> could have been the <em>global object</em>, and this is what Scala.js 0.6.x did).
+In general, any “dynamic” reference to a global-scope object is a compile-time error in Scala.js 1.x.</p>
+
+<h2 id="global-scope-restrictions">Global-scope restrictions</h2>
+
+<p>After the above introduction, here is a reference of the compile-time restrictions of global-scope objects.</p>
+
+<p>Assuming that <code class="highlighter-rouge">Globals</code> is an <code class="highlighter-rouge">@JSGlobalScope object</code>, then any use of <code class="highlighter-rouge">Globals</code> must satisfy <em>all</em> of the following requirements:</p>
+
+<ul>
+  <li>It is used as the left-hand-side of a dot-selection, i.e., in <code class="highlighter-rouge">Globals.foobar</code> or <code class="highlighter-rouge">Globals.foobar(...)</code></li>
+  <li>Either of the 3 alternatives:
+    <ul>
+      <li>If <code class="highlighter-rouge">foobar</code> refers to a method annotated with <code class="highlighter-rouge">@JSBracketAccess</code> or <code class="highlighter-rouge">@JSBracketCall</code>, then the first actual argument must be a constant string which is a valid JavaScript identifier (e.g., <code class="highlighter-rouge">Global.foobar("ident")</code> is valid but <code class="highlighter-rouge">Global.foobar(someVal)</code> isn’t)</li>
+      <li>Otherwise, if <code class="highlighter-rouge">foobar</code> has an <code class="highlighter-rouge">@JSName(jsName)</code> then <code class="highlighter-rouge">jsName</code> must be a constant string which is a valid JavaScript identifier</li>
+      <li>Otherwise, <code class="highlighter-rouge">foobar</code> must be a valid JavaScript identifier different than <code class="highlighter-rouge">apply</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>For the purposes of this test, the special identifier <code class="highlighter-rouge">arguments</code> is not considered as a valid JavaScript identifier.</p>
+
+<p>Here are some concrete examples.
+Given the following definitions:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.scalajs.js</span>
+<span class="k">import</span> <span class="nn">scala.scalajs.js.annotation._</span>
+
+<span class="k">object</span> <span class="nc">Symbols</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">sym</span><span class="k">:</span> <span class="kt">js.Symbol</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="nc">Symbol</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSGlobalScope</span>
+<span class="k">object</span> <span class="nc">Globals</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Any</span> <span class="o">{</span>
+  <span class="k">var</span> <span class="n">validVar</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+  <span class="k">def</span> <span class="n">validDef</span><span class="o">()</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+
+  <span class="k">var</span> <span class="n">`not-a-valid-identifier-var`</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+  <span class="k">def</span> <span class="n">`not-a-valid-identifier-def`</span><span class="o">()</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+
+  <span class="k">def</span> <span class="o">+(</span><span class="n">that</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+
+  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+
+  <span class="nd">@JSBracketAccess</span>
+  <span class="k">def</span> <span class="n">bracketSelect</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+  <span class="nd">@JSBracketAccess</span>
+  <span class="k">def</span> <span class="n">bracketUpdate</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">v</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+
+  <span class="nd">@JSBracketCall</span>
+  <span class="k">def</span> <span class="n">bracketCall</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)(</span><span class="n">arg</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+
+  <span class="nd">@JSName</span><span class="o">(</span><span class="nc">Symbols</span><span class="o">.</span><span class="n">sym</span><span class="o">)</span>
+  <span class="k">var</span> <span class="n">symbolVar</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+  <span class="nd">@JSName</span><span class="o">(</span><span class="nc">Symbols</span><span class="o">.</span><span class="n">sym</span><span class="o">)</span>
+  <span class="k">def</span> <span class="n">symbolDef</span><span class="o">()</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+
+  <span class="k">var</span> <span class="n">arguments</span><span class="k">:</span> <span class="kt">js.Array</span><span class="o">[</span><span class="kt">Any</span><span class="o">]</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+  <span class="nd">@JSName</span><span class="o">(</span><span class="s">"arguments"</span><span class="o">)</span> <span class="k">def</span> <span class="n">arguments2</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Only the following uses of <code class="highlighter-rouge">Globals</code> would be valid:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nc">Globals</span><span class="o">.</span><span class="n">validVar</span>
+<span class="nc">Globals</span><span class="o">.</span><span class="n">validDef</span><span class="o">()</span>
+
+<span class="nc">Globals</span><span class="o">.</span><span class="n">bracketSelect</span><span class="o">(</span><span class="s">"someConstantIdent"</span><span class="o">)</span>
+<span class="nc">Globals</span><span class="o">.</span><span class="n">bracketUpdate</span><span class="o">(</span><span class="s">"someConstantIdent"</span><span class="o">,</span> <span class="n">anyExpression</span><span class="o">)</span>
+
+<span class="nc">Globals</span><span class="o">.</span><span class="n">bracketCall</span><span class="o">(</span><span class="s">"someConstantIdent"</span><span class="o">)(</span><span class="n">anyExpression</span><span class="o">)</span></code></pre></figure>
+
+<p>All of the following uses are compile-time errors:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Not used as the left-hand-side of a dot-selection
+</span><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="nc">Globals</span>
+<span class="n">someMethod</span><span class="o">(</span><span class="nc">Globals</span><span class="o">)</span>
+
+<span class="c1">// Accessing something that is not a valid JS identifier
+</span><span class="nc">Globals</span><span class="o">.</span><span class="n">`not-a-valid-identifier-var`</span>
+<span class="nc">Globals</span><span class="o">.</span><span class="n">`not-a-valid-identifier-def`</span><span class="o">()</span>
+<span class="nc">Globals</span> <span class="o">+</span> <span class="mi">0</span>
+<span class="nc">Globals</span><span class="o">.</span><span class="n">arguments</span>
+<span class="nc">Globals</span><span class="o">.</span><span class="n">arguments2</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+
+<span class="c1">// Calling an `apply` method without `@JSName`
+</span><span class="nc">Globals</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+
+<span class="c1">// Accessing a bracket-access/call member with a non-constant string
+</span><span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="n">computeSomeString</span><span class="o">()</span>
+<span class="nc">Globals</span><span class="o">.</span><span class="n">bracketSelect</span><span class="o">(</span><span class="n">str</span><span class="o">)</span>
+<span class="nc">Globals</span><span class="o">.</span><span class="n">bracketUpdate</span><span class="o">(</span><span class="n">str</span><span class="o">,</span> <span class="mi">0</span><span class="o">)</span>
+<span class="nc">Globals</span><span class="o">.</span><span class="n">bracketCall</span><span class="o">(</span><span class="n">str</span><span class="o">)(</span><span class="mi">0</span><span class="o">)</span>
+
+<span class="c1">// Accessing a bracket-access/call member with a non-valid JS ident
+</span><span class="nc">Globals</span><span class="o">.</span><span class="n">bracketSelect</span><span class="o">(</span><span class="s">"not an ident"</span><span class="o">)</span>
+<span class="nc">Globals</span><span class="o">.</span><span class="n">bracketUpdate</span><span class="o">(</span><span class="s">"not an ident"</span><span class="o">,</span> <span class="mi">0</span><span class="o">)</span>
+<span class="nc">Globals</span><span class="o">.</span><span class="n">bracketCall</span><span class="o">(</span><span class="s">"not an ident"</span><span class="o">)(</span><span class="mi">0</span><span class="o">)</span>
+
+<span class="c1">// Accessing a member whose JS name is a symbol
+</span><span class="nc">Globals</span><span class="o">.</span><span class="n">symbolVar</span>
+<span class="nc">Globals</span><span class="o">.</span><span class="n">symbolDef</span><span class="o">()</span></code></pre></figure>
+
+<h2 id="the-case-of-jsdynamicglobal">The case of <code class="highlighter-rouge">js.Dynamic.global</code></h2>
+
+<p><code class="highlighter-rouge">js.Dynamic.global</code> is an <code class="highlighter-rouge">@JSGlobalScope object</code> that lets you read and write any field and call any top-level function in a dynamically typed way.
+As with any other global-scope object, it must always be used at the left-hand-side of a dot-selection, with a valid JavaScript on the right-hand-side.</p>
+
+<p>For example, the following uses are valid:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="n">foo</span>
+<span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="n">foo</span> <span class="k">=</span> <span class="mi">24</span>
+
+<span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="n">bar</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span></code></pre></figure>
+
+<p>but the following uses are not valid:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span>
+
+<span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="n">`not-a-valid-identifier`</span>
+
+<span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="n">computeSomeString</span><span class="o">()</span>
+<span class="k">val</span> <span class="n">y</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="n">selectDynamic</span><span class="o">(</span><span class="n">str</span><span class="o">)</span></code></pre></figure>
+
+<p>The example means that it is not possible to dynamically look up a global variable given its name.</p>
+
+<h2 id="practical-tips">Practical tips</h2>
+
+<h3 id="testing-whether-a-global-variable-exists">Testing whether a global variable exists</h3>
+
+<p>In Scala.js 0.6.x, it was possible to test whether a global variable exists (e.g., to perform a feature test) as follows:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">if</span> <span class="o">(!</span><span class="n">js</span><span class="o">.</span><span class="n">isUndefined</span><span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="nc">Promise</span><span class="o">))</span> <span class="o">{</span>
+  <span class="c1">// Promises are supported
+</span><span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+  <span class="c1">// Promises are not supported
+</span><span class="o">}</span></code></pre></figure>
+
+<p>In Scala.js 1.x, accessing <code class="highlighter-rouge">js.Dynamic.global.Promise</code> will throw a <code class="highlighter-rouge">ReferenceError</code> if <code class="highlighter-rouge">Promise</code> is not defined, so this does not work anymore.
+Instead, you must use <code class="highlighter-rouge">js.typeOf</code>:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">if</span> <span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="n">typeOf</span><span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="nc">Promise</span><span class="o">)</span> <span class="o">!=</span> <span class="s">"undefined"</span><span class="o">)</span></code></pre></figure>
+
+<p>Just like in JavaScript, where <code class="highlighter-rouge">typeof Promise</code> is special, so is <code class="highlighter-rouge">js.typeOf(e)</code> if <code class="highlighter-rouge">e</code> is a member of a global-scope object (i.e., a global variable).
+If the global variable does not exist, <code class="highlighter-rouge">js.typeOf(e)</code> returns <code class="highlighter-rouge">"undefined"</code> instead of throwing a <code class="highlighter-rouge">ReferenceError</code>.</p>
+
+<h3 id="dynamically-lookup-a-global-variable-given-its-name">Dynamically lookup a global variable given its name</h3>
+
+<p>In general, it is not possible to dynamically lookup a global variable given its name, even in JavaScript.
+If absolutely necessary, one typically has to detect the <em>global object</em>, and use a normal field selection on it.
+Assuming <code class="highlighter-rouge">globalObject</code> is a <code class="highlighter-rouge">js.Dynamic</code> representing the global object, we can do</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="n">globalObject</span><span class="o">.</span><span class="n">selectDynamic</span><span class="o">(</span><span class="n">dynVarName</span><span class="o">)</span></code></pre></figure>
+
+<p>There is no fully standard way to detect the global object.
+However, most JavaScript environments fall into two categories:</p>
+
+<ul>
+  <li>Either the global object is available as the global variable named <code class="highlighter-rouge">global</code> (e.g., in Node.js)</li>
+  <li>Or the “global” <code class="highlighter-rouge">this</code> keyword refers to the global object.</li>
+</ul>
+
+<p>The global variable <code class="highlighter-rouge">global</code> can of course be read with <code class="highlighter-rouge">js.Dynamic.global.global</code> (the double <code class="highlighter-rouge">global</code> is intended).
+The global <code class="highlighter-rouge">this</code> can be read with <a href="https://github.com/scala-js/scala-js/blob/v1.0.0-M1/library/src/main/scala/scala/scalajs/js/special/package.scala#L40-L70"><code class="highlighter-rouge">js.special.globalThis</code></a>.
+Together, these can be used to correctly detect the global scope in most environments:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">globalObject</span><span class="k">:</span> <span class="kt">js.Dynamic</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">import</span> <span class="nn">js.Dynamic.</span><span class="o">{</span><span class="n">global</span> <span class="k">=&gt;</span> <span class="n">g</span><span class="o">}</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="n">typeOf</span><span class="o">(</span><span class="n">g</span><span class="o">.</span><span class="n">global</span><span class="o">)</span> <span class="o">!=</span> <span class="s">"undefined"</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">g</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="nc">Object</span> <span class="n">eq</span> <span class="n">g</span><span class="o">.</span><span class="nc">Object</span><span class="o">))</span> <span class="o">{</span>
+    <span class="c1">// Node.js environment detected
+</span>    <span class="n">g</span><span class="o">.</span><span class="n">global</span>
+  <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="c1">// In all other well-known environment, we can use the global `this`
+</span>    <span class="n">js</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">globalThis</span><span class="o">.</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">js.Dynamic</span><span class="o">]</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+
+            <div class="spacing"></div>
+        </div>
+        <div class="col-md-3">
+            <nav class="toc" role="navigation">
+                
+<ul>
+    
+    <li>
+        <a href="/doc/">
+            
+            
+            Introduction
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/tutorial/">
+            
+            
+            Tutorials
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/tutorial/basic/">
+            
+            
+            Basic tutorial
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/">
+            
+            
+            Scala.js for JavaScript developers
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part1.html">
+            
+            
+            From ES6 to Scala: Basics
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part2.html">
+            
+            
+            From ES6 to Scala: Collections
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part3.html">
+            
+            
+            From ES6 to Scala: Advanced
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/project/">
+            
+            
+            Project setup
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/project/building.html">
+            
+            
+            Building the application
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/dependencies.html">
+            
+            
+            Dependencies
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/module.html">
+            
+            
+            Emitting modules
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/js-environments.html">
+            
+            
+            JavaScript Environments
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/cross-build.html">
+            
+            
+            Cross-building
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/testing.html">
+            
+            
+            Testing
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/interoperability/">
+            
+            
+            JavaScript interoperability
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/interoperability/types.html">
+            
+            
+            JavaScript types
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/facade-types.html">
+            
+            
+            Write facade types for JS APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/global-scope.html">
+            
+            
+            <b>Access to the JavaScript global scope (1.x only)</b>
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/export-to-javascript.html">
+            
+            
+            Export Scala.js APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/sjs-defined-js-classes.html">
+            
+            
+            Write JavaScript classes in Scala.js
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/exceptions.html">
+            
+            
+            Working with Exceptions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/api.html">
+            
+            
+            Scala.js API
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/all-api.html">
+            
+            
+            APIs of previous versions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/semantics.html">
+            
+            
+            Semantics of Scala.js
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/">
+            
+            
+            Internals
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/internals/performance.html">
+            
+            
+            Performance
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/downloads.html">
+            
+            
+            Standalone distribution
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/version-history.html">
+            
+            
+            Version history
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/faq.html">
+            
+            
+            FAQ
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

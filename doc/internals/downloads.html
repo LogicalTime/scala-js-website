@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/doc/internals/downloads.html">
+
+    <title> Standalone distribution - Scala.js</title>
+
+    <meta property="og:title" content="Standalone distribution" /><meta property="og:type" content="website" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li ><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Standalone distribution</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-9">
+            <p>We strongly recommend using the SBT plugin, as shown in the <a href="https://github.com/sjrd/scala-js-example-app">bootstrapping skeleton</a>, but we also ship a command line distribution.</p>
+
+<p>The CLI distribution requires <code class="highlighter-rouge">scala</code> and <code class="highlighter-rouge">scalac</code> (of the right major version) to be on the execution path. Unpack it wherever you like and add the <code class="highlighter-rouge">bin/</code> folder to your execution path.</p>
+
+<h4 id="scalajs-0626">Scala.js 0.6.26</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.26.tgz">0.6.26, Scala 2.12 (tgz, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.26.zip">0.6.26, Scala 2.12 (zip, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.26.tgz">0.6.26, Scala 2.11 (tgz, 30MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.26.zip">0.6.26, Scala 2.11 (zip, 30MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.26.tgz">0.6.26, Scala 2.10 (tgz, 25MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.26.zip">0.6.26, Scala 2.10 (zip, 25MB)</a></li>
+</ul>
+
+<h4 id="scalajs-100-m6">Scala.js 1.0.0-M6</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-1.0.0-M6.tgz">1.0.0-M6, Scala 2.12 (tgz, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-1.0.0-M6.zip">1.0.0-M6, Scala 2.12 (zip, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-1.0.0-M6.tgz">1.0.0-M6, Scala 2.11 (tgz, 28MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-1.0.0-M6.zip">1.0.0-M6, Scala 2.11 (zip, 28MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0625">Scala.js 0.6.25</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.25.tgz">0.6.25, Scala 2.12 (tgz, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.25.zip">0.6.25, Scala 2.12 (zip, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.25.tgz">0.6.25, Scala 2.11 (tgz, 30MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.25.zip">0.6.25, Scala 2.11 (zip, 30MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.25.tgz">0.6.25, Scala 2.10 (tgz, 25MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.25.zip">0.6.25, Scala 2.10 (zip, 25MB)</a></li>
+</ul>
+
+<h4 id="scalajs-100-m5">Scala.js 1.0.0-M5</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-1.0.0-M5.tgz">1.0.0-M5, Scala 2.12 (tgz, 17MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-1.0.0-M5.zip">1.0.0-M5, Scala 2.12 (zip, 17MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-1.0.0-M5.tgz">1.0.0-M5, Scala 2.11 (tgz, 28MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-1.0.0-M5.zip">1.0.0-M5, Scala 2.11 (zip, 28MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0624">Scala.js 0.6.24</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.24.tgz">0.6.24, Scala 2.12 (tgz, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.24.zip">0.6.24, Scala 2.12 (zip, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.24.tgz">0.6.24, Scala 2.11 (tgz, 30MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.24.zip">0.6.24, Scala 2.11 (zip, 30MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.24.tgz">0.6.24, Scala 2.10 (tgz, 25MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.24.zip">0.6.24, Scala 2.10 (zip, 25MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0623">Scala.js 0.6.23</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.23.tgz">0.6.23, Scala 2.12 (tgz, 19MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.23.zip">0.6.23, Scala 2.12 (zip, 19MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.23.tgz">0.6.23, Scala 2.11 (tgz, 30MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.23.zip">0.6.23, Scala 2.11 (zip, 30MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.23.tgz">0.6.23, Scala 2.10 (tgz, 25MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.23.zip">0.6.23, Scala 2.10 (zip, 25MB)</a></li>
+</ul>
+
+<h4 id="scalajs-100-m3">Scala.js 1.0.0-M3</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-1.0.0-M3.tgz">1.0.0-M3, Scala 2.12 (tgz, 16MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-1.0.0-M3.zip">1.0.0-M3, Scala 2.12 (zip, 16MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-1.0.0-M3.tgz">1.0.0-M3, Scala 2.11 (tgz, 28MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-1.0.0-M3.zip">1.0.0-M3, Scala 2.11 (zip, 28MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0622">Scala.js 0.6.22</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.22.tgz">0.6.22, Scala 2.12 (tgz, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.22.zip">0.6.22, Scala 2.12 (zip, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.22.tgz">0.6.22, Scala 2.11 (tgz, 30MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.22.zip">0.6.22, Scala 2.11 (zip, 30MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.22.tgz">0.6.22, Scala 2.10 (tgz, 25MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.22.zip">0.6.22, Scala 2.10 (zip, 25MB)</a></li>
+</ul>
+
+<h4 id="scalajs-100-m2">Scala.js 1.0.0-M2</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-1.0.0-M2.tgz">1.0.0-M2, Scala 2.12 (tgz, 16MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-1.0.0-M2.zip">1.0.0-M2, Scala 2.12 (zip, 16MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-1.0.0-M2.tgz">1.0.0-M2, Scala 2.11 (tgz, 28MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-1.0.0-M2.zip">1.0.0-M2, Scala 2.11 (zip, 28MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-1.0.0-M2.tgz">1.0.0-M2, Scala 2.10 (tgz, 23MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-1.0.0-M2.zip">1.0.0-M2, Scala 2.10 (zip, 23MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0621">Scala.js 0.6.21</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.21.tgz">0.6.21, Scala 2.12 (tgz, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.21.zip">0.6.21, Scala 2.12 (zip, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.21.tgz">0.6.21, Scala 2.11 (tgz, 29MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.21.zip">0.6.21, Scala 2.11 (zip, 29MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.21.tgz">0.6.21, Scala 2.10 (tgz, 23MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.21.zip">0.6.21, Scala 2.10 (zip, 23MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0620">Scala.js 0.6.20</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.20.tgz">0.6.20, Scala 2.12 (tgz, 17MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.20.zip">0.6.20, Scala 2.12 (zip, 17MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.20.tgz">0.6.20, Scala 2.11 (tgz, 29MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.20.zip">0.6.20, Scala 2.11 (zip, 29MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.20.tgz">0.6.20, Scala 2.10 (tgz, 23MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.20.zip">0.6.20, Scala 2.10 (zip, 23MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0619">Scala.js 0.6.19</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.19.tgz">0.6.19, Scala 2.12 (tgz, 16MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.19.zip">0.6.19, Scala 2.12 (zip, 16MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.19.tgz">0.6.19, Scala 2.11 (tgz, 28MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.19.zip">0.6.19, Scala 2.11 (zip, 29MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.19.tgz">0.6.19, Scala 2.10 (tgz, 23MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.19.zip">0.6.19, Scala 2.10 (zip, 23MB)</a></li>
+</ul>
+
+<h4 id="scalajs-100-m1">Scala.js 1.0.0-M1</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-1.0.0-M1.tgz">1.0.0-M1, Scala 2.12 (tgz, 15MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-1.0.0-M1.zip">1.0.0-M1, Scala 2.12 (zip, 15MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-1.0.0-M1.tgz">1.0.0-M1, Scala 2.11 (tgz, 28MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-1.0.0-M1.zip">1.0.0-M1, Scala 2.11 (zip, 28MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-1.0.0-M1.tgz">1.0.0-M1, Scala 2.10 (tgz, 22MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-1.0.0-M1.zip">1.0.0-M1, Scala 2.10 (zip, 22MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0618">Scala.js 0.6.18</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.18.tgz">0.6.18, Scala 2.12 (tgz, 16MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.18.zip">0.6.18, Scala 2.12 (zip, 16MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.18.tgz">0.6.18, Scala 2.11 (tgz, 28MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.18.zip">0.6.18, Scala 2.11 (zip, 28MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.18.tgz">0.6.18, Scala 2.10 (tgz, 23MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.18.zip">0.6.18, Scala 2.10 (zip, 23MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0617">Scala.js 0.6.17</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.17.tgz">0.6.17, Scala 2.12 (tgz, 17MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.17.zip">0.6.17, Scala 2.12 (zip, 17MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.17.tgz">0.6.17, Scala 2.11 (tgz, 29MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.17.zip">0.6.17, Scala 2.11 (zip, 29MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.17.tgz">0.6.17, Scala 2.10 (tgz, 23MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.17.zip">0.6.17, Scala 2.10 (zip, 23MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0616">Scala.js 0.6.16</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.16.tgz">0.6.16, Scala 2.12 (tgz, 16MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.16.zip">0.6.16, Scala 2.12 (zip, 16MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.16.tgz">0.6.16, Scala 2.11 (tgz, 28MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.16.zip">0.6.16, Scala 2.11 (zip, 28MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.16.tgz">0.6.16, Scala 2.10 (tgz, 23MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.16.zip">0.6.16, Scala 2.10 (zip, 23MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0615">Scala.js 0.6.15</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.15.tgz">0.6.15, Scala 2.12 (tgz, 15MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.12-0.6.15.zip">0.6.15, Scala 2.12 (zip, 15MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.15.tgz">0.6.15, Scala 2.11 (tgz, 27MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.15.zip">0.6.15, Scala 2.11 (zip, 27MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.15.tgz">0.6.15, Scala 2.10 (tgz, 23MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.15.zip">0.6.15, Scala 2.10 (zip, 23MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0614">Scala.js 0.6.14</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.14.tgz">0.6.14, Scala 2.11 (tgz, 26MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.14.zip">0.6.14, Scala 2.11 (zip, 26MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.14.tgz">0.6.14, Scala 2.10 (tgz, 22MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.14.zip">0.6.14, Scala 2.10 (zip, 22MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0613">Scala.js 0.6.13</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.13.tgz">0.6.13, Scala 2.11 (tgz, 26MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.13.zip">0.6.13, Scala 2.11 (zip, 26MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.13.tgz">0.6.13, Scala 2.10 (tgz, 22MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.13.zip">0.6.13, Scala 2.10 (zip, 22MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0612">Scala.js 0.6.12</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.12.tgz">0.6.12, Scala 2.11 (tgz, 25MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.12.zip">0.6.12, Scala 2.11 (zip, 25MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.12.tgz">0.6.12, Scala 2.10 (tgz, 22MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.12.zip">0.6.12, Scala 2.10 (zip, 22MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0611">Scala.js 0.6.11</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.11.tgz">0.6.11, Scala 2.11 (tgz, 25MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.11.zip">0.6.11, Scala 2.11 (zip, 25MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.11.tgz">0.6.11, Scala 2.10 (tgz, 22MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.11.zip">0.6.11, Scala 2.10 (zip, 22MB)</a></li>
+</ul>
+
+<h4 id="scalajs-0610">Scala.js 0.6.10</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.10.tgz">0.6.10, Scala 2.11 (tgz, 25MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.10.zip">0.6.10, Scala 2.11 (zip, 25MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.10.tgz">0.6.10, Scala 2.10 (tgz, 21MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.10.zip">0.6.10, Scala 2.10 (zip, 21MB)</a></li>
+</ul>
+
+<h4 id="scalajs-069">Scala.js 0.6.9</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.9.tgz">0.6.9, Scala 2.11 (tgz, 25MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.9.zip">0.6.9, Scala 2.11 (zip, 25MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.9.tgz">0.6.9, Scala 2.10 (tgz, 21MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.9.zip">0.6.9, Scala 2.10 (zip, 21MB)</a></li>
+</ul>
+
+<h4 id="scalajs-068">Scala.js 0.6.8</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.8.tgz">0.6.8, Scala 2.11 (tgz, 24MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.8.zip">0.6.8, Scala 2.11 (zip, 24MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.8.tgz">0.6.8, Scala 2.10 (tgz, 21MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.8.zip">0.6.8, Scala 2.10 (zip, 21MB)</a></li>
+</ul>
+
+<h4 id="scalajs-067">Scala.js 0.6.7</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.7.tgz">0.6.7, Scala 2.11 (tgz, 23MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.7.zip">0.6.7, Scala 2.11 (zip, 23MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.7.tgz">0.6.7, Scala 2.10 (tgz, 21MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.7.zip">0.6.7, Scala 2.10 (zip, 21MB)</a></li>
+</ul>
+
+<h4 id="scalajs-066">Scala.js 0.6.6</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.6.tgz">0.6.6, Scala 2.11 (tgz, 24MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.6.zip">0.6.6, Scala 2.11 (zip, 24MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.6.tgz">0.6.6, Scala 2.10 (tgz, 22MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.6.zip">0.6.6, Scala 2.10 (zip, 22MB)</a></li>
+</ul>
+
+<h4 id="scalajs-065">Scala.js 0.6.5</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.5.tgz">0.6.5, Scala 2.11 (tgz, 24MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.5.zip">0.6.5, Scala 2.11 (zip, 24MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.5.tgz">0.6.5, Scala 2.10 (tgz, 21MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.5.zip">0.6.5, Scala 2.10 (zip, 21MB)</a></li>
+</ul>
+
+<h4 id="scalajs-064">Scala.js 0.6.4</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.4.tgz">0.6.4, Scala 2.11 (tgz, 23MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.4.zip">0.6.4, Scala 2.11 (zip, 23MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.4.tgz">0.6.4, Scala 2.10 (tgz, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.4.zip">0.6.4, Scala 2.10 (zip, 20MB)</a></li>
+</ul>
+
+<h4 id="scalajs-063">Scala.js 0.6.3</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.3.tgz">0.6.3, Scala 2.11 (tgz, 21MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.3.zip">0.6.3, Scala 2.11 (zip, 21MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.3.tgz">0.6.3, Scala 2.10 (tgz, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.3.zip">0.6.3, Scala 2.10 (zip, 20MB)</a></li>
+</ul>
+
+<h4 id="scalajs-062">Scala.js 0.6.2</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.2.tgz">0.6.2, Scala 2.11 (tgz, 21MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.2.zip">0.6.2, Scala 2.11 (zip, 21MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.2.tgz">0.6.2, Scala 2.10 (tgz, 19MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.2.zip">0.6.2, Scala 2.10 (zip, 19MB)</a></li>
+</ul>
+
+<h4 id="scalajs-061">Scala.js 0.6.1</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.1.tgz">0.6.1, Scala 2.11 (tgz, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.1.zip">0.6.1, Scala 2.11 (zip, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.1.tgz">0.6.1, Scala 2.10 (tgz, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.1.zip">0.6.1, Scala 2.10 (zip, 18MB)</a></li>
+</ul>
+
+<h4 id="scalajs-060">Scala.js 0.6.0</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.0.tgz">0.6.0, Scala 2.11 (tgz, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.0.zip">0.6.0, Scala 2.11 (zip, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.0.tgz">0.6.0, Scala 2.10 (tgz, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.0.zip">0.6.0, Scala 2.10 (zip, 18MB)</a></li>
+</ul>
+
+<h4 id="scalajs-060-rc2">Scala.js 0.6.0-RC2</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.0-RC2.tgz">0.6.0-RC2, Scala 2.11 (tgz, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.0-RC2.zip">0.6.0-RC2, Scala 2.11 (zip, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.0-RC2.tgz">0.6.0-RC2, Scala 2.10 (tgz, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.0-RC2.zip">0.6.0-RC2, Scala 2.10 (zip, 18MB)</a></li>
+</ul>
+
+<h4 id="scalajs-060-rc1">Scala.js 0.6.0-RC1</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.0-RC1.tgz">0.6.0-RC1, Scala 2.11 (tgz, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.0-RC1.zip">0.6.0-RC1, Scala 2.11 (zip, 20MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.0-RC1.tgz">0.6.0-RC1, Scala 2.10 (tgz, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.0-RC1.zip">0.6.0-RC1, Scala 2.10 (zip, 18MB)</a></li>
+</ul>
+
+<h4 id="scalajs-060-m3">Scala.js 0.6.0-M3</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.0-M3.tgz">0.6.0-M3, Scala 2.11 (tgz, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.0-M3.zip">0.6.0-M3, Scala 2.11 (zip, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.0-M3.tgz">0.6.0-M3, Scala 2.10 (tgz, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.0-M3.zip">0.6.0-M3, Scala 2.10 (zip, 18MB)</a></li>
+</ul>
+
+<h4 id="scalajs-060-m2">Scala.js 0.6.0-M2</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.0-M2.tgz">0.6.0-M2, Scala 2.11 (tgz, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.0-M2.zip">0.6.0-M2, Scala 2.11 (zip, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.0-M2.tgz">0.6.0-M2, Scala 2.10 (tgz, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.0-M2.zip">0.6.0-M2, Scala 2.10 (zip, 18MB)</a></li>
+</ul>
+
+<h4 id="scalajs-060-m1">Scala.js 0.6.0-M1</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.0-M1.tgz">0.6.0-M1, Scala 2.11 (tgz, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.6.0-M1.zip">0.6.0-M1, Scala 2.11 (zip, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.0-M1.tgz">0.6.0-M1, Scala 2.10 (tgz, 18MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.6.0-M1.zip">0.6.0-M1, Scala 2.10 (zip, 18MB)</a></li>
+</ul>
+
+<h4 id="scalajs-056">Scala.js 0.5.6</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.5.6.tgz">0.5.6, Scala 2.11 (tgz, 17MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.5.6.zip">0.5.6, Scala 2.11 (zip, 17MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.5.6.tgz">0.5.6, Scala 2.10 (tgz, 16MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.5.6.zip">0.5.6, Scala 2.10 (zip, 16MB)</a></li>
+</ul>
+
+<h4 id="scalajs-055">Scala.js 0.5.5</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.5.5.tgz">0.5.5, Scala 2.11 (tgz, 15MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.5.5.zip">0.5.5, Scala 2.11 (zip, 15MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.5.5.tgz">0.5.5, Scala 2.10 (tgz, 16MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.5.5.zip">0.5.5, Scala 2.10 (zip, 16MB)</a></li>
+</ul>
+
+<h4 id="scalajs-054">Scala.js 0.5.4</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.5.4.tgz">0.5.4, Scala 2.11 (tgz, 15MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.5.4.zip">0.5.4, Scala 2.11 (zip, 15MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.5.4.tgz">0.5.4, Scala 2.10 (tgz, 16MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.5.4.zip">0.5.4, Scala 2.10 (zip, 16MB)</a></li>
+</ul>
+
+<h4 id="scalajs-053">Scala.js 0.5.3</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.5.3.tgz">0.5.3, Scala 2.11 (tgz, 15MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.5.3.zip">0.5.3, Scala 2.11 (zip, 15MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.5.3.tgz">0.5.3, Scala 2.10 (tgz, 16MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.5.3.zip">0.5.3, Scala 2.10 (zip, 16MB)</a></li>
+</ul>
+
+<h4 id="scalajs-052">Scala.js 0.5.2</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.5.2.tgz">0.5.2, Scala 2.11 (tgz, 14MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.5.2.zip">0.5.2, Scala 2.11 (zip, 14MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.5.2.tgz">0.5.2, Scala 2.10 (tgz, 15MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.5.2.zip">0.5.2, Scala 2.10 (zip, 15MB)</a></li>
+</ul>
+
+<h4 id="scalajs-051">Scala.js 0.5.1</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.5.1.tgz">0.5.1, Scala 2.11 (tgz, 13MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.5.1.zip">0.5.1, Scala 2.11 (zip, 13MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.5.1.tgz">0.5.1, Scala 2.10 (tgz, 15MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.5.1.zip">0.5.1, Scala 2.10 (zip, 15MB)</a></li>
+</ul>
+
+<h4 id="scalajs-050">Scala.js 0.5.0</h4>
+<ul>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.5.0.tgz">0.5.0, Scala 2.11 (tgz, 13MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.11-0.5.0.zip">0.5.0, Scala 2.11 (zip, 13MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.5.0.tgz">0.5.0, Scala 2.10 (tgz, 15MB)</a></li>
+  <li><a href="https://www.scala-js.org/files/scalajs_2.10-0.5.0.zip">0.5.0, Scala 2.10 (zip, 15MB)</a></li>
+</ul>
+
+            <div class="spacing"></div>
+        </div>
+        <div class="col-md-3">
+            <nav class="toc" role="navigation">
+                
+<ul>
+    
+    <li>
+        <a href="/doc/">
+            
+            
+            Introduction
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/tutorial/">
+            
+            
+            Tutorials
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/tutorial/basic/">
+            
+            
+            Basic tutorial
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/">
+            
+            
+            Scala.js for JavaScript developers
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part1.html">
+            
+            
+            From ES6 to Scala: Basics
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part2.html">
+            
+            
+            From ES6 to Scala: Collections
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part3.html">
+            
+            
+            From ES6 to Scala: Advanced
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/project/">
+            
+            
+            Project setup
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/project/building.html">
+            
+            
+            Building the application
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/dependencies.html">
+            
+            
+            Dependencies
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/module.html">
+            
+            
+            Emitting modules
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/js-environments.html">
+            
+            
+            JavaScript Environments
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/cross-build.html">
+            
+            
+            Cross-building
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/testing.html">
+            
+            
+            Testing
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/interoperability/">
+            
+            
+            JavaScript interoperability
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/interoperability/types.html">
+            
+            
+            JavaScript types
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/facade-types.html">
+            
+            
+            Write facade types for JS APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/global-scope.html">
+            
+            
+            Access to the JavaScript global scope (1.x only)
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/export-to-javascript.html">
+            
+            
+            Export Scala.js APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/sjs-defined-js-classes.html">
+            
+            
+            Write JavaScript classes in Scala.js
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/exceptions.html">
+            
+            
+            Working with Exceptions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/api.html">
+            
+            
+            Scala.js API
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/all-api.html">
+            
+            
+            APIs of previous versions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/semantics.html">
+            
+            
+            Semantics of Scala.js
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/">
+            
+            
+            Internals
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/internals/performance.html">
+            
+            
+            Performance
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/downloads.html">
+            
+            
+            <b>Standalone distribution</b>
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/version-history.html">
+            
+            
+            Version history
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/faq.html">
+            
+            
+            FAQ
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

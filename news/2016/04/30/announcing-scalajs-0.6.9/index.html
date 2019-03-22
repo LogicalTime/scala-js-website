@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/news/2016/04/30/announcing-scalajs-0.6.9/">
+
+    <title> Announcing Scala.js 0.6.9 - Scala.js</title>
+
+    <meta property="og:title" content="Announcing Scala.js 0.6.9" /><meta property="og:type" content="article" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" /><meta property="article:published_time" content="2016-04-30T00:00:00-04:00" /><meta property="article:tag" content="releases" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li class="active"><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Announcing Scala.js 0.6.9</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="small">Apr 30, 2016.</span>
+            </p>
+            <p>We are pleased to announce the release of Scala.js 0.6.9!</p>
+
+<p>This release was mostly focused on ironing out the support of Scala 2.12.0-M4 and the upcoming M5.
+All users of 2.12.0-M4 are highly encouraged to upgrade to Scala.js 0.6.9.
+The release also contains a few bug fixes, as well as the following improvements:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2009">#2009</a> No own class for anonymous Scala.js-defined JS classes (see below)</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2350">#2350</a> A read-only sbt setting <code class="highlighter-rouge">isScalaJSProject</code> which is <code class="highlighter-rouge">true</code> iff the current project is a Scala.js project</li>
+</ul>
+
+<!--more-->
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>If you are new to Scala.js, head over to
+<a href="/tutorial/">the tutorial</a>.</p>
+
+<h2 id="release-notes">Release notes</h2>
+
+<p>If upgrading from 0.6.5 or earlier, please also read the <a href="/news/2016/01/25/announcing-scalajs-0.6.6/">release notes of 0.6.6</a>, which contains some breaking changes.</p>
+
+<p>As a minor release, 0.6.9 is backward source and binary compatible with previous releases in the 0.6.x series.
+Libraries compiled with earlier versions can be used with 0.6.9 without change.
+0.6.9 is also forward binary compatible with 0.6.8, but not with earlier releases: libraries compiled with 0.6.9 cannot be used by projects using 0.6.{0-7}.</p>
+
+<p>Please report any issues <a href="https://github.com/scala-js/scala-js/issues">on GitHub</a>.</p>
+
+<h2 id="no-own-class-for-anonymous-scalajs-defined-js-classes">No own class for anonymous Scala.js-defined JS classes</h2>
+
+<p>The language proposal <a href="https://github.com/scala-js/scala-js/issues/2009">#2009</a> was implemented in this release.
+In a nutshell, consider this snippet:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@ScalaJSDefined</span>
+<span class="k">trait</span> <span class="nc">Point</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">x</span><span class="k">:</span> <span class="kt">Int</span>
+  <span class="k">def</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Int</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">p</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Point</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="mi">5</span>
+  <span class="k">val</span> <span class="n">y</span> <span class="k">=</span> <span class="mi">10</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>The previous language specification and implementation would create an anonymous <em>class</em> for the <code class="highlighter-rouge">new Point {...}</code>, and <code class="highlighter-rouge">p</code> would be an instance of that class.
+This has two major disadvantages:</p>
+
+<ul>
+  <li>It consumes a lot of code to define the class</li>
+  <li>Some libraries can refuse to treat <code class="highlighter-rouge">p</code> as a “plain old JavaScript object” because its class is not <code class="highlighter-rouge">Object</code> itself, but a subclass (see <a href="https://github.com/scala-js/scala-js/issues/2006">#2006</a>)</li>
+</ul>
+
+<p>The new specification guarantees that <code class="highlighter-rouge">new Point {...}</code> will not create a new class.
+Instead, it will intuitively correspond to the following JavaScript code:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span> <span class="c1">// the superclass js.Object of Point</span>
+<span class="nx">p</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="nx">p</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span></code></pre></figure>
+
+<p>In other words, fields (and methods) of the anonymous class are directly assigned on the created object.</p>
+
+<p>For the complete semantic reference, <a href="https://github.com/scala-js/scala-js/issues/2009">read the proposal</a>.</p>
+
+<h2 id="bug-fixes">Bug fixes</h2>
+
+<p>Among others, the following bugs have been fixed:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2320">#2320</a> Objects extending <code class="highlighter-rouge">js.GlobalScope</code> should not allow <code class="highlighter-rouge">@JSName</code> (potentially breaking change if you have <code class="highlighter-rouge">-Xfatal-warnings</code>)</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2319">#2319</a> Objects extending <code class="highlighter-rouge">js.GlobalScope</code> inside objects are allowed but require <code class="highlighter-rouge">@JSName</code> annotation</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2314">#2314</a> Infinite loop in <code class="highlighter-rouge">BigDecimal.isValidLong</code></li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2333">#2333</a> The JUnit runner does not report failures as events, causing <code class="highlighter-rouge">sbt test</code> to erroneously succeed</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2345">#2345</a> Different <code class="highlighter-rouge">hashCode</code> in JS and JVM for case class with big <code class="highlighter-rouge">Long</code></li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2358">#2358</a> <code class="highlighter-rouge">ProvidedJS</code> requires OS dependent path separator</li>
+</ul>
+
+<p>You can find the full list <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av0.6.9+is%3Aclosed">on GitHub</a>.</p>
+
+            <div class="spacing"></div>
+            <nav>
+                <ul class="pager">
+                    
+                    <li class="previous"><a href="/news/2016/03/18/announcing-scalajs-0.6.8/"
+                                            title="Announcing Scala.js 0.6.8">&larr; Previous</a></li>
+                    
+                    
+                    <li class="next"><a href="/news/2016/06/17/announcing-scalajs-0.6.10/"
+                                        title="Announcing Scala.js 0.6.10">Next &rarr;</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

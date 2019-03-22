@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/news/2018/10/24/announcing-scalajs-1.0.0-M6/">
+
+    <title> Announcing Scala.js 1.0.0-M6 - Scala.js</title>
+
+    <meta property="og:title" content="Announcing Scala.js 1.0.0-M6" /><meta property="og:type" content="article" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" /><meta property="article:published_time" content="2018-10-24T00:00:00-04:00" /><meta property="article:tag" content="releases" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li class="active"><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Announcing Scala.js 1.0.0-M6</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="small">Oct 24, 2018.</span>
+            </p>
+            <p>We are very excited to announce the release of Scala.js 1.0.0-M6!</p>
+
+<p>This development release is mostly intended for testing purposes, and as a synchronization point with library authors so that they can start upgrading in preparation for the final release.</p>
+
+<p>As the change in “major” version number witnesses, this release is <em>not</em> binary compatible with 0.6.x, nor with the previous milestones of the 1.x series.
+Libraries need to be recompiled and republished using this milestone to be compatible.</p>
+
+<p>Moreover, this release is not entirely source compatible with 0.6.x either.
+We expect, however, that further milestones for 1.0.0 will stay backward source compatible with this milestone.</p>
+
+<p>These release notes contain cumulative changes with respect to 0.6.25.
+Compared to 1.0.0-M5, the following changes are noteworthy:</p>
+
+<ul>
+  <li>Scala.js has been relicensed under the Apache License 2.0, following the corresponding relicensing of Scala upstream</li>
+  <li>Add support for Scala 2.12.7 and 2.13.0-M5</li>
+  <li>Overall bring up-to-date with improvements and bug fixes available in 0.6.25</li>
+  <li>The <code class="highlighter-rouge">scalajs-stubs</code> artifact has been moved to <a href="https://github.com/scala-js/scala-js-stubs">its own repository</a>, with its own versioning scheme; its latest release is 1.0.0-RC1</li>
+  <li><code class="highlighter-rouge">org.scalajs.testinterface.TestUtils</code> was removed (it was deprecated in 0.6.25); use <code class="highlighter-rouge">scala.scalajs.reflect.Reflect</code> or <a href="https://github.com/portable-scala/portable-scala-reflect">portable-scala-reflect</a> instead</li>
+  <li>The package name for the <code class="highlighter-rouge">TestAdapter</code> has been renamed from <code class="highlighter-rouge">org.scalajs.testadapter</code> to <code class="highlighter-rouge">org.scalajs.testing.adapter</code>, which affects test integrators such as build tools</li>
+  <li>For authors of <code class="highlighter-rouge">JSEnv</code>s: the test kit configuration option <code class="highlighter-rouge">withTerminateVMJSCode</code> was replaced by <code class="highlighter-rouge">withSupportsExit</code> <a href="https://github.com/scala-js/scala-js/pull/3413/commits/6746cf3a20d2497bbc6c520666a47f7ec1cd28dd">#3413</a></li>
+</ul>
+
+<p>We would also like to remind readers of the following important change that happened in 1.0.0-M5:</p>
+
+<ul>
+  <li>Drop compatibility with sbt-crossproject v0.4.x and earlier (v0.5.0 or later is required)</li>
+</ul>
+
+<!--more-->
+
+<p>Please report any issues <a href="https://github.com/scala-js/scala-js/issues">on GitHub</a>.</p>
+
+<h2 id="preparations-before-upgrading-from-06x">Preparations before upgrading from 0.6.x</h2>
+
+<p>Before upgrading to 1.0.0-M6, <strong>we strongly recommend that you upgrade to Scala.js 0.6.25 or later</strong>, and address all deprecation warnings.
+Since Scala.js 1.0.0-M6 removes support for all the deprecated features in 0.6.x, it is easier to see the deprecation messages guiding you to the proper replacements.</p>
+
+<p>Additionally to the explicitly deprecated things, make sure to use <code class="highlighter-rouge">scalaJSLinkerConfig</code> instead of the following sbt settings:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">scalaJSSemantics</code></li>
+  <li><code class="highlighter-rouge">scalaJSModuleKind</code></li>
+  <li><code class="highlighter-rouge">scalaJSOutputMode</code></li>
+  <li><code class="highlighter-rouge">emitSourceMaps</code></li>
+  <li><code class="highlighter-rouge">relativeSourceMaps</code></li>
+  <li><code class="highlighter-rouge">scalaJSOptimizerOptions</code></li>
+</ul>
+
+<h2 id="upgrade-to-100-m6-from-0625-or-later">Upgrade to 1.0.0-M6 from 0.6.25 or later</h2>
+
+<p>As a first approximation, all you need to do is to update the version number in <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">"org.scala-js"</span> <span class="o">%</span> <span class="s">"sbt-scalajs"</span> <span class="o">%</span> <span class="s">"1.0.0-M6"</span><span class="o">)</span></code></pre></figure>
+
+<p>In addition, if you use some of the components that have been moved to separate repositories, you will need to add some more dependencies in <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
+
+<p>If you use <code class="highlighter-rouge">crossProject</code>:</p>
+
+<ul>
+  <li>Add <code class="highlighter-rouge">addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "0.5.0")</code> in <code class="highlighter-rouge">project/plugins.sbt</code></li>
+</ul>
+
+<p>If you use <code class="highlighter-rouge">scalajs-stubs</code>:</p>
+
+<ul>
+  <li>Change its version number to <code class="highlighter-rouge">"1.0.0-RC1"</code> (irrespective of the version of Scala.js itself, and hence of the <code class="highlighter-rouge">scalaJSVersion</code> constant)</li>
+</ul>
+
+<p>If you use <code class="highlighter-rouge">jsDependencies</code> (or rely on the <code class="highlighter-rouge">jsDependencies</code> of your transitive dependencies):</p>
+
+<ul>
+  <li>Add <code class="highlighter-rouge">addSbtPlugin("org.scala-js" % "sbt-jsdependencies" % "1.0.0-M6")</code> in <code class="highlighter-rouge">project/plugins.sbt</code></li>
+  <li>Add <code class="highlighter-rouge">.enablePlugins(JSDependenciesPlugin)</code> to Scala.js <code class="highlighter-rouge">project</code>s</li>
+  <li>Add <code class="highlighter-rouge">.jsConfigure(_.enablePlugins(JSDependenciesPlugin))</code> to <code class="highlighter-rouge">crossProject</code>s</li>
+</ul>
+
+<p>If you use the Node.js with jsdom environment:</p>
+
+<ul>
+  <li>Add <code class="highlighter-rouge">libraryDependencies += "org.scala-js" %% "scalajs-env-nodejs" % "1.0.0-M6"</code> in <code class="highlighter-rouge">project/plugins.sbt</code></li>
+</ul>
+
+<p>If you use the PhantomJS environment:</p>
+
+<ul>
+  <li>Add <code class="highlighter-rouge">addSbtPlugin("org.scala-js" % "sbt-scalajs-env-phantomjs" % "1.0.0-M6")</code> in <code class="highlighter-rouge">project/plugins.sbt</code></li>
+</ul>
+
+<p>Finally, if your build has</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalacOptions</span> <span class="o">+=</span> <span class="s">"-P:scalajs:sjsDefinedByDefault"</span></code></pre></figure>
+
+<p>you will need to remove it (Scala.js 1.x always behaves as if <code class="highlighter-rouge">sjsDefinedByDefault</code> were present).</p>
+
+<p>This should get your build up to speed to Scala.js 1.0.0-M6.
+From there, you should be able to test whether things go smoothly, or whether you are affected by the breaking changes detailed below.</p>
+
+<h2 id="breaking-changes">Breaking changes</h2>
+
+<p>This section discusses the backward incompatible changes, which might affect your project.</p>
+
+<h3 id="scala-210x-is-not-supported-anymore-nor-building-on-jdk-6-and-7">Scala 2.10.x is not supported anymore, nor building on JDK 6 and 7</h3>
+
+<p>The title says it all: you cannot use Scala.js with</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalaVersion</span> <span class="o">:=</span> <span class="s">"2.10.x"</span> <span class="o">//</span> <span class="k">for</span> <span class="n">any</span> <span class="n">x</span></code></pre></figure>
+
+<p>anymore.
+Note that you can still use the sbt plugin with sbt 0.13.17+, even though it runs itself on 2.10.x.
+Only the Scala.js code itself (not the build) cannot use Scala 2.10.x.</p>
+
+<p>In addition, building Scala.js code on top of JDK 6 or 7 is not supported anymore either.</p>
+
+<p>Finally, a severe regression in Scala 2.12.0 upstream, affecting <code class="highlighter-rouge">js.UndefOr</code>, forced us to drop support for Scala 2.12.0 (see <a href="https://github.com/scala-js/scala-js/issues/3024">#3024</a>).
+Scala 2.12.1+ is supported.</p>
+
+<h3 id="access-to-the-global-scope-instead-of-the-global-object">Access to the global scope instead of the global object</h3>
+
+<p>This is the only major breaking change at the language level.
+In Scala.js 1.x, <code class="highlighter-rouge">js.Dynamic.global</code> and <code class="highlighter-rouge">@JSGlobalScope</code> objects refer to the global <em>scope</em> of JavaScript, rather than the global <em>object</em>.
+Concretely, this has three consequences, which we outline below.
+Further information can be found in <a href="/doc/interoperability/global-scope.html">the documentation about the global scope in Scala.js</a>.</p>
+
+<h4 id="members-can-only-be-accessed-with-a-statically-known-name-which-is-a-valid-javascript-identifier">Members can only be accessed with a statically known name which is a valid JavaScript identifier</h4>
+
+<p>For example, the following is valid:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">println</span><span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="nc">Math</span><span class="o">)</span></code></pre></figure>
+
+<p>but the following variant, where the name <code class="highlighter-rouge">Math</code> is only known at run-time, is not valid anymore:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">mathName</span> <span class="k">=</span> <span class="s">"Math"</span>
+<span class="n">println</span><span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="n">selectDynamic</span><span class="o">(</span><span class="n">mathName</span><span class="o">))</span></code></pre></figure>
+
+<p>The latter will cause a compile error.
+This is because it is not possible to perform dynamic lookups in the global scope.
+Similarly, accessing a member whose name is statically known but not a valid JavaScript identifier is also prohibited:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">println</span><span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="n">`not-a-valid-JS-identifier`</span><span class="o">)</span></code></pre></figure>
+
+<h4 id="global-scope-objects-cannot-be-stored-in-a-separate-val">Global scope objects cannot be stored in a separate <code class="highlighter-rouge">val</code></h4>
+
+<p>For example, the following is invalid and will cause a compile error:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">g</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span></code></pre></figure>
+
+<p>as well as:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">foo</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Any</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="n">println</span><span class="o">(</span><span class="n">x</span><span class="o">)</span>
+<span class="n">foo</span><span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">)</span></code></pre></figure>
+
+<p>This follows from the previous rule.
+If the above two snippets were allowed, we could not check that we only access members with statically known names.</p>
+
+<p>The first snippet can be advantageously replaced by a renaming import:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">js.Dynamic.</span><span class="o">{</span><span class="n">global</span> <span class="k">=&gt;</span> <span class="n">g</span><span class="o">}</span></code></pre></figure>
+
+<h4 id="accessing-a-member-that-is-not-declared-causes-a-referenceerror-to-be-thrown">Accessing a member that is not declared causes a <code class="highlighter-rouge">ReferenceError</code> to be thrown</h4>
+
+<p>This is a <em>run-time</em> behavior change, and in our experience the larger source of breakages in actual code.</p>
+
+<p>Previously, reading a non-existent member of the global object, such as</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">println</span><span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="n">globalVarThatDoesNotExist</span><span class="o">)</span></code></pre></figure>
+
+<p>would evaluate to <code class="highlighter-rouge">undefined</code>.
+In Scala.js 1.x, this throws a <code class="highlighter-rouge">ReferenceError</code>.
+Similarly, writing to a non-existent member, such as</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="n">globalVarThatDoesNotExist</span> <span class="k">=</span> <span class="mi">42</span></code></pre></figure>
+
+<p>would previously <em>create</em> said global variable.
+In Scala.js 1.x, it also throws a <code class="highlighter-rouge">ReferenceError</code>.</p>
+
+<p>A typical use case of the previous behavior was to <em>test</em> whether a global variable was defined or not, e.g.,</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">if</span> <span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="n">isUndefined</span><span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="nc">Promise</span><span class="o">))</span> <span class="o">{</span>
+  <span class="c1">// Promises are not supported
+</span><span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+  <span class="c1">// Promises are supported
+</span><span class="o">}</span></code></pre></figure>
+
+<p>This idiom is broken in Scala.js 1.x, and needs to be replaced by an explicit use of <code class="highlighter-rouge">js.typeOf</code>:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">if</span> <span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="n">typeOf</span><span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="nc">Promise</span><span class="o">)</span> <span class="o">!=</span> <span class="s">"undefined"</span><span class="o">)</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">js.typeOf</code> “method” is magical when its argument is a member of a global scope object.</p>
+
+<h3 id="jsundefora-is-now-an-alias-for-a--unit"><code class="highlighter-rouge">js.UndefOr[A]</code> is now an alias for <code class="highlighter-rouge">A | Unit</code></h3>
+
+<p>Instead of defining <code class="highlighter-rouge">js.UndefOr[+A]</code> as its own type, it is now a simple type alias for <code class="highlighter-rouge">A | Unit</code>:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">type</span> <span class="kt">UndefOr</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="k">=</span> <span class="n">A</span> <span class="o">|</span> <span class="nc">Unit</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">Option</code>-like API is of course preserved.</p>
+
+<p>We do not expect this to cause any significant issue, but it may impact type inference in subtle ways that can cause compile errors for previously valid code.
+You may have to adjust some uses of <code class="highlighter-rouge">js.UndefOr</code> due to these changes.</p>
+
+<h3 id="testhtml-replaces-both-testhtmlfastopt-and-testhtmlfullopt"><code class="highlighter-rouge">testHtml</code> replaces both <code class="highlighter-rouge">testHtmlFastOpt</code> and <code class="highlighter-rouge">testHtmlFullOpt</code></h3>
+
+<p>The separation of <code class="highlighter-rouge">testHtmlFastOpt</code> and <code class="highlighter-rouge">testHtmlFullOpt</code>, which were independent of the value of <code class="highlighter-rouge">scalaJSStage</code>, caused significant unfixable issues in 0.6.x.
+In Scala.js 1.x, both are replaced by a single task, <code class="highlighter-rouge">testHtml</code>.
+It is equivalent to the old <code class="highlighter-rouge">testHtmlFastOpt</code> if the value of <code class="highlighter-rouge">scalaJSStage</code> is <code class="highlighter-rouge">FastOptStage</code> (the default), and to <code class="highlighter-rouge">testHtmlFullOpt</code> if it is <code class="highlighter-rouge">FullOptStage</code>.
+This makes it more consistent with other tasks such as <code class="highlighter-rouge">run</code> and <code class="highlighter-rouge">test</code>.</p>
+
+<h3 id="the-sbt-plugin-does-not-set-up-java-system-properties-anymore">The sbt plugin does not set up Java system properties anymore</h3>
+
+<p>In 0.6.x, the sbt plugin automatically extracted <code class="highlighter-rouge">-D</code> options in <code class="highlighter-rouge">javaOptions</code>, and transferred them to the Java system properties API inside Scala.js, using a generated .js file.
+Scala.js 1.x does not do this automatically anymore, because going forward, there is not bulletproof way to do this automatically for all possible JS environments and module kinds.</p>
+
+<p>If you rely on this feature, you can reproduce it in your build using <a href="https://github.com/scala-js/scala-js/blob/641c63d9d98c9a6cf332af95c9ae80de0da34573/project/Build.scala#L68-L93">these sbt settings</a>.</p>
+
+<h3 id="scalajs-javalib-ex-was-removed"><code class="highlighter-rouge">scalajs-javalib-ex</code> was removed</h3>
+
+<p>The artifact <code class="highlighter-rouge">scalajs-javalib-ex</code> is removed in 1.x.
+It only contained a partial implementation of <code class="highlighter-rouge">java.util.ZipInputStream</code>.
+If you were using it, we recommend that you integrate a copy of <a href="https://github.com/scala-js/scala-js/tree/0.6.x/javalib-ex/src/main/scala/java/util/zip">its source code from Scala.js 0.6.x</a> into your project.</p>
+
+<h3 id="jsusexast-was-removed"><code class="highlighter-rouge">js.use(x).as[T]</code> was removed</h3>
+
+<p>The use cases for <code class="highlighter-rouge">js.use(x).as[T]</code> have been dramatically reduced by non-native JS classes (previously known as Scala.js-defined JS classes).
+This API seems virtually unused on the visible Web.
+Moreover, it was the only macro in the Scala.js standard library.</p>
+
+<p>We have therefore removed it from the standard library, and it is not provided anymore.
+On demand, we can republish it as a separate library, if you need it.</p>
+
+<h3 id="the-tools-api-has-been-split-into-3-artifacts-and-its-packages-reorganized">The Tools API has been split into 3 artifacts and its packages reorganized</h3>
+
+<p>This only concerns consumers of the Tools API, i.e., tools that build on top of the Scala.js linker, such as ScalaFiddle.
+In Scala.js 0.6.x, all the tools were in one artifact <code class="highlighter-rouge">scalajs-tools</code>.
+This artifact has been split in three in Scala.js 1.x:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">scalajs-io</code>: IR-independent virtual IO</li>
+  <li><code class="highlighter-rouge">scalajs-logging</code>: tiny logging API</li>
+  <li><code class="highlighter-rouge">scalajs-linker</code>: the linker API (and IR-specific virtual IO)</li>
+</ul>
+
+<p>In addition, the packages have been reorganized as follows:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">org.scalajs.core.ir</code>            -&gt; <code class="highlighter-rouge">org.scalajs.ir</code></li>
+  <li><code class="highlighter-rouge">org.scalajs.core.tools.io</code>      -&gt; <code class="highlighter-rouge">org.scalajs.io</code> (and some in <code class="highlighter-rouge">org.scalajs.linker.irio</code>)</li>
+  <li><code class="highlighter-rouge">org.scalajs.core.tools.logging</code> -&gt; <code class="highlighter-rouge">org.scalajs.logging</code></li>
+  <li><code class="highlighter-rouge">org.scalajs.core.tools.linker</code>  -&gt; <code class="highlighter-rouge">org.scalajs.linker</code></li>
+</ul>
+
+<p>If you need to <em>cross-compile</em> against the 0.6.x Tools API and the 1.x Linker API, consult <a href="https://github.com/scala-js/scala-js/pull/3263">the comments in PR #3263</a> for a recommended trick.</p>
+
+<h2 id="enhancements">Enhancements</h2>
+
+<p>There are very few enhancements in Scala.js 1.0.0-M6.
+Scala.js 1.0.0 is focused on simplifying Scala.js, not on adding new features.
+Nevertheless, here are a few enhancements.</p>
+
+<h3 id="scalajs-can-access-require-and-other-magical-global-variables-of-special-js-environments">Scala.js can access <code class="highlighter-rouge">require</code> and other magical “global” variables of special JS environments</h3>
+
+<p>The changes from global <em>object</em> to global <em>scope</em> mean that magical “global” variables provided by some JavaScript environments, such as <code class="highlighter-rouge">require</code> in Node.js, are now visible to Scala.js.
+For example, it is possible to dynamically call <code class="highlighter-rouge">require</code> as follows in Scala.js 1.x:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">pathToSomeAsset</span> <span class="k">=</span> <span class="s">"assets/logo.png"</span>
+<span class="k">val</span> <span class="n">someAsset</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="n">require</span><span class="o">(</span><span class="n">pathToSomeAsset</span><span class="o">)</span></code></pre></figure>
+
+<p>We still recommend to use <code class="highlighter-rouge">@JSImport</code> and <code class="highlighter-rouge">CommonJSModule</code> for statically known imports.</p>
+
+<h3 id="declaring-inner-classes-in-native-js-classes">Declaring inner classes in native JS classes</h3>
+
+<p>Some JavaScript APIs define classes inside objects, as in the following example:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">class</span> <span class="nx">OuterClass</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">InnerClass</span> <span class="o">=</span> <span class="kd">class</span> <span class="nx">InnerClass</span> <span class="p">{</span>
+      <span class="nx">someMethod</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>allowing use sites to instantiate them as</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">outerObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OuterClass</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">innerObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">outerObject</span><span class="p">.</span><span class="nx">InnerClass</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">innerObject</span><span class="p">.</span><span class="nx">someMethod</span><span class="p">());</span> <span class="c1">// prints 42</span></code></pre></figure>
+
+<p>In Scala.js 0.6.x, it is very awkward to define a facade type for <code class="highlighter-rouge">OuterClass</code>, as illustrated <a href="https://github.com/scala-js/scala-js/issues/2398">in issue #2398</a>.
+Scala.js 1.x now allows to declare them very easily as inner JS classes:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSGlobal</span>
+<span class="k">class</span> <span class="nc">OuterClass</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+  <span class="k">class</span> <span class="nc">InnerClass</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">someMethod</span><span class="o">()</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>which in turns allows for the following call site:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">outerObject</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">OuterClass</span><span class="o">(</span><span class="mi">42</span><span class="o">);</span>
+<span class="k">val</span> <span class="n">innerObject</span> <span class="k">=</span> <span class="k">new</span> <span class="n">outerObject</span><span class="o">.</span><span class="nc">InnerClass</span><span class="o">();</span>
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="o">(</span><span class="n">innerObject</span><span class="o">.</span><span class="n">someMethod</span><span class="o">());</span> <span class="o">//</span> <span class="n">prints</span> <span class="mi">42</span></code></pre></figure>
+
+<h3 id="nested-non-native-js-classes-expose-sane-constructors-to-javascript">Nested non-native JS classes expose sane constructors to JavaScript</h3>
+
+<p>It is now possible to declare non-native JS classes inside outer <code class="highlighter-rouge">class</code>es or inside <code class="highlighter-rouge">def</code>s, and use their <code class="highlighter-rouge">js.constructorOf</code> in a meaningful way.
+For example, one can define a method that creates a new JavaScript class every time it is invoked:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">makeGreeter</span><span class="o">(</span><span class="n">greetingFormat</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">js.Dynamic</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">class</span> <span class="nc">Greeter</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">greet</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
+      <span class="n">println</span><span class="o">(</span><span class="n">greetingFormat</span><span class="o">.</span><span class="n">format</span><span class="o">(</span><span class="n">name</span><span class="o">))</span>
+  <span class="o">}</span>
+  <span class="n">js</span><span class="o">.</span><span class="n">constructorOf</span><span class="o">[</span><span class="kt">Greeter</span><span class="o">]</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Assuming there is some native JavaScript function like</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">greetPeople</span><span class="p">(</span><span class="nx">greeterClass</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">greeter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">greeterClass</span><span class="p">();</span>
+  <span class="nx">greeter</span><span class="p">.</span><span class="nx">greet</span><span class="p">(</span><span class="s2">"Jane"</span><span class="p">);</span>
+  <span class="nx">greeter</span><span class="p">.</span><span class="nx">greet</span><span class="p">(</span><span class="s2">"John"</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>one could call it from Scala.js as:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">englishGreeterClass</span> <span class="k">=</span> <span class="n">makeGreeter</span><span class="o">(</span><span class="s">"Hello, %s!"</span><span class="o">)</span>
+<span class="n">greetPeople</span><span class="o">(</span><span class="n">englishGreeterClass</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">frenchGreeterClass</span> <span class="k">=</span> <span class="n">makeGreeter</span><span class="o">(</span><span class="s">"Bonjour, %s!"</span><span class="o">)</span>
+<span class="n">greetPeople</span><span class="o">(</span><span class="n">frenchGreeterClass</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">japaneseGreeterClass</span> <span class="k">=</span> <span class="n">makeGreeter</span><span class="o">(</span><span class="s">"%sさん、こんにちは。"</span><span class="o">)</span>
+<span class="n">greetPeople</span><span class="o">(</span><span class="n">japaneseGreeterClass</span><span class="o">)</span></code></pre></figure>
+
+<p>resulting in the following output:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Hello, Jane!
+Hello, John!
+Bonjour, Jane!
+Bonjour, John!
+Janeさん、こんにちは。
+Johnさん、こんにちは。</code></pre></figure>
+
+<p>In Scala.js 0.6.x, the above code would compile but produce incoherent results at run-time, because <code class="highlighter-rouge">js.constructorOf</code> was meaningless for nested classes.</p>
+
+<h2 id="bugfixes">Bugfixes</h2>
+
+<p>Amongst others, the following bugs have been fixed since 0.6.25:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2800">#2800</a> Global <code class="highlighter-rouge">let</code>s, <code class="highlighter-rouge">const</code>s and <code class="highlighter-rouge">class</code>es cannot be accessed by Scala.js</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2382">#2382</a> Name clash for <code class="highlighter-rouge">$outer</code> pointers of two different nesting levels (fixed for Scala 2.10 and 2.11; 2.12 did not suffer from the bug in 0.6.x)</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/3085">#3085</a> Linking error after the optimizer for <code class="highlighter-rouge">someInt.toDouble.compareTo(double)</code></li>
+</ul>
+
+<p>See the full list of issues <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av1.0.0-M1+is%3Aclosed">fixed in 1.0.0-M1</a>, <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av1.0.0-M2+is%3Aclosed">in 1.0.0-M2</a>, <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av1.0.0-M3+is%3Aclosed">in 1.0.0-M3</a>, <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av1.0.0-M4+is%3Aclosed">in 1.0.0-M4</a>, <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av1.0.0-M5+is%3Aclosed">in 1.0.0-M5</a> and <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av1.0.0-M6+is%3Aclosed">in 1.0.0-M6</a> on GitHub.</p>
+
+<h2 id="cross-building-for-scalajs-06x-and-1x">Cross-building for Scala.js 0.6.x and 1.x</h2>
+
+<p>If you want to cross-compile your libraries for Scala.js 0.6.x and 1.x (which you definitely should), here are a couple tips.</p>
+
+<h3 id="dynamically-load-a-custom-version-of-scalajs">Dynamically load a custom version of Scala.js</h3>
+
+<p>Since the version of Scala.js is not decided by an sbt setting in <code class="highlighter-rouge">build.sbt</code>, but by the version of the sbt plugin in <code class="highlighter-rouge">project/plugins.sbt</code>, standard cross-building setups based on <code class="highlighter-rouge">++</code> cannot be applied.
+We recommend that you load the version of Scala.js from an environment variable.
+For example, you can do this in your <code class="highlighter-rouge">project/plugins.sbt</code> file:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">scalaJSVersion</span> <span class="k">=</span>
+  <span class="nc">Option</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="n">getenv</span><span class="o">(</span><span class="s">"SCALAJS_VERSION"</span><span class="o">)).</span><span class="n">getOrElse</span><span class="o">(</span><span class="s">"0.6.24"</span><span class="o">)</span>
+
+<span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">"org.scala-js"</span> <span class="o">%</span> <span class="s">"sbt-scalajs"</span> <span class="o">%</span> <span class="n">scalaJSVersion</span><span class="o">)</span></code></pre></figure>
+
+<p>You can then launch</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ SCALAJS_VERSION</span><span class="o">=</span>1.0.0-M6 sbt</code></pre></figure>
+
+<p>from your command line to start up your build with Scala.js 1.0.0-M6.</p>
+
+<h3 id="extra-dependencies-for-js-environments">Extra dependencies for JS environments</h3>
+
+<p>You can further build on the above <code class="highlighter-rouge">val scalaJSVersion</code> to dynamically add dependencies on <code class="highlighter-rouge">scalajs-env-phantomjs</code> and/or <code class="highlighter-rouge">scalajs-env-jsdom-nodejs</code> if you use them:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// For Node.js with jsdom
+</span><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">scalaJSVersion</span><span class="o">.</span><span class="n">startsWith</span><span class="o">(</span><span class="s">"0.6."</span><span class="o">))</span> <span class="nc">Nil</span>
+  <span class="k">else</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">"org.scala-js"</span> <span class="o">%%</span> <span class="s">"scalajs-env-jsdom-nodejs"</span> <span class="o">%</span> <span class="s">"1.0.0-M6"</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// For PhantomJS
+</span><span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">scalaJSVersion</span><span class="o">.</span><span class="n">startsWith</span><span class="o">(</span><span class="s">"0.6."</span><span class="o">))</span> <span class="nc">Nil</span>
+  <span class="k">else</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">"org.scala-js"</span> <span class="o">%</span> <span class="s">"sbt-scalajs-env-phantomjs"</span> <span class="o">%</span> <span class="s">"1.0.0-M6"</span><span class="o">))</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>In both cases, you can then use the source-compatible API in <code class="highlighter-rouge">build.sbt</code> to select your JS environment of choice.</p>
+
+<h3 id="extra-dependencies-for-jsdependencies">Extra dependencies for <code class="highlighter-rouge">jsDependencies</code></h3>
+
+<p>Similarly, you can conditionally depend on <code class="highlighter-rouge">jsDependencies</code> as follows:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// For jsDependencies
+</span><span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">scalaJSVersion</span><span class="o">.</span><span class="n">startsWith</span><span class="o">(</span><span class="s">"0.6."</span><span class="o">))</span> <span class="nc">Nil</span>
+  <span class="k">else</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">"org.scala-js"</span> <span class="o">%</span> <span class="s">"sbt-jsdependencies"</span> <span class="o">%</span> <span class="s">"1.0.0-M6"</span><span class="o">))</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>In that case, you should unconditionally keep the</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">enablePlugins</span><span class="o">(</span><span class="nc">JSDependenciesPlugin</span><span class="o">)</span></code></pre></figure>
+
+<p>on the relevant projects.
+Scala.js 0.6.20 and later define a no-op <code class="highlighter-rouge">JSDependenciesPlugin</code> to allow for this scenario.</p>
+
+<h3 id="conditional-application-of--pscalajssjsdefinedbydefault">Conditional application of <code class="highlighter-rouge">-P:scalajs:sjsDefinedByDefault</code></h3>
+
+<p>In Scala.js 1.x, the flag <code class="highlighter-rouge">-P:scalajs:sjsDefinedByDefault</code> has been removed.
+However, if you have non-native JS types in your codebase, you need this flag in Scala.js 0.6.x.</p>
+
+<p>Add the following setting to your <code class="highlighter-rouge">build.sbt</code> to conditionally enable that flag:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalacOptions</span> <span class="o">++=</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">scalaJSVersion</span><span class="o">.</span><span class="n">startsWith</span><span class="o">(</span><span class="s">"0.6."</span><span class="o">))</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">"-P:scalajs:sjsDefinedByDefault"</span><span class="o">)</span>
+  <span class="k">else</span> <span class="nc">Nil</span>
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="sbt-scalajs-crossproject-and-scalajs-06x">sbt-scalajs-crossproject and Scala.js 0.6.x</h3>
+
+<p>If you have a <code class="highlighter-rouge">crossProject</code> in your build, you need the <code class="highlighter-rouge">sbt-scalajs-crossproject</code> sbt plugin in Scala.js 1.x.
+You can also use that sbt plugin in Scala.js 0.6.x, but out-of-the-box there is a small conflict.
+You can resolve this conflict using the shadowing import described in <a href="https://github.com/scala-native/sbt-crossproject#cross-compiling-scalajs-jvm-and-native">sbt-crossproject’s readme</a>, adding the following line in your <code class="highlighter-rouge">build.sbt</code>:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// shadow sbt-scalajs' crossProject and CrossType from Scala.js 0.6.x (no-op with Scala.js 1.x)
+</span><span class="k">import</span> <span class="nn">sbtcrossproject.CrossPlugin.autoImport.</span><span class="o">{</span><span class="n">crossProject</span><span class="o">,</span> <span class="nc">CrossType</span><span class="o">}</span></code></pre></figure>
+
+
+            <div class="spacing"></div>
+            <nav>
+                <ul class="pager">
+                    
+                    <li class="previous"><a href="/news/2018/09/03/announcing-scalajs-0.6.25/"
+                                            title="Announcing Scala.js 0.6.25">&larr; Previous</a></li>
+                    
+                    
+                    <li class="next"><a href="/news/2018/11/29/announcing-scalajs-0.6.26/"
+                                        title="Announcing Scala.js 0.6.26">Next &rarr;</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/libraries/libs.html">
+
+    <title> Scala libraries - Scala.js</title>
+
+    <meta property="og:title" content="Scala libraries" /><meta property="og:type" content="website" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li class="active"><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li ><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Scala libraries</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-9">
+            <h2 id="compatible-scala-libraries">Compatible Scala libraries</h2>
+
+<p>Many Scala libraries have been updated to be compatible with Scala.js. To quickly start using one of these libraries,
+just click on the dependency clipboard button to get the relevant SBT dependency definition.</p>
+
+<p><strong>Scala.js 1.x:</strong> At the moment, the list below is maintained for Scala.js 0.6.x only.
+Consult the readmes of relevant projects to see whether they support milestones of Scala.js 1.x.</p>
+
+<table class="table">
+    <tbody>
+    
+        <tr>
+            <td colspan="3"><h4>JDK extensions</h4></td>
+        </tr>
+        
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Dependency</th>
+        </tr>
+        
+        
+            <tr>
+                <td><a href="https://github.com/scala-js/scala-js-java-time" target="library">scalajs-java-time</a></td>
+                <td>Port of the <a href="https://docs.oracle.com/javase/8/docs/api/java/time/package-summary.html">java.time API</a> of JDK8 for Scala.js
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.scala-js&quot; %%% &quot;scalajs-java-time&quot; % &quot;0.2.0&quot;" title="&quot;org.scala-js&quot; %%% &quot;scalajs-java-time&quot; % &quot;0.2.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/zoepepper/scalajs-jsjoda" target="library">scalajs-jsjoda-as-java-time</a></td>
+                <td>Implementation of JDK8’s <a href="https://docs.oracle.com/javase/8/docs/api/java/time/package-summary.html">java.time API</a> in Scala.js by wrapping <a href="http://js-joda.github.io/js-joda/">js-joda</a> classes
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.zoepepper&quot; %%% &quot;scalajs-jsjoda-as-java-time&quot; % &quot;1.1.2&quot;" title="&quot;com.zoepepper&quot; %%% &quot;scalajs-jsjoda-as-java-time&quot; % &quot;1.1.2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/cquiroz/scala-java-time" target="library">scala-java-time</a></td>
+                <td>Platform-independent implementation of <a href="https://docs.oracle.com/javase/8/docs/api/java/time/package-summary.html">java.time</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;io.github.cquiroz&quot; %%% &quot;scala-java-time&quot; % &quot;2.0.0-M7&quot;" title="&quot;io.github.cquiroz&quot; %%% &quot;scala-java-time&quot; % &quot;2.0.0-M7&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/cquiroz/scala-java-locales" target="library">scala-java-locales</a></td>
+                <td>Implementation of JDK8’s <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html">java.util.Locale API</a> and parts of <a href="https://docs.oracle.com/javase/8/docs/api/java/text/package-summary.html">java.text API</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;io.github.cquiroz&quot; %%% &quot;scala-java-locales&quot; % &quot;0.5.0-cldr30&quot;" title="&quot;io.github.cquiroz&quot; %%% &quot;scala-java-locales&quot; % &quot;0.5.0-cldr30&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/scala-js/scala-js-java-logging" target="library">scalajs-java-logging</a></td>
+                <td>Port of the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html">java.util.logging API</a> of JDK 8 for Scala.js
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.scala-js&quot; %%% &quot;scalajs-java-logging&quot; % &quot;0.1.0&quot;" title="&quot;org.scala-js&quot; %%% &quot;scalajs-java-logging&quot; % &quot;0.1.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+    
+        <tr>
+            <td colspan="3"><h4>Functional programming</h4></td>
+        </tr>
+        
+        
+            <tr>
+                <td><a href="https://github.com/scalaz/scalaz" target="library">Scalaz</a></td>
+                <td>Library for functional programming.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.scalaz&quot; %%% &quot;scalaz-core&quot; % &quot;7.2.8&quot;" title="&quot;org.scalaz&quot; %%% &quot;scalaz-core&quot; % &quot;7.2.8&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/ThoughtWorksInc/each" target="library">Each</a></td>
+                <td>A macro library that converts native imperative syntax to scalaz’s monadic expressions.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.thoughtworks.each&quot; %%% &quot;each&quot; % &quot;3.3.1&quot;" title="&quot;com.thoughtworks.each&quot; %%% &quot;each&quot; % &quot;3.3.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/ThoughtWorksInc/future.scala" target="library">future.scala</a></td>
+                <td>Stack-safe asynchronous programming in pure functional flavor.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.thoughtworks.future&quot; %%% &quot;future&quot; % &quot;1.0.1&quot;" title="&quot;com.thoughtworks.future&quot; %%% &quot;future&quot; % &quot;1.0.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/ThoughtWorksInc/tryt.scala" target="library">tryt.scala</a></td>
+                <td>Monad transformers for exception handling.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.thoughtworks.tryt&quot; %%% &quot;covariant&quot; % &quot;2.0.3&quot;, &quot;com.thoughtworks.tryt&quot; %%% &quot;invariant&quot; % &quot;2.0.3&quot;" title="&quot;com.thoughtworks.tryt&quot; %%% &quot;covariant&quot; % &quot;2.0.3&quot;, &quot;com.thoughtworks.tryt&quot; %%% &quot;invariant&quot; % &quot;2.0.3&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/ThoughtWorksInc/RAII.scala" target="library">RAII.scala</a></td>
+                <td>A collection of utilities to manage native resources in Scalaz.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.thoughtworks.raii&quot; %%% &quot;asynchronous&quot; % &quot;2.0.0&quot;" title="&quot;com.thoughtworks.raii&quot; %%% &quot;asynchronous&quot; % &quot;2.0.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/milessabin/shapeless" target="library">Shapeless</a></td>
+                <td>Generic programming for Scala.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.chuusai&quot; %%% &quot;shapeless&quot; % &quot;2.3.2&quot;" title="&quot;com.chuusai&quot; %%% &quot;shapeless&quot; % &quot;2.3.2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/typelevel/cats" target="library">Cats</a></td>
+                <td>Lightweight, modular, and extensible library for functional programming.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.typelevel&quot; %%% &quot;cats&quot; % &quot;0.9.0&quot;" title="&quot;org.typelevel&quot; %%% &quot;cats&quot; % &quot;0.9.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/julien-truffaut/Monocle" target="library">Monocle</a></td>
+                <td>Optics library strongly inspired by Haskell <a href="https://github.com/ekmett/lens">Lens</a>.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.julien-truffaut&quot; %%% &quot;monocle-core&quot; % &quot;1.4.0&quot;" title="&quot;com.github.julien-truffaut&quot; %%% &quot;monocle-core&quot; % &quot;1.4.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/adamw/quicklens" target="library">Quicklens</a></td>
+                <td>Modify deeply nested fields in case classes.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.softwaremill.quicklens&quot; %%% &quot;quicklens&quot; % &quot;1.4.8&quot;" title="&quot;com.softwaremill.quicklens&quot; %%% &quot;quicklens&quot; % &quot;1.4.8&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+    
+        <tr>
+            <td colspan="3"><h4>Web libraries/frameworks</h4></td>
+        </tr>
+        
+        
+            <tr>
+                <td><a href="http://udash.io/" target="library">Udash</a></td>
+                <td>A Scala(.js) framework for building beautiful and maintainable Web Applications
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;io.udash&quot; %%% &quot;udash-core-frontend&quot; % &quot;0.4.0&quot;" title="&quot;io.udash&quot; %%% &quot;udash-core-frontend&quot; % &quot;0.4.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/ThoughtWorksInc/Binding.scala" target="library">Binding.scala/dom</a></td>
+                <td>Reactive web framework for Scala.js
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="libraryDependencies += &quot;com.thoughtworks.binding&quot; %%% &quot;dom&quot; % &quot;10.0.2&quot;" title="libraryDependencies += &quot;com.thoughtworks.binding&quot; %%% &quot;dom&quot; % &quot;10.0.2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="http://www.lihaoyi.com/scalatags/" target="library">ScalaTags</a></td>
+                <td>HTML templating library/DSL that works on both Scala/JVM and Scala.js
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.lihaoyi&quot; %%% &quot;scalatags&quot; % &quot;0.6.3&quot;" title="&quot;com.lihaoyi&quot; %%% &quot;scalatags&quot; % &quot;0.6.3&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/shogowada/statictags" target="library">statictags</a></td>
+                <td>Write HTML in both Scala JVM &amp; JS. Extend tags and attributes with ease!
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;io.github.shogowada&quot; %%% &quot;statictags&quot; % &quot;2.1.1&quot;" title="&quot;io.github.shogowada&quot; %%% &quot;statictags&quot; % &quot;2.1.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/metastack-pl/metaweb" target="library">MetaWeb</a></td>
+                <td>Functional low-level web framework for Scala and Scala.js
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;pl.metastack&quot; %%% &quot;metaweb&quot; % &quot;0.2.0&quot;" title="&quot;pl.metastack&quot; %%% &quot;metaweb&quot; % &quot;0.2.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://widok.github.io/" target="library">Widok</a></td>
+                <td>Reactive web framework for the JVM and Scala.js
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;io.github.widok&quot; %%% &quot;widok&quot; % &quot;0.2.4&quot;" title="&quot;io.github.widok&quot; %%% &quot;widok&quot; % &quot;0.2.4&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/antonkulaga/scala-js-binding" target="library">ScalaJS Binding</a></td>
+                <td>Scala.js HTML binding library
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.denigma&quot; %%% &quot;binding&quot; % &quot;0.8.0-M6&quot;" title="&quot;org.denigma&quot; %%% &quot;binding&quot; % &quot;0.8.0-M6&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/japgolly/scalacss/" target="library">ScalaCSS</a></td>
+                <td>ScalaCSS aims to bring type-safety and clarity to: creating CSS, using CSS, maintaining CSS and correctness of CSS
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.japgolly.scalacss&quot; %%% &quot;core&quot; % &quot;0.5.1&quot;" title="&quot;com.github.japgolly.scalacss&quot; %%% &quot;core&quot; % &quot;0.5.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/ochrons/diode" target="library">Diode</a></td>
+                <td>Diode is a Scala/Scala.js library for managing immutable application state with unidirectional data flow.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;me.chrons&quot; %%% &quot;diode&quot; % &quot;1.1.0&quot;" title="&quot;me.chrons&quot; %%% &quot;diode&quot; % &quot;1.1.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/chandu0101/sri" target="library">Sri</a></td>
+                <td>Sri (Scala React interface) is a scalajs library to build truly native cross platform (mobile (ios and android) and web) applications.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.chandu0101.sri&quot; %%% &quot;web&quot; % &quot;0.5.0&quot;" title="&quot;com.github.chandu0101.sri&quot; %%% &quot;web&quot; % &quot;0.5.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://outwatch.github.io/" target="library">OutWatch</a></td>
+                <td>A functional &amp; reactive UI framework based on Rx
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;io.github.outwatch&quot; %%% &quot;outwatch&quot; % &quot;0.7.1&quot;" title="&quot;io.github.outwatch&quot; %%% &quot;outwatch&quot; % &quot;0.7.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://slinky.shadaj.me/" target="library">Slinky</a></td>
+                <td>Write Scala.js React apps just like you would in ES6
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;me.shadaj&quot; %%% &quot;slinky-core&quot; % &quot;0.5.1&quot;, &quot;me.shadaj&quot; %%% &quot;slinky-web&quot; % &quot;0.5.1&quot;" title="&quot;me.shadaj&quot; %%% &quot;slinky-core&quot; % &quot;0.5.1&quot;, &quot;me.shadaj&quot; %%% &quot;slinky-web&quot; % &quot;0.5.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+    
+        <tr>
+            <td colspan="3"><h4>Serialization/pickling libraries</h4></td>
+        </tr>
+        
+        
+            <tr>
+                <td><a href="https://github.com/lihaoyi/upickle" target="library">uPickle</a></td>
+                <td>Statically-typed pickling (via typeclasses/macros) for both Scala and Scala.js
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.lihaoyi&quot; %%% &quot;upickle&quot; % &quot;0.4.4&quot;" title="&quot;com.lihaoyi&quot; %%% &quot;upickle&quot; % &quot;0.4.4&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/ochrons/boopickle" target="library">BooPickle</a></td>
+                <td>Highly efficient binary serialization for both Scala and Scala.js
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;me.chrons&quot; %%% &quot;boopickle&quot; % &quot;1.2.5&quot;" title="&quot;me.chrons&quot; %%% &quot;boopickle&quot; % &quot;1.2.5&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/benhutchison/prickle" target="library">Prickle</a></td>
+                <td>Statically-typed pickling library with support for pickling object graphs containing shared objects and cycles
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.benhutchison&quot; %%% &quot;prickle&quot; % &quot;1.1.14&quot;" title="&quot;com.github.benhutchison&quot; %%% &quot;prickle&quot; % &quot;1.1.14&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/MediaMath/scala-json" target="library">scala-json</a></td>
+                <td>JSON pickling, advanced compile-time marshaling, full-feature DSL and more for Scala and Scala.js
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.mediamath&quot; %%% &quot;scala-json&quot; % &quot;1.0&quot;" title="&quot;com.mediamath&quot; %%% &quot;scala-json&quot; % &quot;1.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/fomkin/pushka" target="library">Pushka</a></td>
+                <td>Pure Scala pickler with annotations
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.fomkin&quot; %%% &quot;pushka-json&quot; % &quot;0.8.0&quot;" title="&quot;com.github.fomkin&quot; %%% &quot;pushka-json&quot; % &quot;0.8.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/circe/circe" target="library">Circe</a></td>
+                <td>Yet another JSON library for Scala (built with Cats and Shapeless)
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;io.circe&quot; %%% &quot;circe-core&quot; % &quot;0.7.0&quot;, &quot;io.circe&quot; %%% &quot;circe-parser&quot; % &quot;0.7.0&quot;, &quot;io.circe&quot; %%% &quot;circe-generic&quot; % &quot;0.7.0&quot;" title="&quot;io.circe&quot; %%% &quot;circe-core&quot; % &quot;0.7.0&quot;, &quot;io.circe&quot; %%% &quot;circe-parser&quot; % &quot;0.7.0&quot;, &quot;io.circe&quot; %%% &quot;circe-generic&quot; % &quot;0.7.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="http://github.com/uniformlyrandom/jello" target="library">Jello</a></td>
+                <td>Scala.js &amp; JVM JSON serialization framework without thrills
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.uniformlyrandom&quot; %%% &quot;jello&quot; % &quot;0.3.0&quot;" title="&quot;com.uniformlyrandom&quot; %%% &quot;jello&quot; % &quot;0.3.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/scala-js/scala-js-pickling" target="library">Scala.js Pickling</a></td>
+                <td>Pickling library based on explicit registration of picklers
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;be.doeraene&quot; %%% &quot;scalajs-pickling&quot; % &quot;0.4.0&quot;" title="&quot;be.doeraene&quot; %%% &quot;scalajs-pickling&quot; % &quot;0.4.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/msgpack4z/msgpack4z-core" target="library">Msgpack4z</a></td>
+                <td>Functional msgpack serializer/deserializer for Scala
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.xuwei-k&quot; %%% &quot;msgpack4z-core&quot; % &quot;0.3.5&quot;" title="&quot;com.github.xuwei-k&quot; %%% &quot;msgpack4z-core&quot; % &quot;0.3.5&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/pocketberserker/scodec-msgpack" target="library">Scodec MessagePack</a></td>
+                <td>Yet another MessagePack implementation for Scala
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.pocketberserker&quot; %%% &quot;scodec-msgpack&quot; % &quot;0.6.0&quot;" title="&quot;com.github.pocketberserker&quot; %%% &quot;scodec-msgpack&quot; % &quot;0.6.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="http://trueaccord.github.io/ScalaPB" target="library">ScalaPB</a></td>
+                <td>Generates case classes, serializers and deserializers for Protocol Buffers
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.trueaccord.scalapb&quot; %%% &quot;scalapb-runtime&quot; % &quot;0.5.47&quot;" title="&quot;com.trueaccord.scalapb&quot; %%% &quot;scalapb-runtime&quot; % &quot;0.5.47&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://nrinaudo.github.io/kantan.csv/" target="library">kantan.csv</a></td>
+                <td>CSV handling library for Scala
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.nrinaudo&quot; %%% &quot;kantan.csv&quot; % &quot;0.4.0&quot;" title="&quot;com.nrinaudo&quot; %%% &quot;kantan.csv&quot; % &quot;0.4.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+    
+        <tr>
+            <td colspan="3"><h4>Client-server communication</h4></td>
+        </tr>
+        
+        
+            <tr>
+                <td><a href="https://github.com/lihaoyi/autowire" target="library">autowire</a></td>
+                <td>Cross-compiling statically-typed Ajax calls and RPCs
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.lihaoyi&quot; %%% &quot;autowire&quot; % &quot;0.2.6&quot;" title="&quot;com.lihaoyi&quot; %%% &quot;autowire&quot; % &quot;0.2.6&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/hmil/RosHTTP" target="library">RösHTTP</a></td>
+                <td>A cross-platform HTTP client implementation for the browser, Node.js and the JVM.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;fr.hmil&quot; %%% &quot;roshttp&quot; % &quot;2.0.1&quot;" title="&quot;fr.hmil&quot; %%% &quot;roshttp&quot; % &quot;2.0.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="http://guide.udash.io/#/rpc" target="library">Udash RPC</a></td>
+                <td>Cross-compiling strongly typed client-server communication system for the Udash framework
+</td>
+                <td>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/julienrf/endpoints/" target="library">endpoints</a></td>
+                <td>Scala library to define HTTP-based communication protocols
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.julienrf&quot; %%% &quot;endpoints-algebra&quot; % &quot;0.1&quot;" title="&quot;org.julienrf&quot; %%% &quot;endpoints-algebra&quot; % &quot;0.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/shogowada/scala-json-rpc" target="library">scala-json-rpc</a></td>
+                <td>Let your servers and clients communicate over function calls! A JSON-RPC 2.0 library for both Scala JVM &amp; JS
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;io.github.shogowada&quot; %%% &quot;scala-json-rpc&quot; % &quot;0.3.0&quot;" title="&quot;io.github.shogowada&quot; %%% &quot;scala-json-rpc&quot; % &quot;0.3.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+    
+        <tr>
+            <td colspan="3"><h4>FRP/reactive extensions</h4></td>
+        </tr>
+        
+        
+            <tr>
+                <td><a href="https://github.com/lihaoyi/scala.rx" target="library">Scala.Rx</a></td>
+                <td>Change-propagation/FRP library
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.lihaoyi&quot; %%% &quot;scalarx&quot; % &quot;0.3.2&quot;" title="&quot;com.lihaoyi&quot; %%% &quot;scalarx&quot; % &quot;0.3.2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://monix.io/" target="library">Monix</a></td>
+                <td>Library for composing asynchronous, lawful, event-based programs, with Observables, Task, Coeval and low-level primitives
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;io.monix&quot; %%% &quot;monix&quot; % &quot;2.2.1&quot;" title="&quot;io.monix&quot; %%% &quot;monix&quot; % &quot;2.2.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/MetaStack-pl/MetaRx" target="library">MetaRx</a></td>
+                <td>Reactive data structures for Scala and Scala.js
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;pl.metastack&quot; %%% &quot;metarx&quot; % &quot;0.1.7&quot;" title="&quot;pl.metastack&quot; %%% &quot;metarx&quot; % &quot;0.1.7&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/ThoughtWorksInc/Binding.scala" target="library">Binding.scala/core</a></td>
+                <td>Reactive data-binding for both Scala.js and JVM
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="libraryDependencies += &quot;com.thoughtworks.binding&quot; %%% &quot;core&quot; % &quot;7.0.3&quot;" title="libraryDependencies += &quot;com.thoughtworks.binding&quot; %%% &quot;core&quot; % &quot;7.0.3&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+    
+        <tr>
+            <td colspan="3"><h4>Dependency Injection</h4></td>
+        </tr>
+        
+        
+            <tr>
+                <td><a href="https://github.com/wvlet/airframe" target="library">Airframe</a></td>
+                <td>Guice-like run-time dependency injection library tailored to Scala traits
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.wvlet&quot; %%% &quot;airframe&quot; % &quot;0.12&quot;" title="&quot;org.wvlet&quot; %%% &quot;airframe&quot; % &quot;0.12&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/adamw/macwire" target="library">MacWire</a></td>
+                <td>Compile-time dependency injection library
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.softwaremill.macwire&quot; %% &quot;macros&quot; % &quot;2.3.0&quot;" title="&quot;com.softwaremill.macwire&quot; %% &quot;macros&quot; % &quot;2.3.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+    
+        <tr>
+            <td colspan="3"><h4>Miscellaneous</h4></td>
+        </tr>
+        
+        
+            <tr>
+                <td><a href="https://github.com/japgolly/rng" target="library">NICTA/rng</a></td>
+                <td>Pure-functional random value generation.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.japgolly.fork.nicta&quot; %%% &quot;rng&quot; % &quot;1.3.0-2&quot;" title="&quot;com.github.japgolly.fork.nicta&quot; %%% &quot;rng&quot; % &quot;1.3.0-2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/scala/async" target="library">Scala-Async</a></td>
+                <td>An asynchronous programming facility for Scala/Scala.js.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.scala-lang.modules&quot; %% &quot;scala-async&quot; % &quot;0.9.6&quot;" title="&quot;org.scala-lang.modules&quot; %% &quot;scala-async&quot; % &quot;0.9.6&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/nativelibs4java/scalaxy-streams" target="library">Scalaxy Streams</a></td>
+                <td>Make your Scala collections faster!
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.nativelibs4java&quot; %% &quot;scalaxy-streams&quot; % &quot;0.3.4&quot; % &quot;provided&quot;" title="&quot;com.nativelibs4java&quot; %% &quot;scalaxy-streams&quot; % &quot;0.3.4&quot; % &quot;provided&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/jducoeur/jsext" target="library">jsext</a></td>
+                <td>Utilities for developing facades and working with Futures
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.querki&quot; %%% &quot;querki-jsext&quot; % &quot;0.8&quot;" title="&quot;org.querki&quot; %%% &quot;querki-jsext&quot; % &quot;0.8&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/jducoeur/shocon" target="library">shocon</a></td>
+                <td>A partial pure-Scala, cross-compiled implementation of the HOCON configuration language
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.querki&quot; %%% &quot;shocon&quot; % &quot;0.3&quot;" title="&quot;org.querki&quot; %%% &quot;shocon&quot; % &quot;0.3&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/unicredit/shocon" target="library">SHocon</a></td>
+                <td>Simple pure-scala Typesafe HOCON implementation using FastParse
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;eu.unicredit&quot; %%% &quot;shocon&quot; % &quot;0.1.7&quot;" title="&quot;eu.unicredit&quot; %%% &quot;shocon&quot; % &quot;0.1.7&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/jokade/slogging" target="library">slogging</a></td>
+                <td>A simple logging library with an API compatible to scala-logging (and slf4j)
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;biz.enef&quot; %%% &quot;slogging&quot; % &quot;0.5.2&quot;" title="&quot;biz.enef&quot; %%% &quot;slogging&quot; % &quot;0.5.2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/outr/scribe" target="library">scribe</a></td>
+                <td>Logging framework for Scala and Scala.js
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.outr.scribe&quot; %%% &quot;scribe&quot; % &quot;1.2.5&quot;" title="&quot;com.outr.scribe&quot; %%% &quot;scribe&quot; % &quot;1.2.5&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="http://lihaoyi.github.io/fastparse/" target="library">FastParse</a></td>
+                <td>Fast to write, fast-running parser-combinators in Scala/Scala.js
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.lihaoyi&quot; %%% &quot;fastparse&quot; % &quot;0.4.2&quot;" title="&quot;com.lihaoyi&quot; %%% &quot;fastparse&quot; % &quot;0.4.2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/japgolly/nyaya" target="library">Nyaya</a></td>
+                <td>Random data generation.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.japgolly.nyaya&quot; %%% &quot;nyaya-gen&quot; % &quot;0.8.1&quot;" title="&quot;com.github.japgolly.nyaya&quot; %%% &quot;nyaya-gen&quot; % &quot;0.8.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/lightserver/cryptotpyrc" target="library">cryptotpyrc</a></td>
+                <td>Scala.js &amp; JVM cross compiled RSA / Crypto library.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;pl.setblack&quot; %%% &quot;cryptotpyrc&quot; % &quot;0.4&quot;" title="&quot;pl.setblack&quot; %%% &quot;cryptotpyrc&quot; % &quot;0.4&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/unicredit/akka.js" target="library">Akka</a></td>
+                <td>Toolkit and runtime for building concurrent, distributed applications. Crosscompiled from Typesafe Akka sources
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;eu.unicredit&quot; %%% &quot;akkajsactor&quot; % &quot;0.2.4.14&quot;" title="&quot;eu.unicredit&quot; %%% &quot;akkajsactor&quot; % &quot;0.2.4.14&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/unicredit/akka.js" target="library">AkkaStream</a></td>
+                <td>Streaming programming on top of Akka. Crosscompiled from Typesafe Akka Stream sources
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;eu.unicredit&quot; %%% &quot;akkajsactorstream&quot; % &quot;0.2.4.14&quot;" title="&quot;eu.unicredit&quot; %%% &quot;akkajsactorstream&quot; % &quot;0.2.4.14&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/alonsodomin/cron4s" target="library">cron4s</a></td>
+                <td>CRON expression parser supporting multiple data-time libraries in the JVM and in the browser
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.alonsodomin.cron4s&quot; %%% &quot;cron4s&quot; % &quot;0.3.0&quot;" title="&quot;com.github.alonsodomin.cron4s&quot; %%% &quot;cron4s&quot; % &quot;0.3.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/typelevel/squants" target="library">squants</a></td>
+                <td>API for Quantities, Units of Measure and Dimensional Analysis
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.typelevel&quot; %%% &quot;squants&quot; % &quot;1.1.0&quot;" title="&quot;org.typelevel&quot; %%% &quot;squants&quot; % &quot;1.1.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/wvlet/log" target="library">wvlet-log</a></td>
+                <td>A logging library with colors and source code locations
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.wvlet&quot; %%% &quot;wvlet-log&quot; % &quot;1.2&quot;" title="&quot;org.wvlet&quot; %%% &quot;wvlet-log&quot; % &quot;1.2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/cibotech/evilplot" target="library">EvilPlot</a></td>
+                <td>Combinator-based 2D plotting library for easily building composable and extensible data visualizations
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="resolvers += Resolver.bintrayRepo(&quot;cibotech&quot;, &quot;public&quot;)
+libraryDependencies += &quot;com.cibo&quot; %%% &quot;evilplot&quot; % &quot;0.2.1&quot;
+" title="resolvers += Resolver.bintrayRepo(&quot;cibotech&quot;, &quot;public&quot;)
+libraryDependencies += &quot;com.cibo&quot; %%% &quot;evilplot&quot; % &quot;0.2.1&quot;
+"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+    
+        <tr>
+            <td colspan="3"><h4>Tools</h4></td>
+        </tr>
+        
+        
+            <tr>
+                <td><a href="https://github.com/ThoughtWorksInc/sbt-scala-js-map" target="library">sbt-scala-js-map</a></td>
+                <td>A Sbt plugin that configures source mapping for Scala.js projects hosted on Github
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="addSbtPlugin(&quot;com.thoughtworks.sbt-scala-js-map&quot; % &quot;sbt-scala-js-map&quot; % &quot;latest.release&quot;)" title="addSbtPlugin(&quot;com.thoughtworks.sbt-scala-js-map&quot; % &quot;sbt-scala-js-map&quot; % &quot;latest.release&quot;)"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/lihaoyi/scala-js-workbench" target="library">Workbench</a></td>
+                <td>SBT plugin for Scala.JS live-reloading in the browser. (<a href="https://github.com/lihaoyi/workbench-example-app">example app</a>)
+</td>
+                <td>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/japgolly/scalajs-benchmark" target="library">scalajs-benchmark</a></td>
+                <td>Write benchmarks in Scala or JS, run in your browser. (<a href="https://japgolly.github.io/scalajs-benchmark/">online demo</a>)
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.japgolly.scalajs-benchmark&quot; %%% &quot;benchmark&quot; % &quot;0.2.4&quot;" title="&quot;com.github.japgolly.scalajs-benchmark&quot; %%% &quot;benchmark&quot; % &quot;0.2.4&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/ThoughtWorksInc/enableIf.scala" target="library">enableIf.scala</a></td>
+                <td>A library that switches Scala code at compile-time, like <code class="highlighter-rouge">#if</code> in C/C++
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="addCompilerPlugin(&quot;org.scalamacros&quot; % &quot;paradise&quot; % &quot;2.1.0&quot; cross CrossVersion.full)
+libraryDependencies += &quot;com.thoughtworks.enableIf&quot; %% &quot;enableif&quot; % &quot;latest.release&quot;
+" title="addCompilerPlugin(&quot;org.scalamacros&quot; % &quot;paradise&quot; % &quot;2.1.0&quot; cross CrossVersion.full)
+libraryDependencies += &quot;com.thoughtworks.enableIf&quot; %% &quot;enableif&quot; % &quot;latest.release&quot;
+"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/jokade/sbt-node" target="library">sbt-node</a></td>
+                <td>A Sbt plugin for integration with npm / node.js based build tools.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="addSbtPlugin(&quot;de.surfice&quot; % &quot;sbt-node&quot; % &quot;0.0.2&quot;)" title="addSbtPlugin(&quot;de.surfice&quot; % &quot;sbt-node&quot; % &quot;0.0.2&quot;)"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+    
+    </tbody>
+</table>
+<script>
+onloadFunctions.push(function() {new Clipboard('.btn-clipboard')});
+</script>
+
+<hr />
+
+<p><small>Additions and corrections to this section may be reported through
+<a href="https://github.com/scala-js/scala-js-website/issues">GitHub issues</a>. Please include Name, Url, Description and
+Dependency</small></p>
+
+            <div class="spacing"></div>
+        </div>
+        <div class="col-md-3">
+            <nav class="toc" role="navigation">
+                
+<ul>
+    
+    <li>
+        <a href="/libraries/">
+            
+            
+            Libraries
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/libraries/facades.html">
+            
+            
+            JavaScript libraries
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/libraries/libs.html">
+            
+            
+            <b>Scala libraries</b>
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/libraries/testing.html">
+            
+            
+            Testing frameworks
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/libraries/skeletons.html">
+            
+            
+            Skeletons
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

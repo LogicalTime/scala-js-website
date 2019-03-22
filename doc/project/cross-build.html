@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/doc/project/cross-build.html">
+
+    <title> Cross-Building - Scala.js</title>
+
+    <meta property="og:title" content="Cross-Building" /><meta property="og:type" content="website" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li ><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Cross-Building</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-9">
+            <p>It is often desirable to compile the same source code with Scala.js and Scala JVM.
+In order to do this, you need two different projects, one for Scala.js and one for Scala JVM and a folder with the shared source code.
+You can then tell sbt to use the shared source folder in addition to the normal source locations.</p>
+
+<p>To do this, we provide a builder, <code class="highlighter-rouge">crossProject</code>, which constructs two related sbt projects, one for the JVM, and one for JS.
+See <a href="https://www.scala-js.org/api/sbt-scalajs/0.6.26/#org.scalajs.sbtplugin.cross.CrossProject">the ScalaDoc of <code class="highlighter-rouge">CrossProject</code></a>
+for examples and documentation.</p>
+
+<p>We give a simple example of how such a project, we call it <code class="highlighter-rouge">foo</code>, could look. You can find this project on <a href="https://github.com/scala-js/scalajs-cross-compile-example">GitHub</a>.</p>
+
+<p><strong>Scala.js 1.x:</strong> Scala.js 1.x uses <a href="https://github.com/scala-native/sbt-crossproject">sbt-crossproject</a>, which is entirely backward source compatible with the API described here.</p>
+
+<h2 id="directory-structure">Directory Structure</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;project root&gt;
+ +- jvm
+ |   +- src/main/scala
+ +- js
+ |   +- src/main/scala
+ +- shared
+     +- src/main/scala
+</code></pre></div></div>
+
+<p>In <code class="highlighter-rouge">shared/src/main/scala</code> are the shared source files.
+In <code class="highlighter-rouge">{js|jvm}/src/main/scala</code> are the source files specific to the respective platform (these folders are optional).</p>
+
+<h2 id="sbt-build-file">sbt Build File</h2>
+
+<p>This is an example how your <code class="highlighter-rouge">build.sbt</code> could look like:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">name</span> <span class="o">:=</span> <span class="s">"Foo root project"</span>
+
+<span class="n">scalaVersion</span> <span class="n">in</span> <span class="nc">ThisBuild</span> <span class="o">:=</span> <span class="s">"2.11.8"</span>
+
+<span class="k">lazy</span> <span class="k">val</span> <span class="n">root</span> <span class="k">=</span> <span class="n">project</span><span class="o">.</span><span class="n">in</span><span class="o">(</span><span class="n">file</span><span class="o">(</span><span class="s">"."</span><span class="o">)).</span>
+  <span class="n">aggregate</span><span class="o">(</span><span class="n">fooJS</span><span class="o">,</span> <span class="n">fooJVM</span><span class="o">).</span>
+  <span class="n">settings</span><span class="o">(</span>
+    <span class="n">publish</span> <span class="o">:=</span> <span class="o">{},</span>
+    <span class="n">publishLocal</span> <span class="o">:=</span> <span class="o">{}</span>
+  <span class="o">)</span>
+
+<span class="k">lazy</span> <span class="k">val</span> <span class="n">foo</span> <span class="k">=</span> <span class="n">crossProject</span><span class="o">.</span><span class="n">in</span><span class="o">(</span><span class="n">file</span><span class="o">(</span><span class="s">"."</span><span class="o">)).</span>
+  <span class="n">settings</span><span class="o">(</span>
+    <span class="n">name</span> <span class="o">:=</span> <span class="s">"foo"</span><span class="o">,</span>
+    <span class="n">version</span> <span class="o">:=</span> <span class="s">"0.1-SNAPSHOT"</span>
+  <span class="o">).</span>
+  <span class="n">jvmSettings</span><span class="o">(</span>
+    <span class="c1">// Add JVM-specific settings here
+</span>  <span class="o">).</span>
+  <span class="n">jsSettings</span><span class="o">(</span>
+    <span class="c1">// Add JS-specific settings here
+</span>  <span class="o">)</span>
+
+<span class="k">lazy</span> <span class="k">val</span> <span class="n">fooJVM</span> <span class="k">=</span> <span class="n">foo</span><span class="o">.</span><span class="n">jvm</span>
+<span class="k">lazy</span> <span class="k">val</span> <span class="n">fooJS</span> <span class="k">=</span> <span class="n">foo</span><span class="o">.</span><span class="n">js</span></code></pre></figure>
+
+<p>Note that <code class="highlighter-rouge">enablePlugins(ScalaJSPlugin)</code> <strong>must not</strong> be included when using <code class="highlighter-rouge">crossProject</code>.</p>
+
+<p>You now have separate projects to compile towards Scala.js and Scala JVM. Note the same name given to both projects, this allows them to be published with corresponding artifact names:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">foo_2.11-0.1-SNAPSHOT.jar</code></li>
+  <li><code class="highlighter-rouge">foo_sjs0.6_2.11-0.1-SNAPSHOT.jar</code></li>
+</ul>
+
+<p>If you do not publish the artifacts, you may choose different names for the projects.</p>
+
+<h2 id="dependencies">Dependencies</h2>
+
+<p>If your cross compiled source depends on libraries, you may use <code class="highlighter-rouge">%%%</code> for both projects. It will automatically determine whether you are in a Scala/JVM or a Scala.js project. For example, if your code uses <a href="http://github.com/lihaoyi/scalatags">Scalatags</a>, your project definitions look like this:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">lazy</span> <span class="k">val</span> <span class="n">foo</span> <span class="k">=</span> <span class="n">crossProject</span><span class="o">.</span><span class="n">in</span><span class="o">(</span><span class="n">file</span><span class="o">(</span><span class="s">"."</span><span class="o">)).</span>
+  <span class="n">settings</span><span class="o">(</span>
+    <span class="c1">// other settings
+</span>    <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.lihaoyi"</span> <span class="o">%%%</span> <span class="s">"scalatags"</span> <span class="o">%</span> <span class="s">"0.4.3"</span>
+  <span class="o">)</span></code></pre></figure>
+
+<p>instead of the more repetitive variant:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">lazy</span> <span class="k">val</span> <span class="n">foo</span> <span class="k">=</span> <span class="n">crossProject</span><span class="o">.</span><span class="n">in</span><span class="o">(</span><span class="n">file</span><span class="o">(</span><span class="s">"."</span><span class="o">)).</span>
+  <span class="n">settings</span><span class="o">(</span>
+    <span class="c1">// other settings
+</span>  <span class="o">).</span>
+  <span class="n">jvmSettings</span><span class="o">(</span>
+    <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.lihaoyi"</span> <span class="o">%%</span> <span class="s">"scalatags"</span> <span class="o">%</span> <span class="s">"0.4.3"</span>
+  <span class="o">).</span>
+  <span class="n">jsSettings</span><span class="o">(</span>
+    <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.lihaoyi"</span> <span class="o">%%%</span> <span class="s">"scalatags"</span> <span class="o">%</span> <span class="s">"0.4.3"</span>
+  <span class="o">)</span></code></pre></figure>
+
+<h2 id="exporting-shared-classes-to-javascript">Exporting shared classes to JavaScript</h2>
+
+<p>When working with shared classes, you may want to export some of them to JavaScript.
+This is done with annotations as explained in <a href="../interoperability/export-to-javascript.html">Export Scala.js APIs to JavaScript</a>.</p>
+
+<p>These annotations are part of the Scala.js library which is not available on the Scala JVM project.
+In order for the annotated classes to compile on the JVM project, you should add the scalajs-stubs library to your JVM dependencies as “provided” (used only during compilation and not included at runtime):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>libraryDependencies += "org.scala-js" %% "scalajs-stubs" % scalaJSVersion % "provided"
+</code></pre></div></div>
+
+<p><a href="https://www.scala-js.org/api/scalajs-stubs/latest/">scalajs-stubs</a> is a tiny JVM (only) library containing Scala.js export annotations.</p>
+
+            <div class="spacing"></div>
+        </div>
+        <div class="col-md-3">
+            <nav class="toc" role="navigation">
+                
+<ul>
+    
+    <li>
+        <a href="/doc/">
+            
+            
+            Introduction
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/tutorial/">
+            
+            
+            Tutorials
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/tutorial/basic/">
+            
+            
+            Basic tutorial
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/">
+            
+            
+            Scala.js for JavaScript developers
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part1.html">
+            
+            
+            From ES6 to Scala: Basics
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part2.html">
+            
+            
+            From ES6 to Scala: Collections
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part3.html">
+            
+            
+            From ES6 to Scala: Advanced
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/project/">
+            
+            
+            Project setup
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/project/building.html">
+            
+            
+            Building the application
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/dependencies.html">
+            
+            
+            Dependencies
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/module.html">
+            
+            
+            Emitting modules
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/js-environments.html">
+            
+            
+            JavaScript Environments
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/cross-build.html">
+            
+            
+            <b>Cross-building</b>
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/testing.html">
+            
+            
+            Testing
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/interoperability/">
+            
+            
+            JavaScript interoperability
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/interoperability/types.html">
+            
+            
+            JavaScript types
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/facade-types.html">
+            
+            
+            Write facade types for JS APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/global-scope.html">
+            
+            
+            Access to the JavaScript global scope (1.x only)
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/export-to-javascript.html">
+            
+            
+            Export Scala.js APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/sjs-defined-js-classes.html">
+            
+            
+            Write JavaScript classes in Scala.js
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/exceptions.html">
+            
+            
+            Working with Exceptions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/api.html">
+            
+            
+            Scala.js API
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/all-api.html">
+            
+            
+            APIs of previous versions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/semantics.html">
+            
+            
+            Semantics of Scala.js
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/">
+            
+            
+            Internals
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/internals/performance.html">
+            
+            
+            Performance
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/downloads.html">
+            
+            
+            Standalone distribution
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/version-history.html">
+            
+            
+            Version history
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/faq.html">
+            
+            
+            FAQ
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/news/2018/05/22/announcing-scalajs-0.6.23/">
+
+    <title> Announcing Scala.js 0.6.23 - Scala.js</title>
+
+    <meta property="og:title" content="Announcing Scala.js 0.6.23" /><meta property="og:type" content="article" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" /><meta property="article:published_time" content="2018-05-22T00:00:00-04:00" /><meta property="article:tag" content="releases" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li class="active"><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Announcing Scala.js 0.6.23</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="small">May 22, 2018.</span>
+            </p>
+            <p>We are pleased to announce the release of Scala.js 0.6.23!</p>
+
+<p>This release is almost exclusively a bug-fix release.
+It also adds support for Scala 2.13.0-M4 and its new collections, thanks to the hard work of <a href="https://github.com/julienrf"><strong>@julienrf</strong></a>.</p>
+
+<p>Read on for more details.</p>
+
+<!--more-->
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>If you are new to Scala.js, head over to
+<a href="/tutorial/">the tutorial</a>.</p>
+
+<h2 id="release-notes">Release notes</h2>
+
+<p>If upgrading from Scala.js 0.6.14 or earlier, make sure to read <a href="/news/2017/03/21/announcing-scalajs-0.6.15/">the release notes of 0.6.15</a>, which contain important migration information.</p>
+
+<p>As a minor release, 0.6.23 is backward binary compatible with previous releases in the 0.6.x series.
+Libraries compiled with earlier versions can be used with 0.6.23 without change.
+0.6.23 is also forward binary compatible with 0.6.{17-22}, but not with earlier releases: libraries compiled with 0.6.23 cannot be used by projects using 0.6.{0-16}.</p>
+
+<p>There is one source breaking change if you use <code class="highlighter-rouge">.scala</code> files for your sbt build.</p>
+
+<p>Please report any issues <a href="https://github.com/scala-js/scala-js/issues">on GitHub</a>.</p>
+
+<h2 id="breaking-changes">Breaking changes</h2>
+
+<p>Usages of <code class="highlighter-rouge">%%%</code> in <code class="highlighter-rouge">.scala</code> files of an sbt build (under <code class="highlighter-rouge">project/</code>) need a new import:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._</span></code></pre></figure>
+
+<p>For <code class="highlighter-rouge">.sbt</code> files, this import is automatically added, so nothing changes.</p>
+
+<h2 id="deprecations">Deprecations</h2>
+
+<h3 id="built-in-crossproject">Built-in <code class="highlighter-rouge">crossProject</code></h3>
+
+<p>The built-in <code class="highlighter-rouge">crossProject</code> feature has been deprecated.
+You should use <a href="https://github.com/portable-scala/sbt-crossproject">sbt-crossproject</a> instead.
+Please follow <a href="https://github.com/portable-scala/sbt-crossproject#migration-from-scalajs-default-crossproject">the migration instructions</a> in its readme.</p>
+
+<h3 id="withoutputmode"><code class="highlighter-rouge">withOutputMode</code></h3>
+
+<p>The notion of <code class="highlighter-rouge">OutputMode</code> has been replaced by that of <code class="highlighter-rouge">ESFeatures</code>.
+Instead of</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.scalajs.core.tools.linker.backend.OutputMode</span>
+<span class="n">scalaJSOutputMode</span> <span class="o">:=</span> <span class="nc">OutputMode</span><span class="o">.</span><span class="nc">ECMAScript2015</span></code></pre></figure>
+
+<p>or</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.scalajs.core.tools.linker.standard._</span>
+<span class="n">scalaJSLinkerConfig</span> <span class="o">~=</span> <span class="o">{</span> <span class="k">_</span><span class="o">.</span><span class="n">withOutputMode</span><span class="o">(</span><span class="nc">OutputMode</span><span class="o">.</span><span class="nc">ECMAScript2015</span><span class="o">)</span> <span class="o">}</span></code></pre></figure>
+
+<p>you should now use</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// no import needed
+</span><span class="n">scalaJSLinkerConfig</span> <span class="o">~=</span> <span class="o">{</span> <span class="k">_</span><span class="o">.</span><span class="n">withESFeatures</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">withUseECMAScript2015</span><span class="o">(</span><span class="kc">true</span><span class="o">))</span> <span class="o">}</span></code></pre></figure>
+
+<h2 id="new-features">New features</h2>
+
+<h3 id="jdk-apis">JDK APIs</h3>
+
+<p>The following JDK API methods have been added:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">java.lang.Character.isSurrogate()</code></li>
+</ul>
+
+<h2 id="bug-fixes">Bug fixes</h2>
+
+<p>Among others, the following bugs have been fixed in 0.6.23:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/3227">#3227</a> Linking error for an <code class="highlighter-rouge">@EnableReflectiveInstantiation</code> class inside a lambda in Scala 2.11 and 2.10</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/3267">#3267</a> Linking error with <code class="highlighter-rouge">@tailrec</code> method inside a trait with a self-type, on Scala 2.12+</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/3285">#3285</a> Run-time error in Scala.js-defined classes with multiple parameter lists and default args</li>
+</ul>
+
+<p>You can find the full list <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av0.6.23+is%3Aclosed">on GitHub</a>.</p>
+
+            <div class="spacing"></div>
+            <nav>
+                <ul class="pager">
+                    
+                    <li class="previous"><a href="/news/2018/02/01/announcing-scalajs-1.0.0-M3/"
+                                            title="Announcing Scala.js 1.0.0-M3">&larr; Previous</a></li>
+                    
+                    
+                    <li class="next"><a href="/news/2018/06/29/announcing-scalajs-0.6.24/"
+                                        title="Announcing Scala.js 0.6.24">Next &rarr;</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

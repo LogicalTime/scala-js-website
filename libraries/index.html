@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/libraries/index.html">
+
+    <title> Libraries - Scala.js</title>
+
+    <meta property="og:title" content="Libraries" /><meta property="og:type" content="website" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li class="active"><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li ><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Libraries</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-9">
+            <p>Great libraries make programming so much easier. With Scala.js you can use both Scala and JavaScript libraries in your code easily.</p>
+
+<h3 id="javascript-facades"><a href="facades.html">JavaScript facades</a></h3>
+<p>Interact with JavaScript libraries in a safe, strongly-typed manner.</p>
+
+<h3 id="scala-libraries"><a href="libs.html">Scala libraries</a></h3>
+<p>Libraries traditionally running on the JVM, now running on JS as well!</p>
+
+<h3 id="testing"><a href="testing.html">Testing</a></h3>
+<p>Make sure your code starts correct and stays correct.</p>
+
+<h3 id="project-skeletons"><a href="skeletons.html">Project Skeletons</a></h3>
+<p>Get started quickly.</p>
+
+<h3 id="add-a-scalajs-badge-on-your-library-site">Add a Scala.js badge on your library site</h3>
+
+<p>Show your true colors by adding a Scala.js badge on your site! Select the lowest Scala.js version your library is compatible with.</p>
+
+<p>If you don’t find your version of Scala.js, that’s probably because it is forward-compatible with its predecessor,
+in which case you should take the latest available version older than your version of Scala.js.
+For example, for Scala.js 0.6.7, use the 0.6.6+ badge.</p>
+
+<form class="form-horizontal" id="shield-form">
+  <div class="form-group">
+    <label for="version-sel" class="col-sm-2 control-label">Version</label>
+    <div class="col-sm-4">
+      <select class="form-control" id="version-sel">
+        
+        <option>1.0.0-M6</option>
+        
+        <option>1.0.0-M5</option>
+        
+        <option>1.0.0-M3</option>
+        
+        <option>1.0.0-M2</option>
+        
+        <option>1.0.0-M1</option>
+        
+        <option>0.6.17</option>
+        
+        <option>0.6.15</option>
+        
+        <option>0.6.14</option>
+        
+        <option>0.6.13</option>
+        
+        <option>0.6.8</option>
+        
+        <option>0.6.6</option>
+        
+        <option>0.6.5</option>
+        
+        <option>0.6.4</option>
+        
+        <option>0.6.3</option>
+        
+        <option>0.6.2</option>
+        
+        <option>0.6.1</option>
+        
+        <option>0.6.0</option>
+        
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="style-sel" class="col-sm-2 control-label">Style</label>
+    <div class="col-sm-4">
+      <select class="form-control" id="style-sel">
+        <option>Markdown</option>
+        <option>HTML</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Preview</label>
+    <div class="col-sm-4">
+      <img id="shield" src="" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="shieldCode" class="col-sm-2 control-label">Code</label>
+    <div class="col-sm-9">
+      <input type="text" id="shieldCode" class="form-control" style="font-family:monospace;font-size:0.8em;" />
+    </div>
+    <div class="col-sm-1">
+      <div class="div-clipboard">
+      <button id="shieldCodeBtn" class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="" title="Copy to clipboard"><img class="clippy" width="13" src="/assets/img/clippy.svg" />
+      </button>
+      </div>
+    </div>
+  </div>
+</form>
+<script>
+onloadFunctions.push(function() {
+  function updateShield() {
+    var version = $("#version-sel").val();
+    var style = $("#style-sel").val();
+    $("#shield").attr("src", "/assets/badges/scalajs-"+version+".svg");
+    var code = style == "Markdown" ? "[![Scala.js](https://www.scala-js.org/assets/badges/scalajs-"+version+".svg)](https://www.scala-js.org)" :
+      '<img src="https://www.scala-js.org/assets/badges/scalajs-'+version+'.svg">';
+    $("#shieldCode").val(code);
+    $("#shieldCodeBtn").attr("data-clipboard-text", code);
+  }
+  updateShield();
+  $("#version-sel").on("change", updateShield);
+  $("#style-sel").on("change", updateShield);
+  $("#shield-form").submit(function(e){ return false; });
+});
+</script>
+
+<p><small>Badge images generated with <a href="https://shields.io">shields.io</a></small></p>
+
+            <div class="spacing"></div>
+        </div>
+        <div class="col-md-3">
+            <nav class="toc" role="navigation">
+                
+<ul>
+    
+    <li>
+        <a href="/libraries/">
+            
+            
+            <b>Libraries</b>
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/libraries/facades.html">
+            
+            
+            JavaScript libraries
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/libraries/libs.html">
+            
+            
+            Scala libraries
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/libraries/testing.html">
+            
+            
+            Testing frameworks
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/libraries/skeletons.html">
+            
+            
+            Skeletons
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/doc/semantics.html">
+
+    <title> Semantics of Scala.js - Scala.js</title>
+
+    <meta property="og:title" content="Semantics of Scala.js" /><meta property="og:type" content="website" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li ><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Semantics of Scala.js</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-9">
+            <p>In general, the semantics of the Scala.js language are the same as Scala on
+the JVM.
+However, a few differences exist, which we mention here.</p>
+
+<h2 id="primitive-data-types">Primitive data types</h2>
+
+<p>All primitive data types work exactly as on the JVM, with the following three
+exceptions.</p>
+
+<h3 id="floats-can-behave-as-doubles-by-default">Floats can behave as Doubles by default</h3>
+
+<p>Scala.js underspecifies the behavior of <code class="highlighter-rouge">Float</code>s by default.
+Any <code class="highlighter-rouge">Float</code> value can be stored as a <code class="highlighter-rouge">Double</code> instead, and any operation on
+<code class="highlighter-rouge">Float</code>s can be computed with double precision.
+The choice of whether or not to behave as such, when and where, is left to the
+implementation.</p>
+
+<p>If exact single precision operations are important to your application, you can
+enable strict-floats semantics in Scala.js, with the following sbt setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalaJSLinkerConfig</span> <span class="o">~=</span> <span class="o">{</span> <span class="k">_</span><span class="o">.</span><span class="n">withSemantics</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">withStrictFloats</span><span class="o">(</span><span class="kc">true</span><span class="o">))</span> <span class="o">}</span></code></pre></figure>
+
+<p>Note that this can have a major impact on performance of your application on
+JS interpreters that do not support
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/fround">the <code class="highlighter-rouge">Math.fround</code> function</a>.</p>
+
+<h3 id="tostring-of-float-double-and-unit"><code class="highlighter-rouge">toString</code> of <code class="highlighter-rouge">Float</code>, <code class="highlighter-rouge">Double</code> and <code class="highlighter-rouge">Unit</code></h3>
+
+<p><code class="highlighter-rouge">x.toString()</code> returns slightly different results for floating point numbers
+and <code class="highlighter-rouge">()</code> (<code class="highlighter-rouge">Unit</code>).</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="o">().</span><span class="n">toString</span>   <span class="c1">// "undefined", instead of "()"
+</span><span class="mf">1.0</span><span class="o">.</span><span class="n">toString</span>  <span class="c1">// "1", instead of "1.0"
+</span><span class="mf">1.4f</span><span class="o">.</span><span class="n">toString</span> <span class="o">//</span> <span class="s">"1.399999976158142"</span> <span class="n">instead</span> <span class="n">of</span> <span class="s">"1.4"</span></code></pre></figure>
+
+<p>In general, a trailing <code class="highlighter-rouge">.0</code> is omitted.
+Floats print in a weird way because they are printed as if they were Doubles,
+which means their lack of precision shows up.</p>
+
+<p>To get sensible and portable string representation of floating point numbers,
+use <code class="highlighter-rouge">String.format()</code> or related methods.</p>
+
+<h3 id="runtime-type-tests-are-based-on-values">Runtime type tests are based on values</h3>
+
+<p>Instance tests (and consequently pattern matching) on any of <code class="highlighter-rouge">Byte</code>,
+<code class="highlighter-rouge">Short</code>, <code class="highlighter-rouge">Int</code>, <code class="highlighter-rouge">Float</code>, <code class="highlighter-rouge">Double</code> are based on the value and not the
+type they were created with. The following are examples:</p>
+
+<ul>
+  <li>1 matches <code class="highlighter-rouge">Byte</code>, <code class="highlighter-rouge">Short</code>, <code class="highlighter-rouge">Int</code>, <code class="highlighter-rouge">Float</code>, <code class="highlighter-rouge">Double</code></li>
+  <li>128 (<code class="highlighter-rouge">&gt; Byte.MaxValue</code>) matches <code class="highlighter-rouge">Short</code>, <code class="highlighter-rouge">Int</code>, <code class="highlighter-rouge">Float</code>, <code class="highlighter-rouge">Double</code></li>
+  <li>32768 (<code class="highlighter-rouge">&gt; Short.MaxValue</code>) matches <code class="highlighter-rouge">Int</code>, <code class="highlighter-rouge">Float</code>, <code class="highlighter-rouge">Double</code></li>
+  <li>2147483647 matches <code class="highlighter-rouge">Int</code>, <code class="highlighter-rouge">Double</code> if strict-floats are enabled
+(because that number cannot be represented in a strict 32-bit <code class="highlighter-rouge">Float</code>),
+otherwise <code class="highlighter-rouge">Int</code>, <code class="highlighter-rouge">Float</code> and <code class="highlighter-rouge">Double</code></li>
+  <li>2147483648 (<code class="highlighter-rouge">&gt; Int.MaxValue</code>) matches <code class="highlighter-rouge">Float</code>, <code class="highlighter-rouge">Double</code></li>
+  <li>1.5 matches <code class="highlighter-rouge">Float</code>, <code class="highlighter-rouge">Double</code></li>
+  <li>1.4 matches <code class="highlighter-rouge">Double</code> only if strict-floats are enabled,
+otherwise <code class="highlighter-rouge">Float</code> and <code class="highlighter-rouge">Double</code>
+(unlike 1.5, the value 1.4 cannot be represented in a strict 32-bit <code class="highlighter-rouge">Float</code>)</li>
+  <li><code class="highlighter-rouge">NaN</code>, <code class="highlighter-rouge">Infinity</code>, <code class="highlighter-rouge">-Infinity</code> and <code class="highlighter-rouge">-0.0</code> match <code class="highlighter-rouge">Float</code>, <code class="highlighter-rouge">Double</code></li>
+</ul>
+
+<p>As a consequence, the following apparent subtyping relationships hold:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Byte &lt;:&lt; Short &lt;:&lt;  Int  &lt;:&lt; Double
+               &lt;:&lt; Float &lt;:&lt;
+</code></pre></div></div>
+
+<p>if strict-floats are enabled, or</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Byte &lt;:&lt; Short &lt;:&lt; Int &lt;:&lt; Float =:= Double
+</code></pre></div></div>
+
+<p>otherwise.</p>
+
+<h2 id="undefined-behaviors">Undefined behaviors</h2>
+
+<p>The JVM is a very well specified environment, which even specifies how some
+bugs are reported as exceptions.
+Currently known exhaustive list of exceptions are:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">NullPointerException</code></li>
+  <li><code class="highlighter-rouge">ArrayIndexOutOfBoundsException</code> and <code class="highlighter-rouge">StringIndexOutOfBoundsException</code></li>
+  <li><code class="highlighter-rouge">ClassCastException</code></li>
+  <li><code class="highlighter-rouge">ArithmeticException</code> (such as integer division by 0)</li>
+  <li><code class="highlighter-rouge">StackOverflowError</code> and other <code class="highlighter-rouge">VirtualMachineError</code>s</li>
+</ul>
+
+<p>Because Scala.js does not receive VM support to detect such erroneous
+conditions, checking them is typically too expensive.</p>
+
+<p>Therefore, all of these are considered
+<a href="http://en.wikipedia.org/wiki/Undefined_behavior">undefined behavior</a>.</p>
+
+<p>Some of these, however, can be configured to be compliant with the JVM
+specification using sbt settings.
+Currently, only <code class="highlighter-rouge">ClassCastException</code>s (thrown by invalid <code class="highlighter-rouge">asInstanceOf</code> calls)
+are configurable, but the list will probably expand in future versions.</p>
+
+<p>Every configurable undefined behavior has 3 possible modes:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Compliant</code>: behaves as specified on a JVM</li>
+  <li><code class="highlighter-rouge">Unchecked</code>: completely unchecked and undefined</li>
+  <li><code class="highlighter-rouge">Fatal</code>: checked, but throws
+<a href="https://www.scala-js.org/api/scalajs-library/0.6.26/#scala.scalajs.runtime.UndefinedBehaviorError"><code class="highlighter-rouge">UndefinedBehaviorError</code>s</a>
+instead of the specified exception.</li>
+</ul>
+
+<p>By default, undefined behaviors are in <code class="highlighter-rouge">Fatal</code> mode for <code class="highlighter-rouge">fastOptJS</code> and in
+<code class="highlighter-rouge">Unchecked</code> mode for <code class="highlighter-rouge">fullOptJS</code>.
+This is so that bugs can be detected more easily during development, with
+predictable exceptions and stack traces.
+In production code (<code class="highlighter-rouge">fullOptJS</code>), the checks are removed for maximum
+efficiency.</p>
+
+<p><code class="highlighter-rouge">UndefinedBehaviorError</code>s are <em>fatal</em> in the sense that they are not matched by
+<code class="highlighter-rouge">case NonFatal(e)</code> handlers.
+This makes sure that they always crash your program as early as possible, so
+that you can detect and fix the bug.
+It is <em>never</em> OK to catch an <code class="highlighter-rouge">UndefinedBehaviorError</code> (other than in a testing
+framework), since that means your program will behave differently in <code class="highlighter-rouge">fullOpt</code>
+stage than in <code class="highlighter-rouge">fastOpt</code>.</p>
+
+<p>If you need a particular kind of exception to be thrown in compliance with the
+JVM semantics, you can do so with an sbt setting.
+For example, this setting enables compliant <code class="highlighter-rouge">asInstanceOf</code>s:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalaJSLinkerConfig</span> <span class="o">~=</span> <span class="o">{</span> <span class="k">_</span><span class="o">.</span><span class="n">withSemantics</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">withAsInstanceOfs</span><span class="o">(</span>
+  <span class="n">org</span><span class="o">.</span><span class="n">scalajs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">sem</span><span class="o">.</span><span class="nc">CheckedBehavior</span><span class="o">.</span><span class="nc">Compliant</span><span class="o">))</span> <span class="o">}</span></code></pre></figure>
+
+<p>Note that this will have (potentially major) performance impacts.</p>
+
+<h2 id="javascript-interoperability">JavaScript interoperability</h2>
+
+<p>The JavaScript interoperability feature is, in itself, a big semantic
+difference. However, its details are discussed in a
+<a href="./interoperability">dedicated page</a>.</p>
+
+<h2 id="reflection">Reflection</h2>
+
+<p>Java reflection and, a fortiori, Scala reflection, are not supported. There is
+limited support for <code class="highlighter-rouge">java.lang.Class</code>, e.g., <code class="highlighter-rouge">obj.getClass.getName</code> will work
+for any Scala.js object (not for objects that come from JavaScript interop).</p>
+
+<h2 id="regular-expressions">Regular expressions</h2>
+
+<p><a href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Guide:Regular_Expressions">JavaScript regular expressions</a>
+are slightly different from
+<a href="http://docs.oracle.com/javase/6/docs/api/java/util/regex/Pattern.html">Java regular expressions</a>.
+The support for regular expressions in Scala.js is implemented on top of
+JavaScript regexes.</p>
+
+<p>This sometimes has an impact on functions in the Scala library that
+use regular expressions themselves. A list of known functions that are
+affected is given here:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">StringLike.split(x: Array[Char])</code> (see issue <a href="https://github.com/scala-js/scala-js/issues/105">#105</a>)</li>
+</ul>
+
+<h2 id="symbols">Symbols</h2>
+
+<p><code class="highlighter-rouge">scala.Symbol</code> is supported, but is a potential source of memory leaks
+in applications that make heavy use of symbols. The main reason is that
+JavaScript does not support weak references, causing all symbols created
+by Scala.js to remain in memory throughout the lifetime of the application.</p>
+
+<h2 id="enumerations">Enumerations</h2>
+
+<p>The methods <code class="highlighter-rouge">Value()</code> and <code class="highlighter-rouge">Value(i: Int)</code> on <code class="highlighter-rouge">scala.Enumeration</code> use
+reflection to retrieve a string representation of the member name and
+are therefore – in principle – unsupported. However, since
+Enumerations are an integral part of the Scala library, Scala.js adds
+limited support for these two methods:</p>
+
+<ol>
+<li>Calls to either of these two methods of the forms:
+
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="o">&lt;</span><span class="n">ident</span><span class="o">&gt;</span> <span class="k">=</span> <span class="nc">Value</span>
+<span class="k">val</span> <span class="o">&lt;</span><span class="n">ident</span><span class="o">&gt;</span> <span class="k">=</span> <span class="nc">Value</span><span class="o">(&lt;</span><span class="n">num</span><span class="o">&gt;)</span></code></pre></figure>
+
+
+are statically rewritten to (a slightly more complicated version of):
+
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="o">&lt;</span><span class="n">ident</span><span class="o">&gt;</span> <span class="k">=</span> <span class="nc">Value</span><span class="o">(</span><span class="s">"&lt;ident&gt;"</span><span class="o">)</span>
+<span class="k">val</span> <span class="o">&lt;</span><span class="n">ident</span><span class="o">&gt;</span> <span class="k">=</span> <span class="nc">Value</span><span class="o">(&lt;</span><span class="n">num</span><span class="o">&gt;,</span> <span class="s">"&lt;ident&gt;"</span><span class="o">)</span></code></pre></figure>
+
+
+Note that this also includes calls like
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">A</span><span class="o">,</span> <span class="n">B</span><span class="o">,</span> <span class="n">C</span><span class="o">,</span> <span class="n">D</span> <span class="k">=</span> <span class="nc">Value</span></code></pre></figure>
+
+since they are desugared into separate <code>val</code> definitions.
+</li>
+<li>Calls to either of these two methods which could not be rewritten,
+or calls to constructors of the protected <code>Val</code> class without an
+explicit name as parameter, will issue a warning.</li>
+</ol>
+
+<p>Note that the name rewriting honors the <code class="highlighter-rouge">nextName</code>
+iterator. Therefore, the full rewrite is:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="o">&lt;</span><span class="n">ident</span><span class="o">&gt;</span> <span class="k">=</span> <span class="nc">Value</span><span class="o">(</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">nextName</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">nextName</span><span class="o">.</span><span class="n">hasNext</span><span class="o">)</span>
+    <span class="n">nextName</span><span class="o">.</span><span class="n">next</span><span class="o">()</span>
+  <span class="k">else</span>
+    <span class="s">"&lt;ident&gt;"</span>
+<span class="o">)</span></code></pre></figure>
+
+<p>We believe that this covers most use cases of
+<code class="highlighter-rouge">scala.Enumeration</code>. Please let us know if another (generalized)
+rewrite would make your life easier.</p>
+
+            <div class="spacing"></div>
+        </div>
+        <div class="col-md-3">
+            <nav class="toc" role="navigation">
+                
+<ul>
+    
+    <li>
+        <a href="/doc/">
+            
+            
+            Introduction
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/tutorial/">
+            
+            
+            Tutorials
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/tutorial/basic/">
+            
+            
+            Basic tutorial
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/">
+            
+            
+            Scala.js for JavaScript developers
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part1.html">
+            
+            
+            From ES6 to Scala: Basics
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part2.html">
+            
+            
+            From ES6 to Scala: Collections
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part3.html">
+            
+            
+            From ES6 to Scala: Advanced
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/project/">
+            
+            
+            Project setup
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/project/building.html">
+            
+            
+            Building the application
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/dependencies.html">
+            
+            
+            Dependencies
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/module.html">
+            
+            
+            Emitting modules
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/js-environments.html">
+            
+            
+            JavaScript Environments
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/cross-build.html">
+            
+            
+            Cross-building
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/testing.html">
+            
+            
+            Testing
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/interoperability/">
+            
+            
+            JavaScript interoperability
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/interoperability/types.html">
+            
+            
+            JavaScript types
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/facade-types.html">
+            
+            
+            Write facade types for JS APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/global-scope.html">
+            
+            
+            Access to the JavaScript global scope (1.x only)
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/export-to-javascript.html">
+            
+            
+            Export Scala.js APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/sjs-defined-js-classes.html">
+            
+            
+            Write JavaScript classes in Scala.js
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/exceptions.html">
+            
+            
+            Working with Exceptions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/api.html">
+            
+            
+            Scala.js API
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/all-api.html">
+            
+            
+            APIs of previous versions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/semantics.html">
+            
+            
+            <b>Semantics of Scala.js</b>
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/">
+            
+            
+            Internals
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/internals/performance.html">
+            
+            
+            Performance
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/downloads.html">
+            
+            
+            Standalone distribution
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/version-history.html">
+            
+            
+            Version history
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/faq.html">
+            
+            
+            FAQ
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

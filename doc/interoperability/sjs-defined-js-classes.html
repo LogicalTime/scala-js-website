@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/doc/interoperability/sjs-defined-js-classes.html">
+
+    <title> Non-native JS types (aka Scala.js-defined JS types) - Scala.js</title>
+
+    <meta property="og:title" content="Non-native JS types (aka Scala.js-defined JS types)" /><meta property="og:type" content="website" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li ><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Non-native JS types (aka Scala.js-defined JS types)</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-9">
+            <p>A non-native JS type, aka Scala.js-defined JS type, is a JavaScript type implemented in Scala.js code.
+This is in contrast to native JS types, described in <a href="./facade-types.html">the facade types reference</a>, which represent APIs implemented in JavaScript code.</p>
+
+<h2 id="about-scalajsdefined">About <code class="highlighter-rouge">@ScalaJSDefined</code></h2>
+
+<p>In Scala.js 0.6.x, the <code class="highlighter-rouge">@ScalaJSDefined</code> is necessary to declare a non-native JS type, also called a Scala.js-defined JS type.
+Starting from Scala.js 1.x however, the annotation is not necessary anymore.
+Since Scala.js 0.6.17, you can opt-in for the new semantics of 1.x where <code class="highlighter-rouge">@ScalaJSDefined</code> is not necessary, by giving the option <code class="highlighter-rouge">-P:scalajs:sjsDefinedByDefault</code> to scalac.
+In an sbt build, this is done with</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalacOptions</span> <span class="o">+=</span> <span class="s">"-P:scalajs:sjsDefinedByDefault"</span></code></pre></figure>
+
+<p>The present documentation assumes that you are using this option (or Scala.js 1.x).
+Code snippets mention the necessary <code class="highlighter-rouge">@ScalaJSDefined</code> in comments as a reference for older versions.</p>
+
+<h2 id="defining-a-non-native-js-type">Defining a non-native JS type</h2>
+
+<p>Any class, trait or object that inherits from <code class="highlighter-rouge">js.Any</code> is a JS type.
+Often, it will extend <code class="highlighter-rouge">js.Object</code> which itself extends <code class="highlighter-rouge">js.Any</code>:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.scalajs.js</span>
+<span class="k">import</span> <span class="nn">scala.scalajs.js.annotation._</span>
+
+<span class="c1">// @ScalaJSDefined
+</span><span class="k">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">x</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">4</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Such classes are called <em>non-native JS classes</em>, and are also known as Scala.js-defined JS classes (especially in 0.6.x).
+All their members are automatically visible from JavaScript code.
+The class itself (its constructor function) is not visible by default, but can be exported with <code class="highlighter-rouge">@JSExportTopLevel</code>.
+Moreover, they can extend JavaScript classes (native or not), and, if exported, be extended by JavaScript classes.</p>
+
+<p>Being JavaScript types, the Scala semantics do not apply to these classes.
+Instead, JavaScript semantics apply.
+For example, overloading is dispatched at run-time, instead of compile-time.</p>
+
+<h2 id="restrictions">Restrictions</h2>
+
+<p>Non-native JS types have the following restrictions:</p>
+
+<ul>
+  <li>Private methods cannot be overloaded.</li>
+  <li>Qualified private members, i.e., <code class="highlighter-rouge">private[EnclosingScope]</code>, must be <code class="highlighter-rouge">final</code>.</li>
+  <li>Non-native JS classes, traits and objects cannot directly extend native JS traits (it is allowed to extend a native JS class).</li>
+  <li>Non-native JS traits cannot declare concrete term members (i.e., they must all be abstract) unless their right-hand-side is exactly <code class="highlighter-rouge">= js.undefined</code>.</li>
+  <li>Non-native JS classes and objects must extend a JS class, for example <code class="highlighter-rouge">js.Object</code> (they cannot directly extend <code class="highlighter-rouge">AnyRef with js.Any</code>).</li>
+  <li>Declaring a method named <code class="highlighter-rouge">apply</code> without <code class="highlighter-rouge">@JSName</code> is illegal.</li>
+  <li>Declaring a method with <code class="highlighter-rouge">@JSBracketSelect</code> or <code class="highlighter-rouge">@JSBracketCall</code> is illegal.</li>
+  <li>Mixing fields, pairs of getter/setter, and/or methods with the same name is illegal. (For example <code class="highlighter-rouge">def foo: Int</code> and <code class="highlighter-rouge">def foo(x: Int): Int</code> cannot both exist in the same class.)</li>
+</ul>
+
+<h2 id="semantics">Semantics</h2>
+
+<h3 id="what-javascript-sees">What JavaScript sees</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">val</code>s and <code class="highlighter-rouge">var</code>s become actual JavaScript <em>fields</em> of the object, so JavaScript sees a field stored on the object.</li>
+  <li><code class="highlighter-rouge">def</code>s with <code class="highlighter-rouge">()</code> become JavaScript <em>methods</em> on the prototype.</li>
+  <li><code class="highlighter-rouge">def</code>s without <code class="highlighter-rouge">()</code> become JavaScript <em>getters</em> on the prototype.</li>
+  <li><code class="highlighter-rouge">def</code>s whose Scala name ends with <code class="highlighter-rouge">_=</code> become JavaScript <em>setters</em> on the prototype.</li>
+</ul>
+
+<p>In other words, the following definition:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// @ScalaJSDefined
+</span><span class="k">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">x</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">5</span>
+  <span class="k">var</span> <span class="n">y</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"hello"</span>
+  <span class="k">def</span> <span class="n">z</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">42</span>
+  <span class="k">def</span> <span class="n">z_=</span><span class="o">(</span><span class="n">v</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="n">println</span><span class="o">(</span><span class="s">"z = "</span> <span class="o">+</span> <span class="n">v</span><span class="o">)</span>
+  <span class="k">def</span> <span class="n">foo</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>can be understood as the following ECMAScript 6 class definition (or its desugaring in ES 5.1):</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">class</span> <span class="nx">Foo</span> <span class="kd">extends</span> <span class="nb">global</span><span class="p">.</span><span class="nb">Object</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="s2">"hello"</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kd">get</span> <span class="nx">z</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">42</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kd">set</span> <span class="nx">z</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"z = "</span> <span class="o">+</span> <span class="nx">v</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The JavaScript names are the same as the field and method names in Scala by default.
+You can override this with <code class="highlighter-rouge">@JSName("customName")</code>.</p>
+
+<p><code class="highlighter-rouge">private</code>, <code class="highlighter-rouge">private[this]</code> and <code class="highlighter-rouge">private[EnclosingScope]</code> methods, getters and setters are not visible at all from JavaScript.
+Private fields, however, will exist on the object, with unpredictable names.
+Trying to access them is undefined behavior.</p>
+
+<p>All other members, including protected ones, are visible to JavaScript.</p>
+
+<h3 id="super-calls"><code class="highlighter-rouge">super</code> calls</h3>
+
+<p><code class="highlighter-rouge">super</code> calls have the semantics of <code class="highlighter-rouge">super</code> references in ECMAScript 6.
+For example:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// @ScalaJSDefined
+</span><span class="k">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">toString</span><span class="o">()</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="k">super</span><span class="o">.</span><span class="n">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s">" in Foo"</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>has the same semantics as:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">class</span> <span class="nx">Foo</span> <span class="kd">extends</span> <span class="nb">global</span><span class="p">.</span><span class="nb">Object</span> <span class="p">{</span>
+  <span class="nx">toString</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">super</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">+</span> <span class="s2">" in Foo"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>which, in ES 5.1, gives something like</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Foo</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nb">global</span><span class="p">.</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="o">+</span> <span class="s2">" in Foo"</span><span class="p">;</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>For fields, getters and setters, the ES 6 spec is a bit complicated, but it essentially “does the right thing”.
+In particular, calling a super getter or setter works as expected.</p>
+
+<h3 id="non-native-js-object">Non-native JS object</h3>
+
+<p>A non-native JS <code class="highlighter-rouge">object</code> is a singleton instance of a non-native JS class.
+There is nothing special about this, it’s just like Scala objects.</p>
+
+<p>Non-native JS objects are not automatically visible to JavaScript.
+They can be exported with <code class="highlighter-rouge">@JSExportTopLevel</code>, just like Scala object: they will appear as a 0-argument function returning the instance of the object.</p>
+
+<h3 id="non-native-js-traits">Non-native JS traits</h3>
+
+<p>Traits and interfaces do not have any existence in JavaScript.
+At best, they are documented contracts that certain classes must satisfy.
+So what does it mean to have native and non-native JS traits?</p>
+
+<p>Native JS traits can only be extended by native JS classes, objects and traits.
+In other words, a non-native JS class/trait/object cannot extend a native JS trait.
+They can only extend non-native JS traits.</p>
+
+<p>Term members (<code class="highlighter-rouge">val</code>s, <code class="highlighter-rouge">var</code>s and <code class="highlighter-rouge">def</code>s) in non-native JS traits must:</p>
+
+<ul>
+  <li>either be abstract,</li>
+  <li>or have <code class="highlighter-rouge">= js.undefined</code> as right-hand-side (and not be a <code class="highlighter-rouge">def</code> with <code class="highlighter-rouge">()</code>).</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// @ScalaJSDefined
+</span><span class="k">trait</span> <span class="nc">Bar</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">x</span><span class="k">:</span> <span class="kt">Int</span>
+  <span class="k">val</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">5</span> <span class="c1">// illegal
+</span>  <span class="k">val</span> <span class="n">z</span><span class="k">:</span> <span class="kt">js.UndefOr</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="n">undefined</span>
+
+  <span class="k">def</span> <span class="n">foo</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1">// illegal
+</span>  <span class="k">def</span> <span class="n">foobar</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">js.UndefOr</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="n">undefined</span> <span class="c1">// illegal
+</span>  <span class="k">def</span> <span class="n">babar</span><span class="k">:</span> <span class="kt">js.UndefOr</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="n">undefined</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Unless overridden in a class or objects, concrete <code class="highlighter-rouge">val</code>s, <code class="highlighter-rouge">var</code>s and <code class="highlighter-rouge">def</code>s declared
+in a JavaScript trait (necessarily with <code class="highlighter-rouge">= js.undefined</code>) are <em>not</em> exposed to JavaScript at all.
+For example, implementing (the legal parts of) <code class="highlighter-rouge">Bar</code> in a subclass:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// @ScalaJSDefined
+</span><span class="k">class</span> <span class="nc">Babar</span> <span class="k">extends</span> <span class="nc">Bar</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">x</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">42</span>
+
+  <span class="k">def</span> <span class="n">foo</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="n">babar</span><span class="k">:</span> <span class="kt">js.UndefOr</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="mi">3</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>has the same semantics as the following ECMAScript 2015 class:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">class</span> <span class="nx">Babar</span> <span class="kd">extends</span> <span class="nb">global</span><span class="p">.</span><span class="nb">Object</span> <span class="p">{</span> <span class="c1">// `extends Bar` disappears</span>
+  <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kd">get</span> <span class="nx">babar</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Note that <code class="highlighter-rouge">z</code> is not defined at all, not even as <code class="highlighter-rouge">this.z = undefined</code>.
+The distinction is rarely relevant, because <code class="highlighter-rouge">babar.z</code> will return <code class="highlighter-rouge">undefined</code> in JavaScript
+and in Scala.js if <code class="highlighter-rouge">babar</code> does not have a field <code class="highlighter-rouge">z</code>.</p>
+
+<h3 id="static-members">Static members</h3>
+
+<p>When defining a non-native JS class (not a trait nor an object), it is also possible to define static members.
+Static members must be defined in the companion object of the class, and annotated with <code class="highlighter-rouge">@JSExportStatic</code>.
+For example:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// @ScalaJSDefined
+</span><span class="k">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span>
+
+<span class="k">object</span> <span class="nc">Foo</span> <span class="o">{</span>
+  <span class="nd">@JSExportStatic</span>
+  <span class="k">val</span> <span class="n">x</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">5</span>
+
+  <span class="nd">@JSExportStatic</span>
+  <span class="k">var</span> <span class="n">y</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"hello"</span>
+
+  <span class="nd">@JSExportStatic</span>
+  <span class="k">def</span> <span class="n">z</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">42</span>
+  <span class="nd">@JSExportStatic</span>
+  <span class="k">def</span> <span class="n">z_=</span><span class="o">(</span><span class="n">v</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="n">println</span><span class="o">(</span><span class="s">"z = "</span> <span class="o">+</span> <span class="n">v</span><span class="o">)</span>
+
+  <span class="nd">@JSExportStatic</span>
+  <span class="k">def</span> <span class="n">foo</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>defines a JavaScript class <code class="highlighter-rouge">Foo</code> with a variety of static members.
+It can be understood as if defined in JavaScript as:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">class</span> <span class="nx">Foo</span> <span class="kd">extends</span> <span class="nb">global</span><span class="p">.</span><span class="nb">Object</span> <span class="p">{</span>
+  <span class="kr">static</span> <span class="kd">get</span> <span class="nx">z</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">42</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kr">static</span> <span class="kd">set</span> <span class="nx">z</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"z = "</span> <span class="o">+</span> <span class="nx">v</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="kr">static</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">Foo</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="nx">Foo</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="s2">"hello"</span><span class="p">;</span></code></pre></figure>
+
+<p>Note that JavaScript doesn’t have any declarative syntax for static fields, hence the two imperative assignments at the end.</p>
+
+<h4 id="restrictions-1">Restrictions</h4>
+
+<ul>
+  <li>The companion object must be a Scala object, i.e., it cannot extend <code class="highlighter-rouge">js.Any</code>.</li>
+  <li><code class="highlighter-rouge">lazy val</code>s cannot be marked with <code class="highlighter-rouge">@JSExportStatic</code></li>
+  <li>Static <em>fields</em> (<code class="highlighter-rouge">val</code>s and <code class="highlighter-rouge">var</code>s) must be defined before any other (non-static) field, as well as before any constructor statement.</li>
+</ul>
+
+<p>As an example of the last bullet, the following snippet is illegal:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// @ScalaJSDefined
+</span><span class="k">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span>
+
+<span class="k">object</span> <span class="nc">Foo</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">x</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">5</span>
+
+  <span class="nd">@JSExportStatic</span>
+  <span class="k">val</span> <span class="n">y</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"hello"</span> <span class="c1">// illegal, defined after `x` which is non-static
+</span><span class="o">}</span></code></pre></figure>
+
+<p>and so is the following:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// @ScalaJSDefined
+</span><span class="k">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span>
+
+<span class="k">object</span> <span class="nc">Foo</span> <span class="o">{</span>
+  <span class="n">println</span><span class="o">(</span><span class="s">"Initializing Foo"</span><span class="o">)</span>
+
+  <span class="nd">@JSExportStatic</span>
+  <span class="k">val</span> <span class="n">y</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"hello"</span> <span class="c1">// illegal, defined after the `println` statement
+</span><span class="o">}</span></code></pre></figure>
+
+<h3 id="anonymous-classes">Anonymous classes</h3>
+
+<p>Anonymous JS classes are particularly useful to create typed object literals, in the presence of a non-native JS trait describing an interface.
+For example:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// @ScalaJSDefined
+</span><span class="k">trait</span> <span class="nc">Position</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">x</span><span class="k">:</span> <span class="kt">Int</span>
+  <span class="k">val</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Int</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">pos</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Position</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="mi">5</span>
+  <span class="k">val</span> <span class="n">y</span> <span class="k">=</span> <span class="mi">10</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Note that anonymous classes extending <code class="highlighter-rouge">js.Any</code> are always non-native, even in 0.6.x without <code class="highlighter-rouge">-P:scalajs:sjsDefinedByDefault</code> nor <code class="highlighter-rouge">@ScalaJSDefined</code>.</p>
+
+<h4 id="use-case-configuration-objects">Use case: configuration objects</h4>
+
+<p>For configuration objects that have fields with default values, concrete members with <code class="highlighter-rouge">= js.undefined</code> can be used in the trait.
+For example:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// @ScalaJSDefined
+</span><span class="k">trait</span> <span class="nc">JQueryAjaxSettings</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">data</span><span class="k">:</span> <span class="kt">js.UndefOr</span><span class="o">[</span><span class="kt">js.Object</span> <span class="kt">|</span> <span class="kt">String</span> <span class="kt">|</span> <span class="kt">js.Array</span><span class="o">[</span><span class="kt">Any</span><span class="o">]]</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="n">undefined</span>
+  <span class="k">val</span> <span class="n">contentType</span><span class="k">:</span> <span class="kt">js.UndefOr</span><span class="o">[</span><span class="kt">Boolean</span> <span class="kt">|</span> <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="n">undefined</span>
+  <span class="k">val</span> <span class="n">crossDomain</span><span class="k">:</span> <span class="kt">js.UndefOr</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="n">undefined</span>
+  <span class="k">val</span> <span class="n">success</span><span class="k">:</span> <span class="kt">js.UndefOr</span><span class="o">[</span><span class="kt">js.Function3</span><span class="o">[</span><span class="kt">Any</span>, <span class="kt">String</span>, <span class="kt">JQueryXHR</span>, <span class="k">_</span><span class="o">]]</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="n">undefined</span>
+  <span class="o">...</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>When calling <code class="highlighter-rouge">ajax()</code>, we can now give an anonymous object that overrides only the <code class="highlighter-rouge">val</code>s we care about:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">jQuery</span><span class="o">.</span><span class="n">ajax</span><span class="o">(</span><span class="n">someURL</span><span class="o">,</span> <span class="k">new</span> <span class="nc">JQueryAjaxSettings</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">val</span> <span class="n">crossDomain</span><span class="k">:</span> <span class="kt">js.UndefOr</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]</span> <span class="k">=</span> <span class="kc">true</span>
+  <span class="k">override</span> <span class="k">val</span> <span class="n">success</span><span class="k">:</span> <span class="kt">js.UndefOr</span><span class="o">[</span><span class="kt">js.Function3</span><span class="o">[</span><span class="kt">Any</span>, <span class="kt">String</span>, <span class="kt">JQueryXHR</span>, <span class="k">_</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="n">js</span><span class="o">.</span><span class="n">defined</span> <span class="o">{</span> <span class="o">(</span><span class="n">data</span><span class="k">:</span> <span class="kt">Any</span><span class="o">,</span> <span class="n">textStatus</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">xhr</span><span class="k">:</span> <span class="kt">JQueryXHR</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="n">println</span><span class="o">(</span><span class="s">"Status: "</span> <span class="o">+</span> <span class="n">textStatus</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">})</span></code></pre></figure>
+
+<p>Note that for functions, we use <code class="highlighter-rouge">js.defined { ... }</code> to drive Scala’s type inference.
+Otherwise, it needs to apply two implicit conversions, which is not allowed.</p>
+
+<p>The explicit types are quite annoying, but they are only necessary in Scala 2.10 and 2.11.
+If you use Scala 2.12, you can omit all the type annotations (but keep <code class="highlighter-rouge">js.defined</code>), thanks to improved type inference for <code class="highlighter-rouge">val</code>s and SAM conversions:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">jQuery</span><span class="o">.</span><span class="n">ajax</span><span class="o">(</span><span class="n">someURL</span><span class="o">,</span> <span class="k">new</span> <span class="nc">JQueryAjaxSettings</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">val</span> <span class="n">crossDomain</span> <span class="k">=</span> <span class="kc">true</span>
+  <span class="k">override</span> <span class="k">val</span> <span class="n">success</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="n">defined</span> <span class="o">{</span> <span class="o">(</span><span class="n">data</span><span class="o">,</span> <span class="n">textStatus</span><span class="o">,</span> <span class="n">xhr</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="n">println</span><span class="o">(</span><span class="s">"Status: "</span> <span class="o">+</span> <span class="n">textStatus</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">})</span></code></pre></figure>
+
+<h4 id="caveat-with-reflective-calls">Caveat with reflective calls</h4>
+
+<p>It is possible to <em>define</em> an object literal with the anonymous class syntax without the support of a super class or trait defining the API, like this:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">pos</span> <span class="k">=</span> <span class="k">new</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="mi">5</span>
+  <span class="k">val</span> <span class="n">y</span> <span class="k">=</span> <span class="mi">10</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>However, it is thereafter impossible to access its members easily.
+The following does not work:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">println</span><span class="o">(</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="o">)</span></code></pre></figure>
+
+<p>This is because <code class="highlighter-rouge">pos</code> is a <em>structural type</em> in this case, and accessing <code class="highlighter-rouge">x</code> is known as a <em>reflective call</em> in Scala.
+Reflective calls are not supported on values with JavaScript semantics, and will fail at runtime.
+Fortunately, the compiler will warn you against reflective calls, unless you use the relevant language import.</p>
+
+<p>Our advice: do not use the reflective calls language import.</p>
+
+<h3 id="run-time-overloading">Run-time overloading</h3>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// @ScalaJSDefined
+</span><span class="k">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"hello "</span> <span class="o">+</span> <span class="n">x</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">foo</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Foo</span>
+<span class="n">println</span><span class="o">(</span><span class="n">foo</span><span class="o">.</span><span class="n">bar</span><span class="o">(</span><span class="s">"world"</span><span class="o">))</span> <span class="o">//</span> <span class="n">choose</span> <span class="n">at</span> <span class="n">run</span><span class="o">-</span><span class="n">time</span> <span class="n">which</span> <span class="n">one</span> <span class="n">to</span> <span class="n">call</span></code></pre></figure>
+
+<p>Even though typechecking will resolve to the first overload at compile-time to decide the result type of the function, the actual call will re-resolve at run-time, using the dynamic type of the parameter. Basically something like this is generated:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// @ScalaJSDefined
+</span><span class="k">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Any</span><span class="o">)</span><span class="k">:</span> <span class="kt">Any</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">x</span> <span class="k">match</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="n">x</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=&gt;</span> <span class="s">"hello "</span> <span class="o">+</span> <span class="n">x</span>
+      <span class="k">case</span> <span class="n">x</span><span class="k">:</span> <span class="kt">Int</span>    <span class="o">=&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Besides the run-time overhead incurred by such a resolution, this can cause weird problems if overloads are not mutually exclusive.
+For example:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// @ScalaJSDefined
+</span><span class="k">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">bar</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Any</span><span class="o">)</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Any</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"bar "</span> <span class="o">+</span> <span class="n">x</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">foo</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Foo</span>
+<span class="n">println</span><span class="o">(</span><span class="n">foo</span><span class="o">.</span><span class="n">bar</span><span class="o">(</span><span class="s">"world"</span><span class="o">))</span> <span class="o">//</span> <span class="n">infinite</span> <span class="n">recursion</span></code></pre></figure>
+
+<p>With compile-time overload resolution, the above would be fine, as the call to <code class="highlighter-rouge">bar(x: Any)</code> resolves to the second overload, due to the static type of <code class="highlighter-rouge">Any</code>.
+With run-time overload resolution, however, the type tests are executed again, and the actual run-time type of the argument is still <code class="highlighter-rouge">String</code>, which causes an infinite recursion.</p>
+
+<h2 id="goodies">Goodies</h2>
+
+<h3 id="jsconstructorofc"><code class="highlighter-rouge">js.constructorOf[C]</code></h3>
+
+<p>To obtain the JavaScript constructor function of a JS class (native or not) without instantiating it nor exporting it, you can use <a href="https://www.scala-js.org/api/scalajs-library/latest/#scala.scalajs.js.package@constructorOf[T&lt;:scala.scalajs.js.Any]:scala.scalajs.js.Dynamic"><code class="highlighter-rouge">js.constructorOf[C]</code></a>, whose signature is:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">package</span> <span class="nn">object</span> <span class="n">js</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">constructorOf</span><span class="o">[</span><span class="kt">C</span> <span class="k">&lt;:</span> <span class="kt">js.Any</span><span class="o">]</span><span class="k">:</span> <span class="kt">js.Dynamic</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">stub</span><span class="o">&gt;</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><code class="highlighter-rouge">C</code> must be a class type (i.e., such that you can give it to <code class="highlighter-rouge">classOf[C]</code>) and refer to a JS <em>class</em> (not a trait nor an object).
+The method returns the JavaScript constructor function (aka the class value) for <code class="highlighter-rouge">C</code>.</p>
+
+<p>This can be useful to give to JavaScript libraries expecting constructor functions rather than instances of the classes.</p>
+
+<h3 id="jsconstructortagc"><code class="highlighter-rouge">js.ConstructorTag[C]</code></h3>
+
+<p><a href="https://www.scala-js.org/api/scalajs-library/latest/#scala.scalajs.js.ConstructorTag"><code class="highlighter-rouge">js.ConstructorTag[C]</code></a> is to <a href="https://www.scala-js.org/api/scalajs-library/latest/#scala.scalajs.js.package@constructorOf[T&lt;:scala.scalajs.js.Any]:scala.scalajs.js.Dynamic"><code class="highlighter-rouge">js.constructorOf[C]</code></a> as <code class="highlighter-rouge">ClassTag[C]</code> is to <code class="highlighter-rouge">classOf[C]</code>, i.e., you can use an <code class="highlighter-rouge">implicit</code> parameter of type <code class="highlighter-rouge">js.ConstructorTag[C]</code> to implicitly get a <code class="highlighter-rouge">js.constructorOf[C]</code>.
+For example:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">instantiate</span><span class="o">[</span><span class="kt">C</span> <span class="k">&lt;:</span> <span class="kt">js.Any</span> <span class="kt">:</span> <span class="kt">js.ConstructorTag</span><span class="o">]</span><span class="k">:</span> <span class="kt">C</span> <span class="o">=</span>
+  <span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">newInstance</span><span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="n">constructorTag</span><span class="o">[</span><span class="kt">C</span><span class="o">].</span><span class="n">constructor</span><span class="o">)().</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">C</span><span class="o">]</span>
+
+<span class="k">val</span> <span class="n">newEmptyJSArray</span> <span class="k">=</span> <span class="n">instantiate</span><span class="o">[</span><span class="kt">js.Array</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span></code></pre></figure>
+
+<p>Implicit expansion will desugar the above code into:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">instantiate</span><span class="o">[</span><span class="kt">C</span> <span class="k">&lt;:</span> <span class="kt">js.Any</span><span class="o">](</span><span class="k">implicit</span> <span class="n">tag</span><span class="k">:</span> <span class="kt">js.ConstructorTag</span><span class="o">[</span><span class="kt">C</span><span class="o">])</span><span class="k">:</span> <span class="kt">C</span> <span class="o">=</span>
+  <span class="n">js</span><span class="o">.</span><span class="nc">Dynamic</span><span class="o">.</span><span class="n">newInstance</span><span class="o">(</span><span class="n">tag</span><span class="o">.</span><span class="n">constructor</span><span class="o">)().</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">C</span><span class="o">]</span>
+
+<span class="k">val</span> <span class="n">newEmptyJSArray</span> <span class="k">=</span> <span class="n">instantiate</span><span class="o">[</span><span class="kt">js.Array</span><span class="o">[</span><span class="kt">Int</span><span class="o">]](</span>
+    <span class="k">new</span> <span class="n">js</span><span class="o">.</span><span class="nc">ConstructorTag</span><span class="o">[</span><span class="kt">C</span><span class="o">](</span><span class="n">js</span><span class="o">.</span><span class="n">constructorOf</span><span class="o">[</span><span class="kt">js.Array</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]))</span></code></pre></figure>
+
+<p>although you cannot write the desugared version in user code because the constructor of <code class="highlighter-rouge">js.ConstructorTag</code> is private.</p>
+
+<p>This feature is particularly useful for Scala.js libraries wrapping JavaScript frameworks expecting to receive JavaScript constructors as parameters.</p>
+
+            <div class="spacing"></div>
+        </div>
+        <div class="col-md-3">
+            <nav class="toc" role="navigation">
+                
+<ul>
+    
+    <li>
+        <a href="/doc/">
+            
+            
+            Introduction
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/tutorial/">
+            
+            
+            Tutorials
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/tutorial/basic/">
+            
+            
+            Basic tutorial
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/">
+            
+            
+            Scala.js for JavaScript developers
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part1.html">
+            
+            
+            From ES6 to Scala: Basics
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part2.html">
+            
+            
+            From ES6 to Scala: Collections
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part3.html">
+            
+            
+            From ES6 to Scala: Advanced
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/project/">
+            
+            
+            Project setup
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/project/building.html">
+            
+            
+            Building the application
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/dependencies.html">
+            
+            
+            Dependencies
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/module.html">
+            
+            
+            Emitting modules
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/js-environments.html">
+            
+            
+            JavaScript Environments
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/cross-build.html">
+            
+            
+            Cross-building
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/testing.html">
+            
+            
+            Testing
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/interoperability/">
+            
+            
+            JavaScript interoperability
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/interoperability/types.html">
+            
+            
+            JavaScript types
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/facade-types.html">
+            
+            
+            Write facade types for JS APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/global-scope.html">
+            
+            
+            Access to the JavaScript global scope (1.x only)
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/export-to-javascript.html">
+            
+            
+            Export Scala.js APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/sjs-defined-js-classes.html">
+            
+            
+            <b>Write JavaScript classes in Scala.js</b>
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/exceptions.html">
+            
+            
+            Working with Exceptions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/api.html">
+            
+            
+            Scala.js API
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/all-api.html">
+            
+            
+            APIs of previous versions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/semantics.html">
+            
+            
+            Semantics of Scala.js
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/">
+            
+            
+            Internals
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/internals/performance.html">
+            
+            
+            Performance
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/downloads.html">
+            
+            
+            Standalone distribution
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/version-history.html">
+            
+            
+            Version history
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/faq.html">
+            
+            
+            FAQ
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

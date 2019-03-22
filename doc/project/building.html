@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/doc/project/building.html">
+
+    <title> Building - Scala.js</title>
+
+    <meta property="og:title" content="Building" /><meta property="og:type" content="website" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li ><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Building</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-9">
+            <p>To compile, simply use the <code class="highlighter-rouge">compile</code> task:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt&gt; compile
+</code></pre></div></div>
+
+<p>This will generate <code class="highlighter-rouge">.sjsir</code> and <code class="highlighter-rouge">.class</code> files for each class in your project (just like for Scala JVM). The <code class="highlighter-rouge">.class</code> files are used by the Scala.js compiler for symbol lookup during separate compilation. <strong>Do not use these <code class="highlighter-rouge">.class</code> files to run your project on a JVM.</strong> See the section below about cross-compilation.</p>
+
+<p>The <code class="highlighter-rouge">.sjsir</code> files are an internal representation which can be linked to actual JavaScript code as will be explained shortly.</p>
+
+<h2 id="produce-one-javascript-file">Produce one JavaScript file</h2>
+
+<p>To produce a proper JavaScript file from your code, you need to call the linker:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt&gt; fastOptJS
+</code></pre></div></div>
+
+<p>This will perform fast Scala.js-specific optimizations and write the resulting code to a single JavaScript file. You can now use this JavaScript file in your HTML page or in whatever way you like. The resulting file in the target folder will have the suffix <code class="highlighter-rouge">-fastopt.js</code>.</p>
+
+<h2 id="actually-do-something">Actually <em>do</em> something</h2>
+
+<p>By default, Scala.js produces “libraries”, that do not actually <em>do</em> anything when their <code class="highlighter-rouge">-fastopt.js</code> file is loaded.
+To make it do something, you need a top-level object with a <code class="highlighter-rouge">main</code> method:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">Main</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">println</span><span class="o">(</span><span class="s">"Hello world!"</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>as well as the following sbt setting, which, to put it simply, turns your Scala.js project into an “application” rather than a “library”:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalaJSUseMainModuleInitializer</span> <span class="o">:=</span> <span class="kc">true</span></code></pre></figure>
+
+<p>Just like in a JVM project, sbt will automatically detect the object with a <code class="highlighter-rouge">main(Array[String]): Unit</code> method, and use it as the main method of the application.
+Now, the .js file produced by <code class="highlighter-rouge">fastOptJS</code> will print <code class="highlighter-rouge">"Hello world!"</code>.</p>
+
+<p>Note that this will require that there is a <em>unique</em> such object or that the one to use be explicitly set with <code class="highlighter-rouge">mainClass in Compile := Some(&lt;name&gt;)</code>.
+If you explicitly set <code class="highlighter-rouge">mainClass</code>, note that it needs to be set on a per-configuration basis (i.e. the part <code class="highlighter-rouge">in Compile</code> is essential, otherwise the setting will be ignored). For further information see the Stack Overflow entry <a href="http://stackoverflow.com/questions/34965072/how-to-set-mainclass-in-scalajs-build-sbt">‘How to set mainClass in ScalaJS build.sbt?’</a> (specific to Scala.js) and the Stack Overflow entry <a href="http://stackoverflow.com/questions/6467423/how-to-set-main-class-in-build">‘How to set main class in build?’</a> (not specific to Scala.js).</p>
+
+<p><strong>Note for Scala.js 0.6.17 and earlier:</strong> in Scala.js 0.6.17 and earlier, the main object was required to extend the special trait <a href="https://www.scala-js.org/api/scalajs-library/0.6.20/#scala.scalajs.js.JSApp"><code class="highlighter-rouge">js.JSApp</code></a>.
+Since 0.6.18, any object with a standard <code class="highlighter-rouge">main</code> method will be recognized.
+<code class="highlighter-rouge">js.JSApp</code> is now deprecated.
+See <a href="https://www.scala-js.org/api/scalajs-library/0.6.20/#scala.scalajs.js.JSApp">the Scaladoc of <code class="highlighter-rouge">js.JSApp</code></a> for migration tips.</p>
+
+<h2 id="running-in-the-console">Running in the console</h2>
+
+<p>You can run a Scala.js application (that has <code class="highlighter-rouge">scalaJSUseMainModuleInitializer</code> set to <code class="highlighter-rouge">true</code>) by using the <code class="highlighter-rouge">run</code> task:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt&gt; run
+</code></pre></div></div>
+
+<p>This will run the <code class="highlighter-rouge">-fastopt.js</code> file right inside of your sbt console.
+By default, the file is run with <a href="http://nodejs.org/">Node.js</a>, which you need to install separately.</p>
+
+<p><strong>Scala.js 0.6.x only:</strong> If your application or one of its libraries requires a DOM (which can be specified with <code class="highlighter-rouge">jsDependencies += RuntimeDOM</code>), you will also need to install <a href="https://github.com/tmpvar/jsdom"><code class="highlighter-rouge">jsdom</code></a> with <code class="highlighter-rouge">npm install jsdom</code>.
+<code class="highlighter-rouge">jsDependencies += RuntimeDOM</code> is now deprecated, and should be replaced by <code class="highlighter-rouge">jsEnv := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv()</code>.</p>
+
+<p>There are alternative JavaScript interpreters that are available.
+See <a href="./js-environments.html">JavaScript environments</a> for more details.</p>
+
+<h3 id="deprecated-run-without-scalajsusemainmoduleinitializer">Deprecated: Run without <code class="highlighter-rouge">scalaJSUseMainModuleInitializer</code></h3>
+
+<p><strong>Scala.js 0.6.x only</strong></p>
+
+<p>It is still possible to <code class="highlighter-rouge">run</code> a Scala.js application that does not have <code class="highlighter-rouge">scalaJSUseMainModuleInitializer := true</code>.
+However, this is not recommended anymore.</p>
+
+<h2 id="disabling-the-optimizations">Disabling the optimizations</h2>
+
+<p>If, for some reason (for example, to make stepping through the code with a debugger more predictable), you want to disable the optimizations, you can do so with the following sbt setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalaJSLinkerConfig</span> <span class="o">~=</span> <span class="o">{</span> <span class="k">_</span><span class="o">.</span><span class="n">withOptimizer</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span> <span class="o">}</span></code></pre></figure>
+
+<p><code class="highlighter-rouge">scalaJSLinkerConfig</code> contains various other options controlling the Scala.js linker.
+See <a href="https://www.scala-js.org/api/scalajs-tools/0.6.26/#org.scalajs.core.tools.linker.StandardLinker$$Config">the Scaladoc of <code class="highlighter-rouge">StandardLinker.Config</code></a> for details.</p>
+
+<h2 id="full-optimize">Full-Optimize</h2>
+
+<p>To make the resulting JavaScript even smaller (and usually faster as well), the sbt plugin integrates the Google Closure Compiler under the so-called full-optimizations. You can use them by issuing:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt&gt; fullOptJS
+</code></pre></div></div>
+
+<p>This will produce another single JavaScript file that is fully optimized.
+Note that this can take a while and is therefore not recommended in the development cycle.
+The resulting file in the target folder will have the suffix <code class="highlighter-rouge">-opt.js</code>.</p>
+
+<p>You can run your code and tests in fullOpt stage with the following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt&gt; set scalaJSStage in Global := FullOptStage
+</code></pre></div></div>
+
+<h2 id="deprecated-writing-launcher-code">Deprecated: Writing Launcher Code</h2>
+
+<p><strong>Scala.js 0.6.x only</strong></p>
+
+<p>For applications that do not use <code class="highlighter-rouge">scalaJSUseMainModuleInitializer := true</code>, it is possible to generate a small .js file that calls the <code class="highlighter-rouge">main</code> method, known as a “launcher” file.
+This is done with the following sbt setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">persistLauncher</span> <span class="o">:=</span> <span class="kc">true</span></code></pre></figure>
+
+<p>The resulting file in the target folder will have the suffix <code class="highlighter-rouge">-launcher.js</code>.</p>
+
+<p>This feature is deprecated: applications should migrate to using <code class="highlighter-rouge">scalaJSUseMainModuleInitializer</code>.</p>
+
+            <div class="spacing"></div>
+        </div>
+        <div class="col-md-3">
+            <nav class="toc" role="navigation">
+                
+<ul>
+    
+    <li>
+        <a href="/doc/">
+            
+            
+            Introduction
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/tutorial/">
+            
+            
+            Tutorials
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/tutorial/basic/">
+            
+            
+            Basic tutorial
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/">
+            
+            
+            Scala.js for JavaScript developers
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part1.html">
+            
+            
+            From ES6 to Scala: Basics
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part2.html">
+            
+            
+            From ES6 to Scala: Collections
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part3.html">
+            
+            
+            From ES6 to Scala: Advanced
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/project/">
+            
+            
+            Project setup
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/project/building.html">
+            
+            
+            <b>Building the application</b>
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/dependencies.html">
+            
+            
+            Dependencies
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/module.html">
+            
+            
+            Emitting modules
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/js-environments.html">
+            
+            
+            JavaScript Environments
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/cross-build.html">
+            
+            
+            Cross-building
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/testing.html">
+            
+            
+            Testing
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/interoperability/">
+            
+            
+            JavaScript interoperability
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/interoperability/types.html">
+            
+            
+            JavaScript types
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/facade-types.html">
+            
+            
+            Write facade types for JS APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/global-scope.html">
+            
+            
+            Access to the JavaScript global scope (1.x only)
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/export-to-javascript.html">
+            
+            
+            Export Scala.js APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/sjs-defined-js-classes.html">
+            
+            
+            Write JavaScript classes in Scala.js
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/exceptions.html">
+            
+            
+            Working with Exceptions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/api.html">
+            
+            
+            Scala.js API
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/all-api.html">
+            
+            
+            APIs of previous versions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/semantics.html">
+            
+            
+            Semantics of Scala.js
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/">
+            
+            
+            Internals
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/internals/performance.html">
+            
+            
+            Performance
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/downloads.html">
+            
+            
+            Standalone distribution
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/version-history.html">
+            
+            
+            Version history
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/faq.html">
+            
+            
+            FAQ
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

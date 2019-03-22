@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/news/2016/07/27/announcing-scalajs-0.6.11/">
+
+    <title> Announcing Scala.js 0.6.11 - Scala.js</title>
+
+    <meta property="og:title" content="Announcing Scala.js 0.6.11" /><meta property="og:type" content="article" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" /><meta property="article:published_time" content="2016-07-27T00:00:00-04:00" /><meta property="article:tag" content="releases" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li class="active"><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Announcing Scala.js 0.6.11</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="small">Jul 27, 2016.</span>
+            </p>
+            <p>We are pleased to announce the release of Scala.js 0.6.11!</p>
+
+<p>This release was mainly focused on optimizations.
+In particular, <code class="highlighter-rouge">Long</code>s have been dramatically improved, with up to 15x speedups (<a href="https://github.com/scala-js/scala-js/pull/2488">#1488</a>).
+Some operations on <code class="highlighter-rouge">BigInteger</code>s benefit a lot from this, with up to 8x speedups.</p>
+
+<p>We have also finally upgraded the version of the Google Closure Compiler that is used for <code class="highlighter-rouge">fullOptJS</code>, which brings speed improvements to the production applications of up to 2x, although mostly in the 10-15% range (<a href="https://github.com/scala-js/scala-js/pull/2490#issuecomment-234492628">#2490</a>).</p>
+
+<!--more-->
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>If you are new to Scala.js, head over to
+<a href="/tutorial/">the tutorial</a>.</p>
+
+<h2 id="release-notes">Release notes</h2>
+
+<p>If upgrading from 0.6.5 or earlier, please also read the <a href="/news/2016/01/25/announcing-scalajs-0.6.6/">release notes of 0.6.6</a>, which contains some breaking changes.</p>
+
+<p>As a minor release, 0.6.11 is backward source and binary compatible with previous releases in the 0.6.x series.
+Libraries compiled with earlier versions can be used with 0.6.11 without change.
+0.6.11 is also forward binary compatible with 0.6.8 through 0.6.10, but not with earlier releases: libraries compiled with 0.6.11 cannot be used by projects using 0.6.{0-7}.</p>
+
+<p>Please report any issues <a href="https://github.com/scala-js/scala-js/issues">on GitHub</a>.</p>
+
+<h2 id="potentially-breaking-change">Potentially breaking change</h2>
+
+<p>This release fixes <a href="https://github.com/scala-js/scala-js/issues/2445">#2445</a>, which potentially constitutes a breaking change, if you relied on the previously buggy behavior.
+Recall that, in JavaScript types and exports, <code class="highlighter-rouge">def</code>s without parentheses are JavaScript <em>getters</em>.
+For example,</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="k">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">makeArray</span><span class="k">:</span> <span class="kt">js.Array</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">foo</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Foo</span>
+<span class="k">val</span> <span class="n">a</span> <span class="k">=</span> <span class="n">foo</span><span class="o">.</span><span class="n">makeArray</span> <span class="o">//</span> <span class="n">in</span> <span class="nc">JavaScript</span><span class="o">,</span> <span class="k">this</span> <span class="n">is</span> <span class="n">foo</span><span class="o">.</span><span class="n">makeArray</span><span class="o">,</span> <span class="o">*</span><span class="n">not</span><span class="o">*</span> <span class="n">foo</span><span class="o">.</span><span class="n">makeArray</span><span class="o">()</span></code></pre></figure>
+
+<p>The bug <a href="https://github.com/scala-js/scala-js/issues/2445">#2445</a> was that, if <code class="highlighter-rouge">makeArray</code> was defined with type parameters, it would erroneously translate to a <em>method call</em> in JavaScript, rather than a <em>field access/getter call</em>.</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="k">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">makeArray</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span><span class="k">:</span> <span class="kt">js.Array</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">foo</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Foo</span>
+<span class="k">val</span> <span class="n">a</span> <span class="k">=</span> <span class="n">foo</span><span class="o">.</span><span class="n">makeArray</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="o">//</span> <span class="n">gave</span> <span class="n">foo</span><span class="o">.</span><span class="n">makeArray</span><span class="o">()</span> <span class="n">because</span> <span class="n">of</span> <span class="k">#</span><span class="mi">2445</span></code></pre></figure>
+
+<p>Now that <a href="https://github.com/scala-js/scala-js/issues/2445">#2445</a> is fixed, the last instruction correctly calls <code class="highlighter-rouge">foo.makeArray</code> without parentheses.</p>
+
+<p>If you were relying on the previously buggy behavior (i.e., it was correct in your case to have <code class="highlighter-rouge">foo.makeArray()</code>), your code will break in this release.
+The solution in that case is to add <code class="highlighter-rouge">()</code> at the definition site of <code class="highlighter-rouge">makeArray</code>, like this:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">makeArray</span><span class="o">[</span><span class="kt">A</span><span class="o">]()</span><span class="k">:</span> <span class="kt">js.Array</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="n">js</span><span class="o">.</span><span class="n">native</span></code></pre></figure>
+
+<h2 id="deprecating-jsexportnamed">Deprecating <code class="highlighter-rouge">@JSExportNamed</code></h2>
+
+<p>The annotation <code class="highlighter-rouge">@JSExportNamed</code> was deprecated, per <a href="https://github.com/scala-js/scala-js/issues/2442">#2442</a>.
+Refer <a href="https://www.scala-js.org/api/scalajs-library/0.6.11/#scala.scalajs.js.annotation.JSExportNamed">to its Scaladoc</a> for migration tips.</p>
+
+<h2 id="improvements-to-the-html-test-runners">Improvements to the HTML test runners</h2>
+
+<p>In 0.6.10, <a href="/news/2016/06/17/announcing-scalajs-0.6.10/">we introduced HTML test runners</a>.
+This release brings a few improvements to them:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/pull/2476">#2476</a> The outputs are grouped by test suite, in collapsible boxes</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2481">#2481</a> Failed tests are moved to the top of the UI</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2475">#2475</a> It is possible to filter the set of tests to run, for a quicker turnaround when debugging a few issues</li>
+</ul>
+
+<h2 id="clean-way-to-find-the-map-file-associated-to-fastoptjsfulloptjs">Clean way to find the <code class="highlighter-rouge">.map</code> file associated to <code class="highlighter-rouge">fastOptJS</code>/<code class="highlighter-rouge">fullOptJS</code></h2>
+
+<p>Previously, to find the source map file (<code class="highlighter-rouge">.map</code>) associated to the <code class="highlighter-rouge">.js</code> file produced by <code class="highlighter-rouge">fastOptJS</code> or <code class="highlighter-rouge">fullOptJS</code>, it was necessary to compute it by hand, by adding <code class="highlighter-rouge">.map</code> to the file name.
+This was not very clean.</p>
+
+<p>We have improved this in <a href="https://github.com/scala-js/scala-js/issues/2494">#2494</a>.
+Now, you can access the source map file to an attribute of the result of <code class="highlighter-rouge">fastOptJS</code> and <code class="highlighter-rouge">fullOptJS</code>.
+For example,</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">fastOptAttrFile</span> <span class="k">=</span> <span class="n">fastOptJS</span><span class="o">.</span><span class="n">value</span>
+<span class="k">val</span> <span class="n">fastOptFile</span> <span class="k">=</span> <span class="n">fastOptAttrFile</span><span class="o">.</span><span class="n">data</span> <span class="c1">// the .js file
+</span><span class="k">val</span> <span class="n">fastOptSourceMapFile</span> <span class="k">=</span> <span class="n">fastOptAttrFile</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">scalaJSSourceMap</span><span class="o">).</span><span class="n">get</span> <span class="o">//</span> <span class="n">the</span> <span class="o">.</span><span class="n">map</span> <span class="n">file</span></code></pre></figure>
+
+<h2 id="new-jdk-apis">New JDK APIs</h2>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/pull/2507">#2507</a> <code class="highlighter-rouge">java.util.Optional</code></li>
+  <li><a href="https://github.com/scala-js/scala-js/pull/2533">#2533</a> <code class="highlighter-rouge">java.util.EventObject</code></li>
+</ul>
+
+<h2 id="bug-fixes">Bug fixes</h2>
+
+<p>Among others, the following bugs have been fixed:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2471">#2471</a> The <code class="highlighter-rouge">BufferedReader</code> implementation does not close its underlying <code class="highlighter-rouge">Reader</code></li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2474">#2474</a> 2+ top-level exports with the same name cause trouble at run-time</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2491">#2491</a> Name clash in some cases after renaming by the Closure Compiler in <code class="highlighter-rouge">fullOpt</code></li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2512">#2512</a> <code class="highlighter-rouge">java.util.Arrays.asList()</code> cannot be called</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2513">#2513</a> <code class="highlighter-rouge">@JSExport</code> does not work for abstract <code class="highlighter-rouge">val</code>s and <code class="highlighter-rouge">var</code>s</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2539">#2539</a> <code class="highlighter-rouge">java.util.ConcurrentHashMap.putIfAbsent()</code> is wrong</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2445">#2445</a> Paren-free <code class="highlighter-rouge">def</code>’s with type-parameters are handled as a function in <code class="highlighter-rouge">js.native</code> traits</li>
+</ul>
+
+<p>You can find the full list <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av0.6.11+is%3Aclosed">on GitHub</a>.</p>
+
+            <div class="spacing"></div>
+            <nav>
+                <ul class="pager">
+                    
+                    <li class="previous"><a href="/news/2016/06/17/announcing-scalajs-0.6.10/"
+                                            title="Announcing Scala.js 0.6.10">&larr; Previous</a></li>
+                    
+                    
+                    <li class="next"><a href="/news/2016/09/01/announcing-scalajs-0.6.12/"
+                                        title="Announcing Scala.js 0.6.12">Next &rarr;</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

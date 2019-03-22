@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/libraries/facades.html">
+
+    <title> JavaScript library facades - Scala.js</title>
+
+    <meta property="og:title" content="JavaScript library facades" /><meta property="og:type" content="website" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li class="active"><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li ><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>JavaScript library facades</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-9">
+            <h2 id="javascript-libraries-for-scalajs">JavaScript libraries for Scala.js</h2>
+
+<p>These facades wrap existing JavaScript libraries, giving you type safe access to their functionality. Some of the
+facades may only partially expose the underlying JavaScript library functionality, so make sure to check out the
+details. To quickly start using one of these libraries, just click on the dependency clipboard button to get the
+relevant SBT dependency definition.</p>
+
+<p><strong>Scala.js 1.x:</strong> At the moment, the list below is maintained for Scala.js 0.6.x only.
+Consult the readmes of relevant projects to see whether they support milestones of Scala.js 1.x.</p>
+
+<table class="table">
+    <tbody>
+    
+        <tr>
+            <td colspan="3"><h4>Common JS libraries</h4></td>
+        </tr>
+        
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Dependency</th>
+        </tr>
+        
+        
+            <tr>
+                <td><a href="https://github.com/scala-js/scala-js-dom" target="library">scala-js-dom</a></td>
+                <td>Static types for the DOM API, plus a few extensions
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.scala-js&quot; %%% &quot;scalajs-dom&quot; % &quot;0.9.5&quot;" title="&quot;org.scala-js&quot; %%% &quot;scalajs-dom&quot; % &quot;0.9.5&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/jducoeur/jquery-facade" target="library">jquery-facade</a></td>
+                <td>A strongly-typed Scala.js facade for jQuery
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.querki&quot; %%% &quot;jquery-facade&quot; % &quot;1.2&quot;" title="&quot;org.querki&quot; %%% &quot;jquery-facade&quot; % &quot;1.2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/UdashFramework/scala-js-jquery" target="library">udash-jquery</a></td>
+                <td>Alternate strongly typed facade for jQuery
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;io.udash&quot; %%% &quot;udash-jquery&quot; % &quot;1.0.0-rc.2&quot;" title="&quot;io.udash&quot; %%% &quot;udash-jquery&quot; % &quot;1.0.0-rc.2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/jducoeur/jstree-facade" target="library">jstree-facade</a></td>
+                <td>A Scala.js facade for the jsTree jQuery library
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.querki&quot; %%% &quot;jstree-facade&quot; % &quot;0.4&quot;" title="&quot;org.querki&quot; %%% &quot;jstree-facade&quot; % &quot;0.4&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/chandu0101/scalajs-facades/tree/master/core/src/main/scala/chandu0101/scalajs/facades/pouchdb" target="library">scalajs-pouchdb</a></td>
+                <td>Static types for PouchDB
+</td>
+                <td>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/Karasiq/scalajs-bootstrap" target="library">scalajs-bootstrap</a></td>
+                <td>Reactive <a href="https://getbootstrap.com/">Bootstrap</a> components
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.karasiq&quot; %%% &quot;scalajs-bootstrap&quot; % &quot;1.0.2&quot;" title="&quot;com.github.karasiq&quot; %%% &quot;scalajs-bootstrap&quot; % &quot;1.0.2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/jducoeur/bootstrap-datepicker-scalajs" target="library">bootstrap-datepicker-facade</a></td>
+                <td>Static types for <a href="https://github.com/eternicode/bootstrap-datepicker">bootstrap-datepicker</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.querki&quot; %%% &quot;bootstrap-datepicker-facade&quot; % &quot;0.7&quot;" title="&quot;org.querki&quot; %%% &quot;bootstrap-datepicker-facade&quot; % &quot;0.7&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/coreyauger/scalajs-google-maps" target="library">scalajs-google-maps</a></td>
+                <td>Static types for google maps v3
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;io.surfkit&quot; %%% &quot;scalajs-google-maps&quot; % &quot;0.1-SNAPSHOT&quot;" title="&quot;io.surfkit&quot; %%% &quot;scalajs-google-maps&quot; % &quot;0.1-SNAPSHOT&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/scalawarrior/scalajs-createjs" target="library">scalajs-createjs</a></td>
+                <td>Static types for <a href="http://createjs.com/">CreateJS</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.scalawarrior&quot; %%% &quot;scalajs-createjs&quot; % &quot;0.0.1-SNAPSHOT&quot;" title="&quot;com.scalawarrior&quot; %%% &quot;scalajs-createjs&quot; % &quot;0.0.1-SNAPSHOT&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/LukaJCB/rxscala-js" target="library">RxScala.js</a></td>
+                <td>Idiomatic Scala Wrapper for <a href="https://github.com/ReactiveX/rxjs">RxJS</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.lukajcb&quot; %%% &quot;rxscala-js&quot; % &quot;0.3.2&quot;" title="&quot;com.github.lukajcb&quot; %%% &quot;rxscala-js&quot; % &quot;0.3.2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/scalawarrior/scalajs-ace" target="library">scalajs-ace</a></td>
+                <td>Static types for <a href="http://ace.c9.io/">Ace</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.scalawarrior&quot; %%% &quot;scalajs-ace&quot; % &quot;0.0.1-SNAPSHOT&quot;" title="&quot;com.scalawarrior&quot; %%% &quot;scalajs-ace&quot; % &quot;0.0.1-SNAPSHOT&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/mathieuleclaire/scaladget" target="library">scaladget ace</a></td>
+                <td>Static types for <a href="http://ace.c9.io">Ace</a>.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;fr.iscpif.scaladget&quot; %%% &quot;ace&quot; % &quot;1.0.1&quot;" title="&quot;fr.iscpif.scaladget&quot; %%% &quot;ace&quot; % &quot;1.0.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/antonkulaga/threejs-facade" target="library">threejs-facade</a></td>
+                <td>Static types for <a href="https://threejs.org">Three.js 3D library</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.denigma&quot; %%% &quot;threejs-facade&quot; % &quot;0.0.71-0.1.5&quot;" title="&quot;org.denigma&quot; %%% &quot;threejs-facade&quot; % &quot;0.0.71-0.1.5&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/antonkulaga/codemirror-facade" target="library">codemirror-facade</a></td>
+                <td>Static types for <a href="http://codemirror.net">Codemirror code editor</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.denigma&quot; %%% &quot;codemirror-facade&quot; % &quot;5.4-0.5&quot;" title="&quot;org.denigma&quot; %%% &quot;codemirror-facade&quot; % &quot;5.4-0.5&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/antonkulaga/selectize-facade" target="library">selectize-facade</a></td>
+                <td>Static types for <a href="http://brianreavis.github.io/selectize.js/">Selectize</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.scalajs&quot; %%% &quot;selectize-facade&quot; % &quot;0.12.1-0.2.1&quot;" title="&quot;org.scalajs&quot; %%% &quot;selectize-facade&quot; % &quot;0.12.1-0.2.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/spaced/scala-js-d3" target="library">scala-js-d3</a></td>
+                <td>Static types for <a href="http://d3js.org">D3.js</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.singlespaced&quot; %%% &quot;scalajs-d3&quot; % &quot;0.3.4&quot;" title="&quot;org.singlespaced&quot; %%% &quot;scalajs-d3&quot; % &quot;0.3.4&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/mathieuleclaire/scaladget" target="library">scaladget bootstrapslider</a></td>
+                <td>Static types for <a href="http://seiyria.com/bootstrap-slider/">Bootstrap-slider</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;fr.iscpif.scaladget&quot; %%% &quot;bootstrapslider&quot; % &quot;1.0.1&quot;" title="&quot;fr.iscpif.scaladget&quot; %%% &quot;bootstrapslider&quot; % &quot;1.0.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/mathieuleclaire/scaladget" target="library">scaladget bootstrapnative</a></td>
+                <td>Static types for <a href="https://thednp.github.io/bootstrap.native/">Bootstrap-native.js</a> and <a href="http://rubaxa.github.io/Sortable/">Sortable.js</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;fr.iscpif.scaladget&quot; %%% &quot;bootstrapnative&quot; % &quot;1.0.1&quot;" title="&quot;fr.iscpif.scaladget&quot; %%% &quot;bootstrapnative&quot; % &quot;1.0.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/mathieuleclaire/scaladget" target="library">scaladget lunr</a></td>
+                <td>Static types for <a href="https://lunrjs.com/">Lunr</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;fr.iscpif.scaladget&quot; %%% &quot;lunr&quot; % &quot;1.0.1&quot;" title="&quot;fr.iscpif.scaladget&quot; %%% &quot;lunr&quot; % &quot;1.0.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/andreaferretti/paths-scala-js" target="library">Paths.scala.js</a></td>
+                <td>A library to generate SVG charts and shapes (wrapper over <a href="https://github.com/andreaferretti/paths-js">Paths.js</a>)
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;eu.unicredit&quot; %%% &quot;paths-scala-js&quot; % &quot;0.3.2&quot;" title="&quot;eu.unicredit&quot; %%% &quot;paths-scala-js&quot; % &quot;0.3.2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/coreyauger/scala-js-youtube" target="library">YouTube embedded player</a></td>
+                <td>Type safe and Scala friendly library for the embedded YouTube player API
+</td>
+                <td>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/widok/scala-js-momentjs" target="library">scala-js-momentjs</a></td>
+                <td><a href="http://momentjs.com/">Moment.js</a> facade
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;io.github.widok&quot; %%% &quot;scala-js-momentjs&quot; % &quot;0.1.4&quot;" title="&quot;io.github.widok&quot; %%% &quot;scala-js-momentjs&quot; % &quot;0.1.4&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/Karasiq/scalajs-highcharts" target="library">scalajs-highcharts</a></td>
+                <td>Static types for <a href="http://www.highcharts.com/">Highcharts</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.karasiq&quot; %%% &quot;scalajs-highcharts&quot; % &quot;1.0.8&quot;" title="&quot;com.github.karasiq&quot; %%% &quot;scalajs-highcharts&quot; % &quot;1.0.8&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/coreyauger/scalajs-chart" target="library">scalajs-chart</a></td>
+                <td>Type-safe and Scala-friendly library over <a href="http://www.chartjs.org">Chart.js</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;io.surfkit&quot; %%% &quot;scalajs-chart&quot; % &quot;0.1-SNAPSHOT&quot;" title="&quot;io.surfkit&quot; %%% &quot;scalajs-chart&quot; % &quot;0.1-SNAPSHOT&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/coreyauger/scala-js-webrtc" target="library">scala-js-webrtc</a></td>
+                <td>Easy to use and extend WebRTC wrappers
+</td>
+                <td>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/zoepepper/scalajs-jsjoda" target="library">scalajs-jsjoda</a></td>
+                <td>Static types for <a href="http://js-joda.github.io/js-joda/">js-joda</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.zoepepper&quot; %%% &quot;scalajs-jsjoda&quot; % &quot;1.1.2&quot;" title="&quot;com.zoepepper&quot; %%% &quot;scalajs-jsjoda&quot; % &quot;1.1.2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+    
+        <tr>
+            <td colspan="3"><h4>UI frameworks</h4></td>
+        </tr>
+        
+        
+            <tr>
+                <td><a href="https://github.com/japgolly/scalajs-react" target="library">scalajs-react</a></td>
+                <td>Type-safe and Scala-friendly library over Facebook’s <a href="http://facebook.github.io/react/">React</a>.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.japgolly.scalajs-react&quot; %%% &quot;core&quot; % &quot;0.10.0&quot;" title="&quot;com.github.japgolly.scalajs-react&quot; %%% &quot;core&quot; % &quot;0.10.0&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/shogowada/scalajs-reactjs" target="library">scalajs-reactjs</a></td>
+                <td>Develop React applications in Scala with APIs close to the original: react, react-router, and react-redux facade
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;io.github.shogowada&quot; %%% &quot;scalajs-reactjs&quot; % &quot;0.4.3&quot;" title="&quot;io.github.shogowada&quot; %%% &quot;scalajs-reactjs&quot; % &quot;0.4.3&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/antonkulaga/scala-js-binding" target="library">scala-js-binding</a></td>
+                <td>An all-Scala.js HTML binding library
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.denigma&quot; %%% &quot;binding&quot; % &quot;0.8.0-M6&quot;" title="&quot;org.denigma&quot; %%% &quot;binding&quot; % &quot;0.8.0-M6&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/greencatsoft/scalajs-angular" target="library">scalajs-angular</a></td>
+                <td>Static types and complementary API for AngularJS with <a href="https://github.com/greencatsoft/scalajs-angular-todomvc">TodoMvc example</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.greencatsoft&quot; %%% &quot;scalajs-angular&quot; % &quot;0.5&quot;" title="&quot;com.greencatsoft&quot; %%% &quot;scalajs-angular&quot; % &quot;0.5&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/jokade/scalajs-angulate" target="library">scalajs-angulate</a></td>
+                <td>Another binding to AngularJS with enhancements
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;biz.enef&quot; %%% &quot;scalajs-angulate&quot; % &quot;0.2.4&quot;" title="&quot;biz.enef&quot; %%% &quot;scalajs-angulate&quot; % &quot;0.2.4&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/jokade/angulate2" target="library">angulate2</a></td>
+                <td>Plugin and bindings for <a href="http://angular.io">Angular 2+</a> development with Scala.js.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="addSbtPlugin(&quot;de.surfice&quot; % &quot;angulate2&quot; % &quot;0.1.0&quot;)" title="addSbtPlugin(&quot;de.surfice&quot; % &quot;angulate2&quot; % &quot;0.1.0&quot;)"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/fancellu/scalajs-vue" target="library">scalajs-vue</a></td>
+                <td>Scala.js bindings for <a href="http://vuejs.org/">Vue.js</a> and an example application
+</td>
+                <td>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/fancellu/scalajs-ractive" target="library">scalajs-ractive</a></td>
+                <td>Scala.js bindings for <a href="http://www.ractivejs.org/">Ractive.js</a> and an example application
+</td>
+                <td>
+                    
+                </td>
+            </tr>
+        
+    
+        <tr>
+            <td colspan="3"><h4>Other libraries</h4></td>
+        </tr>
+        
+        
+            <tr>
+                <td><a href="https://github.com/Karasiq/scalajs-videojs" target="library">scalajs-videojs</a></td>
+                <td>Bindings for <a href="https://github.com/videojs/video.js">Video.js</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.karasiq&quot; %%% &quot;scalajs-videojs&quot; % &quot;1.0.2&quot;" title="&quot;com.github.karasiq&quot; %%% &quot;scalajs-videojs&quot; % &quot;1.0.2&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/Karasiq/scalajs-marked" target="library">scalajs-marked</a></td>
+                <td>Bindings for <a href="https://github.com/chjj/marked">Marked</a>, <a href="https://highlightjs.org/">Highlight.js</a> and <a href="https://github.com/wjbryant/taboverride">Tab Override</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.karasiq&quot; %%% &quot;scalajs-marked&quot; % &quot;1.0.1&quot;" title="&quot;com.github.karasiq&quot; %%% &quot;scalajs-marked&quot; % &quot;1.0.1&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/hezamu/scala-js-vaadin-components" target="library">scala-js-vaadin-components</a></td>
+                <td>Static types for <a href="http://vaadin.com/components">Vaadin Components</a>
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;org.vaadin.addons&quot; %%% &quot;scala-js-vaadin-components&quot; % &quot;0.1.0-SNAPSHOT&quot;" title="&quot;org.vaadin.addons&quot; %%% &quot;scala-js-vaadin-components&quot; % &quot;0.1.0-SNAPSHOT&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/lucidd/scala-js-chrome" target="library">scala-js-chrome</a></td>
+                <td>Static types for Chrome <a href="https://developer.chrome.com/apps/api_index">App</a> and <a href="https://developer.chrome.com/extensions/api_index">Extension</a> APIs
+</td>
+                <td>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/fancellu/scalajs-velocity" target="library">scalajs-velocity</a></td>
+                <td>Scala.js bindings for <a href="http://julian.com/research/velocity/">Velocity.js</a> animation library and example applications
+</td>
+                <td>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/mkotsbak/scalajs-qcode-decoder" target="library">QRCodeDecoder</a></td>
+                <td>Scala.Js wrapper for <a href="http://cirocosta.github.io/qcode-decoder">QRCodeDecoder JS library</a> for decoding QR codes.
+</td>
+                <td>
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td><a href="https://github.com/yoeluk/paper-scala-js" target="library">Paper-Scala-js</a></td>
+                <td>A Scala.js binding for <a href="http://paperjs.org">Paper.js</a> - The Swiss Army Knife of Vector Graphics Scripting.
+</td>
+                <td>
+                    
+                    <div class="div-clipboard">
+                    <button class="btn btn-default btn-xs btn-clipboard" data-clipboard-text="&quot;com.github.yoeluk&quot; %%% &quot;paper-scala-js&quot; % &quot;0.5-SNAPSHOT&quot;" title="&quot;com.github.yoeluk&quot; %%% &quot;paper-scala-js&quot; % &quot;0.5-SNAPSHOT&quot;"><img class="clippy" width="13" src="/assets/img/clippy.svg" /></button>
+                    </div>
+                    
+                </td>
+            </tr>
+        
+    
+    </tbody>
+</table>
+<script>
+onloadFunctions.push(function() {new Clipboard('.btn-clipboard')});
+</script>
+
+<p><a href="https://definitelyscala.com/">DefinitelyScala.com</a> has more open source Scala.js facades for some of your favorite JavaScript libraries, derived from DefinitelyTyped’s TypeScript definitions.</p>
+
+<p>If you didn’t find a facade for the library you’d like to use, it’s quite easy to do one yourself. Check out the
+<a href="../doc/interoperability/facade-types.html">facade documentation</a> and the
+<a href="https://github.com/sjrd/scala-js-ts-importer">TypeScript conversion tool</a>.
+You can also skip whole facade-business and just
+<a href="../doc/interoperability/facade-types.html#calling-javascript-from-scalajs-with-dynamic-types">call JavaScript APIs dynamically</a>,
+without type-checking, the same way you do it when programming in JavaScript itself.</p>
+
+<hr />
+
+<p><small>Additions and corrections to this section may be reported through
+<a href="https://github.com/scala-js/scala-js-website/issues">GitHub issues</a>. Please include Name, Url, Description and
+Dependency</small></p>
+
+            <div class="spacing"></div>
+        </div>
+        <div class="col-md-3">
+            <nav class="toc" role="navigation">
+                
+<ul>
+    
+    <li>
+        <a href="/libraries/">
+            
+            
+            Libraries
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/libraries/facades.html">
+            
+            
+            <b>JavaScript libraries</b>
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/libraries/libs.html">
+            
+            
+            Scala libraries
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/libraries/testing.html">
+            
+            
+            Testing frameworks
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/libraries/skeletons.html">
+            
+            
+            Skeletons
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

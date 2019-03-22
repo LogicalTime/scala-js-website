@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/news/2018/06/29/announcing-scalajs-0.6.24/">
+
+    <title> Announcing Scala.js 0.6.24 - Scala.js</title>
+
+    <meta property="og:title" content="Announcing Scala.js 0.6.24" /><meta property="og:type" content="article" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" /><meta property="article:published_time" content="2018-06-29T00:00:00-04:00" /><meta property="article:tag" content="releases" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li class="active"><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Announcing Scala.js 0.6.24</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="small">Jun 29, 2018.</span>
+            </p>
+            <p>We are pleased to announce the release of Scala.js 0.6.24!</p>
+
+<p>This release contains a number of fixes for small bugs that have been lingering in our issue tracker for ages.
+The version of the Scala standard library for 2.12 has also been upgraded to 2.12.6.</p>
+
+<p>Read on for more details.</p>
+
+<!--more-->
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>If you are new to Scala.js, head over to
+<a href="/tutorial/">the tutorial</a>.</p>
+
+<h2 id="release-notes">Release notes</h2>
+
+<p>If you use <code class="highlighter-rouge">.scala</code> build files in <code class="highlighter-rouge">project/</code> and are upgrading from Scala.js 0.6.22 or earlier, do read <a href="/news/2018/05/22/announcing-scalajs-0.6.23/">the release notes of 0.6.23</a>, which contain a source breaking change in that situation.</p>
+
+<p>If upgrading from Scala.js 0.6.14 or earlier, make sure to read <a href="/news/2017/03/21/announcing-scalajs-0.6.15/">the release notes of 0.6.15</a>, which contain important migration information.</p>
+
+<p>As a minor release, 0.6.24 is backward binary compatible with previous releases in the 0.6.x series.
+Libraries compiled with earlier versions can be used with 0.6.24 without change.
+0.6.24 is also forward binary compatible with 0.6.{17-23}, but not with earlier releases: libraries compiled with 0.6.24 cannot be used by projects using 0.6.{0-16}.</p>
+
+<p>Please report any issues <a href="https://github.com/scala-js/scala-js/issues">on GitHub</a>.</p>
+
+<h2 id="changes-with-compatibility-concerns">Changes with compatibility concerns</h2>
+
+<p>Following a breaking dependency change on Rhino in recent versions of sbt-web and sbt-js-engine which <a href="https://github.com/sbt/sbt-less/issues/95">caused some issues when combined with Scala.js</a>, we have upgraded our own dependency on Rhino to</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="s">"org.mozilla"</span> <span class="o">%</span> <span class="s">"rhino"</span> <span class="o">%</span> <span class="s">"1.7.6"</span></code></pre></figure>
+
+<p>Although we do not foresee any issue in practice, there exists a possibility that this will break your build if another sbt plugin relies on apigee’s fork of Rhino.
+If this causes an issue for you, you can fall back on the old dependency by adding the following to <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">excludeDependencies</span> <span class="o">+=</span> <span class="s">"org.mozilla"</span> <span class="o">%</span> <span class="s">"rhino"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.apigee"</span> <span class="o">%</span> <span class="s">"rhino"</span> <span class="o">%</span> <span class="s">"1.7R5pre4"</span></code></pre></figure>
+
+<h2 id="bug-fixes">Bug fixes</h2>
+
+<p>Among others, the following bugs have been fixed in 0.6.24:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/3393">#3393</a> When a JSEnv fails on startup (e.g., due to a lack of <code class="highlighter-rouge">jsdom</code>), sbt reports success</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/1619">#1619</a> <code class="highlighter-rouge">String.format</code> does not support thousands grouping</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2935">#2935</a> <code class="highlighter-rouge">Integer.parseInt</code> and similar don’t support non-ASCII scripts</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/3348">#3348</a> Doubles in hex notation fail to parse</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/3368">#3368</a> Scala.js’ JUnit emits weird comparison for strings that fail <code class="highlighter-rouge">assertEquals</code></li>
+</ul>
+
+<p>You can find the full list <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av0.6.24+is%3Aclosed">on GitHub</a>.</p>
+
+            <div class="spacing"></div>
+            <nav>
+                <ul class="pager">
+                    
+                    <li class="previous"><a href="/news/2018/05/22/announcing-scalajs-0.6.23/"
+                                            title="Announcing Scala.js 0.6.23">&larr; Previous</a></li>
+                    
+                    
+                    <li class="next"><a href="/news/2018/08/13/announcing-scalajs-1.0.0-M5/"
+                                        title="Announcing Scala.js 1.0.0-M5">Next &rarr;</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

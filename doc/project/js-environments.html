@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/doc/project/js-environments.html">
+
+    <title> JavaScript Environments - Scala.js</title>
+
+    <meta property="og:title" content="JavaScript Environments" /><meta property="og:type" content="website" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li ><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>JavaScript Environments</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-9">
+            <p>In order to decide how to run JavaScript code, the Scala.js sbt plugin uses the setting key <code class="highlighter-rouge">jsEnv</code>.
+By default, <code class="highlighter-rouge">jsEnv</code> is set to use <a href="http://nodejs.org/">Node.js</a>, which you need to install separately.</p>
+
+<p><strong>Scala.js 0.6.x:</strong> If your application or one of its libraries requires a DOM (which can be specified with <code class="highlighter-rouge">jsDependencies += RuntimeDOM</code>), the <code class="highlighter-rouge">JSDOMNodeJSEnv</code> environment described will be used by default.</p>
+
+<h2 id="nodejs">Node.js</h2>
+
+<p>Node.js is the default environment used by Scala.js.
+You can also explicitly enable it, for example to customize it, using the following sbt setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">jsEnv</span> <span class="o">:=</span> <span class="k">new</span> <span class="n">org</span><span class="o">.</span><span class="n">scalajs</span><span class="o">.</span><span class="n">jsenv</span><span class="o">.</span><span class="n">nodejs</span><span class="o">.</span><span class="nc">NodeJSEnv</span><span class="o">()</span></code></pre></figure>
+
+<h3 id="-nodejs-on-ubuntu"><a name="node-on-ubuntu"></a> Node.js on Ubuntu</h3>
+
+<p>The easiest way to handle Node.js versions and installations on Ubuntu (and in Linux systems in general) is to use <a href="https://github.com/creationix/nvm">nvm</a>. All instructions are included.</p>
+
+<p>Then run <code class="highlighter-rouge">nvm</code> to install the version of Node.js that you want:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nvm install 5.0
+</code></pre></div></div>
+
+<p>For more options of the Node.js environment, see
+<a href="https://www.scala-js.org/api/scalajs-js-envs/0.6.26/#org.scalajs.jsenv.nodejs.NodeJSEnv">the Scaladoc of <code class="highlighter-rouge">NodeJSEnv</code></a>.</p>
+
+<h2 id="nodejs-with-jsdom">Node.js with JSDOM</h2>
+
+<p>This environment uses <a href="https://github.com/tmpvar/jsdom">jsdom</a> to provide a headless browser environment on top of Node.js.
+You can enable it with the following sbt setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">jsEnv</span> <span class="o">:=</span> <span class="k">new</span> <span class="n">org</span><span class="o">.</span><span class="n">scalajs</span><span class="o">.</span><span class="n">jsenv</span><span class="o">.</span><span class="n">jsdomnodejs</span><span class="o">.</span><span class="nc">JSDOMNodeJSEnv</span><span class="o">()</span></code></pre></figure>
+
+<p>You will need to <code class="highlighter-rouge">npm install jsdom</code> for the above environment to work.</p>
+
+<p><strong>Scala.js 1.x:</strong> The above setting requires the following line in your <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"org.scala-js"</span> <span class="o">%%</span> <span class="s">"scalajs-env-jsdom-nodejs"</span> <span class="o">%</span> <span class="s">"1.0.0-M1"</span></code></pre></figure>
+
+<p><strong>Scala.js 0.6.x:</strong> This environment is selected by default if your application or one of its libraries declares a dependency on the DOM, with <code class="highlighter-rouge">jsDependencies += RuntimeDOM</code>.
+Note that this is deprecated, so you should use <code class="highlighter-rouge">jsEnv := ...</code> anyway.</p>
+
+<h2 id="phantomjs">PhantomJS</h2>
+
+<p><a href="http://phantomjs.org/">PhantomJS</a> is a Webkit-based headless browser.
+You can use it with Scala.js with the following sbt setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">jsEnv</span> <span class="o">:=</span> <span class="nc">PhantomJSEnv</span><span class="o">().</span><span class="n">value</span></code></pre></figure>
+
+<p><strong>Scala.js 1.x:</strong> The above setting requires the following line in your <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">"org.scala-js"</span> <span class="o">%</span> <span class="s">"sbt-scalajs-env-phantomjs"</span> <span class="o">%</span> <span class="s">"1.0.0-M1"</span><span class="o">)</span></code></pre></figure>
+
+<h3 id="-disabling-auto-termination-of-phantomjs"><a name="phantomjs-no-auto-terminate"></a> Disabling auto-termination of PhantomJS</h3>
+
+<p>By default, the PhantomJS interpreter terminates itself as soon as the <code class="highlighter-rouge">main()</code> method returns.
+This may not be what you want, if for example you register time-outs or use WebSockets.
+You can disable this behavior with the following setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">jsEnv</span> <span class="o">:=</span> <span class="nc">PhantomJSEnv</span><span class="o">(</span><span class="n">autoExit</span> <span class="k">=</span> <span class="kc">false</span><span class="o">).</span><span class="n">value</span></code></pre></figure>
+
+<p>You can terminate the interpreter from your Scala code with</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nc">System</span><span class="o">.</span><span class="n">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span></code></pre></figure>
+
+<h3 id="-passing-arguments-to-phantomjs"><a name="phantomjs-arguments"></a> Passing arguments to PhantomJS</h3>
+
+<p>You can pass command-line arguments to the PhantomJS interpreter like this:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">jsEnv</span> <span class="o">:=</span> <span class="nc">PhantomJSEnv</span><span class="o">(</span><span class="n">args</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">"arg1"</span><span class="o">,</span> <span class="s">"arg2"</span><span class="o">)).</span><span class="n">value</span></code></pre></figure>
+
+<p>For more options of the PhantomJS environment, see
+<a href="https://www.scala-js.org/api/sbt-scalajs/0.6.26/#org.scalajs.sbtplugin.ScalaJSPlugin$$AutoImport$">the Scaladoc of <code class="highlighter-rouge">PhantomJSEnv</code></a>.</p>
+
+<h2 id="selenium">Selenium</h2>
+
+<p><a href="http://docs.seleniumhq.org/">Selenium</a> provides a programmatic interface to real browsers.
+See the separate project <a href="https://github.com/scala-js/scala-js-env-selenium">scalajs-env-selenium</a> for instructions on how to use with Scala.js.</p>
+
+<h2 id="rhino-deprecated">Rhino (deprecated)</h2>
+
+<p><strong>Scala.js 0.6.x only</strong></p>
+
+<p>Rhino can be used with the following sbt setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalaJSUseRhino</span> <span class="n">in</span> <span class="nc">Global</span> <span class="o">:=</span> <span class="kc">true</span></code></pre></figure>
+
+
+            <div class="spacing"></div>
+        </div>
+        <div class="col-md-3">
+            <nav class="toc" role="navigation">
+                
+<ul>
+    
+    <li>
+        <a href="/doc/">
+            
+            
+            Introduction
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/tutorial/">
+            
+            
+            Tutorials
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/tutorial/basic/">
+            
+            
+            Basic tutorial
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/">
+            
+            
+            Scala.js for JavaScript developers
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part1.html">
+            
+            
+            From ES6 to Scala: Basics
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part2.html">
+            
+            
+            From ES6 to Scala: Collections
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/sjs-for-js/es6-to-scala-part3.html">
+            
+            
+            From ES6 to Scala: Advanced
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/project/">
+            
+            
+            Project setup
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/project/building.html">
+            
+            
+            Building the application
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/dependencies.html">
+            
+            
+            Dependencies
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/module.html">
+            
+            
+            Emitting modules
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/js-environments.html">
+            
+            
+            <b>JavaScript Environments</b>
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/cross-build.html">
+            
+            
+            Cross-building
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/project/testing.html">
+            
+            
+            Testing
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/interoperability/">
+            
+            
+            JavaScript interoperability
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/interoperability/types.html">
+            
+            
+            JavaScript types
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/facade-types.html">
+            
+            
+            Write facade types for JS APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/global-scope.html">
+            
+            
+            Access to the JavaScript global scope (1.x only)
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/export-to-javascript.html">
+            
+            
+            Export Scala.js APIs
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/sjs-defined-js-classes.html">
+            
+            
+            Write JavaScript classes in Scala.js
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/interoperability/exceptions.html">
+            
+            
+            Working with Exceptions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/api.html">
+            
+            
+            Scala.js API
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/all-api.html">
+            
+            
+            APIs of previous versions
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/semantics.html">
+            
+            
+            Semantics of Scala.js
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/">
+            
+            
+            Internals
+            
+        </a>
+    </li>
+    
+      
+<ul>
+    
+    <li>
+        <a href="/doc/internals/performance.html">
+            
+            
+            Performance
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/downloads.html">
+            
+            
+            Standalone distribution
+            
+        </a>
+    </li>
+    
+    
+    <li>
+        <a href="/doc/internals/version-history.html">
+            
+            
+            Version history
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+    
+    
+    <li>
+        <a href="/doc/faq.html">
+            
+            
+            FAQ
+            
+        </a>
+    </li>
+    
+    
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

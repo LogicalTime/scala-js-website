@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/news/2017/03/21/announcing-scalajs-0.6.15/">
+
+    <title> Announcing Scala.js 0.6.15 - Scala.js</title>
+
+    <meta property="og:title" content="Announcing Scala.js 0.6.15" /><meta property="og:type" content="article" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" /><meta property="article:published_time" content="2017-03-21T00:00:00-04:00" /><meta property="article:tag" content="releases" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li class="active"><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Announcing Scala.js 0.6.15</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="small">Mar 21, 2017.</span>
+            </p>
+            <p>We are excited to announce the release of Scala.js 0.6.15!</p>
+
+<p>This release was focused on preparations for Scala.js 1.0.0.
+It notably contains better replacements for some features that we were not 100% happy with, which are now deprecated and will be dropped in 1.0.0.</p>
+
+<p>Thanks to <a href="https://github.com/olafurpg">@olafurpg</a> and his great tool <a href="https://scalacenter.github.io/scalafix/">scalafix</a>, you can automatically migrate your codebase for the first and most intrusive of those deprecations.
+See below for details.</p>
+
+<p>Scala.js 0.6.15 also comes with a set of exciting new features, including several awesome JavaScript interoperability features:</p>
+
+<ul>
+  <li>Use <code class="highlighter-rouge">@JSExportStatic</code> to define static members on Scala.js-defined JS classes.</li>
+  <li><code class="highlighter-rouge">@JSExportTopLevel</code> is not restricted to methods anymore: it can be used on fields and top-level classes/objects.</li>
+  <li>The standard library now contains the API for ECMAScript 2015 symbols (as <a href="https://www.scala-js.org/api/scalajs-library/latest/#scala.scalajs.js.Symbol"><code class="highlighter-rouge">js.Symbol</code></a>) and iterables/iterators (as <a href="https://www.scala-js.org/api/scalajs-library/latest/#scala.scalajs.js.Iterable"><code class="highlighter-rouge">js.Iterable</code></a> and <a href="https://www.scala-js.org/api/scalajs-library/latest/#scala.scalajs.js.Iterator"><code class="highlighter-rouge">js.Iterator</code></a>).</li>
+  <li>In JS types (both native and non-native), <code class="highlighter-rouge">@JSName</code> can be given a reference to a <code class="highlighter-rouge">js.Symbol</code> (instead of a constant string) to declare members whose “name” is a JavaScript symbol.</li>
+</ul>
+
+<p>Finally, the sbt plugin also features a replacement for the “launcher” files, so that the call to the main method of your program can be included directly inside the main <code class="highlighter-rouge">-fastopt.js</code>.</p>
+
+<p>Read on for more details.</p>
+
+<!--more-->
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>If you are new to Scala.js, head over to
+<a href="/tutorial/">the tutorial</a>.</p>
+
+<h2 id="release-notes">Release notes</h2>
+
+<p>If upgrading from Scala.js 0.6.12 or earlier, make sure to read <a href="/news/2016/10/17/announcing-scalajs-0.6.13/">the release notes of 0.6.13</a>, which contain some breaking changes in sbt build definitions.</p>
+
+<p>As a minor release, 0.6.15 is backward source and binary compatible with previous releases in the 0.6.x series.
+Libraries compiled with earlier versions can be used with 0.6.15 without change.
+However, it is not forward compatible: libraries compiled with 0.6.15 cannot be used by projects using 0.6.{0-14}.</p>
+
+<p>Please report any issues <a href="https://github.com/scala-js/scala-js/issues">on GitHub</a>.</p>
+
+<h2 id="main-deprecations">Main deprecations</h2>
+
+<h3 id="jsnative-classes-and-objects-need-to-have-jsglobal"><code class="highlighter-rouge">@js.native</code> classes and objects need to have <code class="highlighter-rouge">@JSGlobal</code></h3>
+
+<p>Previously, one would declare facade types for native classes and objects as follows:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="k">object</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span>
+
+<span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSName</span><span class="o">(</span><span class="s">"Foobar"</span><span class="o">)</span>
+<span class="k">class</span> <span class="nc">Bar</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span></code></pre></figure>
+
+<p>This is now deprecated: <code class="highlighter-rouge">@js.native</code> objects and classes should now explicitly use the annotation <code class="highlighter-rouge">@JSGlobal</code> as follows:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.scalajs.js.annotation._</span>
+
+<span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSGlobal</span> <span class="c1">// implied name "Foo"
+</span><span class="k">object</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span>
+
+<span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSGlobal</span><span class="o">(</span><span class="s">"Foobar"</span><span class="o">)</span>
+<span class="k">class</span> <span class="nc">Bar</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span></code></pre></figure>
+
+<p>Note that <code class="highlighter-rouge">@JSGlobal</code> <em>replaces</em> <code class="highlighter-rouge">@JSName</code> if it is present, and is otherwise added.</p>
+
+<h4 id="migration-tips">Migration tips</h4>
+
+<p>You can temporarily disable the deprecation warnings with the following sbt setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalacOptions</span> <span class="o">+=</span> <span class="s">"-P:scalajs:suppressMissingJSGlobalDeprecations"</span></code></pre></figure>
+
+<p>This will keep working in the 0.6.x cycle.
+You can use that to ease your migration and delay dealing with these deprecations until you have some time to allocate to that.</p>
+
+<h4 id="automatically-migrate-your-codebase-with-scalafix">Automatically migrate your codebase with scalafix</h4>
+
+<p>Thanks to <a href="https://github.com/olafurpg">@olafurpg</a>, we have a <a href="https://scalacenter.github.io/scalafix/">scalafix</a> rewrite for you.
+You can use it to automatically migrate your codebase!</p>
+
+<p>Here is a how-to:</p>
+
+<ul>
+  <li>Make sure you use sbt 0.13.13 or later (in <code class="highlighter-rouge">project/build.properties</code>)</li>
+  <li>
+    <p>Add the following sbt plugin to <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.3.2")
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Create a file <code class="highlighter-rouge">.scalafix.conf</code> at the root of your project, and fill it with:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rewrites = ["https://gist.githubusercontent.com/sjrd/ef8bb7c52be1451b3a3b9bab6a187549/raw/0b1d451d266bce20921bbff3a74722610d604509/ScalaJSRewrites.scala"]
+imports.organize = false
+imports.removeUnused = false
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>The first line specifies that we want to apply the <code class="highlighter-rouge">@JSGlobal</code> rewrite available <a href="https://gist.github.com/sjrd/ef8bb7c52be1451b3a3b9bab6a187549">in this gist</a>, written by @olafurpg.</p>
+
+<p>The last two lines are optional, but provide minimal diffs, at the cost of some manual intervention on imports.
+Consult <a href="https://scalacenter.github.io/scalafix/">the scalafix documentation</a> for further details on those.</p>
+
+<p>Once that is done, simply run</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sbt scalafix
+</code></pre></div></div>
+
+<p>and enjoy the magic.
+If you use <code class="highlighter-rouge">-Xfatal-warnings</code>, you may have to disable it to run <code class="highlighter-rouge">sbt scalafix</code>, and re-enable it afterwards.
+Unless you do not use <code class="highlighter-rouge">imports.organize = false</code>, you will then have to manually adjust your imports to your liking so that <code class="highlighter-rouge">scala.scalajs.js.annotation.JSGlobal</code> is imported.</p>
+
+<p>If you want a working example of this process, look at <a href="https://github.com/scala-js/scala-js-dom/pull/277">the PR on scalajs-dom</a>, where we have successfully applied scalafix to the entire codebase.
+The commits of the PR provide explanations of the steps we performed, so it’s good to look at them (not just the PR diff).</p>
+
+<h3 id="jsexport-on-objects-and-classes-becomes-jsexporttoplevel"><code class="highlighter-rouge">@JSExport</code> on objects and classes becomes <code class="highlighter-rouge">@JSExportTopLevel</code></h3>
+
+<p>To make a top-level class or object accessible to JavaScript, we previously used the <code class="highlighter-rouge">@JSExport</code> annotation, like this:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">package</span> <span class="nn">foo</span>
+
+<span class="nd">@JSExport</span>
+<span class="k">object</span> <span class="nc">Foo</span>
+
+<span class="nd">@JSExport</span><span class="o">(</span><span class="s">"Bar"</span><span class="o">)</span>
+<span class="k">class</span> <span class="nc">Bar</span></code></pre></figure>
+
+<p>so that they can be accessed from JavaScript as:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">fooObject</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">.</span><span class="nx">Foo</span><span class="p">();</span> <span class="c1">// note the ()</span>
+<span class="kd">var</span> <span class="nx">barObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Bar</span><span class="p">();</span></code></pre></figure>
+
+<p>Starting with 0.6.15, <code class="highlighter-rouge">@JSExportTopLevel</code> should be used instead.
+On <em>classes</em>, it has exactly the same behavior as <code class="highlighter-rouge">@JSExport</code>.
+On <em>objects</em> however, it directly exports the object, rather than a 0-arg function.
+Moreover, at least for now, <code class="highlighter-rouge">@JSExportTopLevel</code> always demands an explicit string argument.</p>
+
+<p>We would therefore update the previous example as follows:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">package</span> <span class="nn">foo</span>
+
+<span class="nd">@JSExportTopLevel</span><span class="o">(</span><span class="s">"foo.Foo"</span><span class="o">)</span>
+<span class="k">object</span> <span class="nc">Foo</span>
+
+<span class="nd">@JSExportTopLevel</span><span class="o">(</span><span class="s">"Bar"</span><span class="o">)</span>
+<span class="k">class</span> <span class="nc">Bar</span></code></pre></figure>
+
+<p>and use it from JavaScript as:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">fooObject</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">.</span><span class="nx">Foo</span><span class="p">;</span> <span class="c1">// note the absence of ()</span>
+<span class="kd">var</span> <span class="nx">barObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Bar</span><span class="p">();</span></code></pre></figure>
+
+<p>If retaining the 0-arg function is desirable in your use case (so that you do not need to update the JavaScript code), you can do the following instead:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">package</span> <span class="nn">foo</span>
+
+<span class="k">object</span> <span class="nc">Foo</span> <span class="o">{</span>
+  <span class="nd">@JSExportTopLevel</span><span class="o">(</span><span class="s">"foo.Foo"</span><span class="o">)</span>
+  <span class="k">protected</span> <span class="k">def</span> <span class="n">jsAccessor</span><span class="o">()</span><span class="k">:</span> <span class="kt">this.</span><span class="k">type</span> <span class="o">=</span> <span class="k">this</span>
+<span class="o">}</span></code></pre></figure>
+
+<h4 id="migration-tips-1">Migration tips</h4>
+
+<p>You can temporarily disable the deprecation warnings with the following sbt setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalacOptions</span> <span class="o">+=</span> <span class="s">"-P:scalajs:suppressExportDeprecations"</span></code></pre></figure>
+
+<p>This will keep working in 0.6.x.</p>
+
+<h4 id="about-jsjsapp">About <code class="highlighter-rouge">js.JSApp</code></h4>
+
+<p>If you use <code class="highlighter-rouge">js.JSApp</code>, you need not change anything.
+We have seen people do the following (both <code class="highlighter-rouge">extends js.JSApp</code> <em>and</em> <code class="highlighter-rouge">@JSExport</code>):</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@JSExport</span>
+<span class="k">object</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">JSApp</span> <span class="o">{</span>
+  <span class="nd">@JSExport</span>
+  <span class="k">def</span> <span class="n">main</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>This is redundant.
+You can safely remove the two <code class="highlighter-rouge">@JSExport</code>s while leaving the behavior unchanged:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">JSApp</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">main</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="jsexportdescendentclasses-and-jsexportdescendentobjects-are-deprecated-without-direct-replacement"><code class="highlighter-rouge">@JSExportDescendentClasses</code> and <code class="highlighter-rouge">@JSExportDescendentObjects</code> are deprecated without (direct) replacement</h3>
+
+<p>Those two annotations were basically only used by testing frameworks, to “reflectively” instantiate test classes and objects.
+For this use case (and similar ones), read further below about the introduction of the Reflective Instantiation API.</p>
+
+<h4 id="migration-tips-2">Migration tips</h4>
+
+<p><strong>Are you maintaining a testing framework?</strong>
+If you use our <code class="highlighter-rouge">TestUtils.newInstance</code> and/or <code class="highlighter-rouge">TestUtils.loadModule</code> methods to perform reflective instantiation of <code class="highlighter-rouge">@JSExportDescendent...</code> things, all you need to do is:</p>
+
+<ul>
+  <li>replace <code class="highlighter-rouge">@JSExportDescendentClasses</code> and/or <code class="highlighter-rouge">@JSExportDescendentObjects</code> by <code class="highlighter-rouge">@scala.scalajs.reflect.annotation.EnableReflectiveInstantiation</code></li>
+  <li>use the new overload of <code class="highlighter-rouge">TestUtils.newInstance</code>, which uses an explicit list of formal parameters (<code class="highlighter-rouge">TestUtils.loadModule</code> stays as it was)</li>
+</ul>
+
+<p>You can also temporarily disable the deprecation warnings with the following sbt setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalacOptions</span> <span class="o">+=</span> <span class="s">"-P:scalajs:suppressExportDeprecations"</span></code></pre></figure>
+
+<p>This will keep working in 0.6.x.</p>
+
+<h3 id="persistlauncher-is-deprecated-in-favor-of-scalajsusemainmoduleinitializer"><code class="highlighter-rouge">persistLauncher</code> is deprecated in favor of <code class="highlighter-rouge">scalaJSUseMainModuleInitializer</code></h3>
+
+<p>The sbt plugin of Scala.js has been providing the <code class="highlighter-rouge">persistLauncher</code> setting, to enable the automatic creation of a <code class="highlighter-rouge">-launcher.js</code> file, which calls the main method of your application.
+This convenient setting is being deprecated in favor of an even more convenient feature:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalaJSUseMainModuleInitializer</span> <span class="o">:=</span> <span class="kc">true</span></code></pre></figure>
+
+<p>will include the call to the <code class="highlighter-rouge">main</code> method (of a <code class="highlighter-rouge">js.JSApp</code> object) directly inside the <code class="highlighter-rouge">-fastopt.js</code> and <code class="highlighter-rouge">-opt.js</code> files produced by Scala.js.
+No need for a <code class="highlighter-rouge">-launcher.js</code> file at all anymore!</p>
+
+<h2 id="new-features">New features</h2>
+
+<h3 id="jsexportstatic"><code class="highlighter-rouge">@JSExportStatic</code></h3>
+
+<p>A long awaited feature was to be able to declare static methods and fields in Scala.js-defined JS classes.
+This is now possible, with <code class="highlighter-rouge">@JSExportStatic</code>.
+When defining a Scala.js-defined JS class, this annotation can be used on members <em>of its companion object</em>:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@JSExportTopLevel</span><span class="o">(</span><span class="s">"Foo"</span><span class="o">)</span>
+<span class="nd">@ScalaJSDefined</span>
+<span class="k">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span>
+
+<span class="k">object</span> <span class="nc">Foo</span> <span class="o">{</span>
+  <span class="nd">@JSExportStatic</span>
+  <span class="k">val</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">42</span>
+
+  <span class="nd">@JSExportStatic</span>
+  <span class="k">def</span> <span class="n">b</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>The members will be available as static members of <code class="highlighter-rouge">Foo</code>.
+Assuming that <code class="highlighter-rouge">Foo</code> itself is exported to JavaScript (with <code class="highlighter-rouge">@JSExportTopLevel</code>), then we can access these members as follows:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Foo</span><span class="p">.</span><span class="nx">a</span><span class="p">);</span>    <span class="c1">// 42</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Foo</span><span class="p">.</span><span class="nx">b</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span> <span class="c1">// 6</span></code></pre></figure>
+
+<p><code class="highlighter-rouge">var</code>s, getters and setters can also be similarly exported as static.</p>
+
+<h3 id="jssymbol-jsiterablea-and-jsiteratora"><code class="highlighter-rouge">js.Symbol</code>, <code class="highlighter-rouge">js.Iterable[+A]</code> and <code class="highlighter-rouge">js.Iterator[+A]</code></h3>
+
+<p>The standard library now includes definitions for some new ECMAScript 2015 types:</p>
+
+<ul>
+  <li><a href="https://www.scala-js.org/api/scalajs-library/latest/#scala.scalajs.js.Symbol"><code class="highlighter-rouge">js.Symbol</code></a> represents a JavaScript primitive <code class="highlighter-rouge">symbol</code>.</li>
+  <li><a href="https://www.scala-js.org/api/scalajs-library/latest/#scala.scalajs.js.Iterable"><code class="highlighter-rouge">js.Iterable[+A]</code></a> is an abstract type for JavaScript objects that can be iterated with <code class="highlighter-rouge">for..of</code>.
+In Scala.js, they can be iterated using a normal <code class="highlighter-rouge">for</code> comprehension, as expected.</li>
+  <li><a href="https://www.scala-js.org/api/scalajs-library/latest/#scala.scalajs.js.Iterator"><code class="highlighter-rouge">js.Iterator[+A]</code></a> is a JavaScript iterator, which is the result of the method <code class="highlighter-rouge">[Symbol.iterator]</code> of iterables.</li>
+</ul>
+
+<h3 id="jsname-accepts-javascript-symbols"><code class="highlighter-rouge">@JSName</code> accepts JavaScript symbols</h3>
+
+<p>In JavaScript types (extending <code class="highlighter-rouge">js.Any</code>, both native and non-native), members can be annotated with <code class="highlighter-rouge">@JSName("someName")</code> to specify their JavaScript name, if it needs to be different than the Scala name.
+With this release, <code class="highlighter-rouge">@JSName</code> has been augmented to also accept a reference to a <code class="highlighter-rouge">js.Symbol</code>.
+This is useful/necessary to declare members whose “name” are JavaScript symbols.</p>
+
+<p>For example, one can define a custom JavaScript iterable (which needs to implement a method <code class="highlighter-rouge">[Symbol.iterator]</code>) as follows:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@ScalaJSDefined</span>
+<span class="k">class</span> <span class="nc">SingletonIterable</span><span class="o">[</span><span class="kt">+A</span><span class="o">](</span><span class="n">onlyItem</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Iterable</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="nd">@JSName</span><span class="o">(</span><span class="n">js</span><span class="o">.</span><span class="nc">Symbol</span><span class="o">.</span><span class="n">iterator</span><span class="o">)</span>
+  <span class="k">def</span> <span class="n">jsIterator</span><span class="o">()</span><span class="k">:</span> <span class="kt">js.Iterator</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="n">js</span><span class="o">.</span><span class="nc">Iterator</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+    <span class="k">private</span> <span class="k">var</span> <span class="n">done</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span>
+
+    <span class="k">def</span> <span class="n">next</span><span class="o">()</span><span class="k">:</span> <span class="kt">js.Iterator.Entry</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">done</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">new</span> <span class="n">js</span><span class="o">.</span><span class="nc">Iterator</span><span class="o">.</span><span class="nc">Entry</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+          <span class="k">val</span> <span class="n">done</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span>
+          <span class="k">def</span> <span class="n">value</span><span class="k">:</span> <span class="kt">Nothing</span> <span class="o">=</span> <span class="o">???</span>
+        <span class="o">}</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">done</span> <span class="k">=</span> <span class="kc">true</span>
+        <span class="k">new</span> <span class="n">js</span><span class="o">.</span><span class="nc">Iterator</span><span class="o">.</span><span class="nc">Entry</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+          <span class="k">val</span> <span class="n">done</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span>
+          <span class="k">val</span> <span class="n">value</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=</span> <span class="n">onlyItem</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>An object of that class can be iterated in JavaScript with a <code class="highlighter-rouge">for..of</code> loop:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">item</span> <span class="k">of</span> <span class="nx">someSingletonIterable</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span> <span class="c1">// displays once the `onlyItem`</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="jsexporttoplevel-for-fields"><code class="highlighter-rouge">@JSExportTopLevel</code> for fields</h3>
+
+<p>In addition to being able to use <code class="highlighter-rouge">@JSExportTopLevel</code> on methods, which was introduced in 0.6.14, as well as on <code class="highlighter-rouge">object</code>s and <code class="highlighter-rouge">class</code>es as described above, <code class="highlighter-rouge">@JSExportTopLevel</code> can also be used on fields (<code class="highlighter-rouge">val</code>s and <code class="highlighter-rouge">var</code>s) to export top-level variables to JavaScript.
+For example:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">Foo</span> <span class="o">{</span>
+  <span class="nd">@JSExportTopLevel</span><span class="o">(</span><span class="s">"bar"</span><span class="o">)</span>
+  <span class="k">val</span> <span class="n">bar</span> <span class="k">=</span> <span class="mi">42</span>
+
+  <span class="nd">@JSExportTopLevel</span><span class="o">(</span><span class="s">"foobar"</span><span class="o">)</span>
+  <span class="k">var</span> <span class="n">foobar</span> <span class="k">=</span> <span class="s">"hello"</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>exports <code class="highlighter-rouge">bar</code> and <code class="highlighter-rouge">foobar</code> to the top-level, so that they can be used from JavaScript as</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bar</span><span class="p">);</span>    <span class="c1">// 42</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foobar</span><span class="p">);</span> <span class="c1">// "hello"</span></code></pre></figure>
+
+<p>If you emit a CommonJS module, the variables are fields of the module instance:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">ScalaJSModule</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'foo-fastopt.js'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ScalaJSModule</span><span class="p">.</span><span class="nx">bar</span><span class="p">);</span>    <span class="c1">// 42</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ScalaJSModule</span><span class="p">.</span><span class="nx">foobar</span><span class="p">);</span> <span class="c1">// "hello"</span></code></pre></figure>
+
+<p>Note that for <code class="highlighter-rouge">var</code>s, the JavaScript binding is <em>read-only</em>, i.e., JavaScript code cannot assign a new value to an exported <code class="highlighter-rouge">var</code>.
+However, if Scala.js code sets <code class="highlighter-rouge">Foo.foobar</code>, the new value will be visible from JavaScript.
+This is consistent with exporting a <code class="highlighter-rouge">let</code> binding in ECMAScript 2015 modules, which guided our design.</p>
+
+<h3 id="reflective-instantiation-api">Reflective Instantiation API</h3>
+
+<p>When we examined the uses of <code class="highlighter-rouge">@JSExportDescendentClasses</code> and <code class="highlighter-rouge">@JSExportDescendentObjects</code> found in the wild, we noticed that every time, they were used as a hack to “reflectively” instantiate classes or load objects.
+No wonder, since we, the core team, showed the world how to do this for testing frameworks!</p>
+
+<p>In this release, we have added an official, principled API to do so.
+The new API is more reliable and powerful, especially for classes inside objects, as well as classes with overloaded constructors.</p>
+
+<p>Reflective instantiation is still not enabled by default for all classes in the world (as that would completely inhibit dead code elimination).
+Used on a trait, class or object, the annotation <code class="highlighter-rouge">@EnableReflectiveInstantiation</code> enables reflective instantiation for all the non-abstract classes and all the objects inheriting from the annotated entity.
+Afterwards, it is possible to use the API in <a href="https://www.scala-js.org/api/scalajs-library/latest/#scala.scalajs.reflect.Reflect$"><code class="highlighter-rouge">scala.scalajs.reflect.Reflect</code></a> to instantiate those classes and/or load those objects.</p>
+
+<p>For example:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">package</span> <span class="nn">foo</span>
+
+<span class="k">import</span> <span class="nn">scala.scalajs.reflect.annotation.EnableReflectiveInstantiation</span>
+<span class="k">import</span> <span class="nn">scala.scalajs.reflect.Reflect</span>
+
+<span class="nd">@EnableReflectiveInstantiation</span>
+<span class="k">trait</span> <span class="nc">WithReflInstantiation</span>
+
+<span class="k">class</span> <span class="nc">Foobar</span> <span class="k">extends</span> <span class="nc">WithReflInstantiation</span>
+
+<span class="k">object</span> <span class="nc">Foo</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">doSomeReflInstantiation</span><span class="o">()</span><span class="k">:</span> <span class="kt">WithReflInstantiation</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">className</span> <span class="k">=</span> <span class="s">"foo.Foobar"</span>
+    <span class="k">val</span> <span class="n">instantiatableClass</span> <span class="k">=</span> <span class="nc">Reflect</span><span class="o">.</span><span class="n">lookupInstantiatableClass</span><span class="o">(</span><span class="n">className</span><span class="o">).</span><span class="n">get</span>
+    <span class="k">val</span> <span class="n">instance</span> <span class="k">=</span> <span class="n">instantiatableClass</span><span class="o">.</span><span class="n">newInstance</span><span class="o">()</span>
+    <span class="n">instance</span><span class="o">.</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">WithReflInstantiation</span><span class="o">]</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h2 id="new-jdk-parts">New JDK parts</h2>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2739">#2739</a> Some methods of <code class="highlighter-rouge">java.lang.{Float,Double}</code> from JDK 8</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2764">#2764</a> <code class="highlighter-rouge">java.io.DataOutputStream</code></li>
+</ul>
+
+<h2 id="bug-fixes">Bug fixes</h2>
+
+<p>Among others, the following bugs have been fixed in 0.6.15:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2708">#2708</a> fastOptJS code not working in JavaScriptCore (JSC)</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2712">#2712</a> <code class="highlighter-rouge">ScalaRunTime.isArray</code> is buggy for instances of JavaScript classes</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2737">#2737</a> Failure when accessing protected buf in <code class="highlighter-rouge">ByteArrayOutputStream</code></li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2755">#2755</a> <code class="highlighter-rouge">java.math.BigDecimal.divide</code> fails when used with a scale and rounding mode</li>
+</ul>
+
+<p>You can find the full list <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av0.6.15+is%3Aclosed">on GitHub</a>.</p>
+
+            <div class="spacing"></div>
+            <nav>
+                <ul class="pager">
+                    
+                    <li class="previous"><a href="/news/2016/12/21/announcing-scalajs-0.6.14/"
+                                            title="Announcing Scala.js 0.6.14">&larr; Previous</a></li>
+                    
+                    
+                    <li class="next"><a href="/news/2017/04/29/announcing-scalajs-0.6.16/"
+                                        title="Announcing Scala.js 0.6.16">Next &rarr;</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

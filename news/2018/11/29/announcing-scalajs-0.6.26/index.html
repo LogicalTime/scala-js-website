@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/news/2018/11/29/announcing-scalajs-0.6.26/">
+
+    <title> Announcing Scala.js 0.6.26 - Scala.js</title>
+
+    <meta property="og:title" content="Announcing Scala.js 0.6.26" /><meta property="og:type" content="article" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" /><meta property="article:published_time" content="2018-11-29T00:00:00-05:00" /><meta property="article:tag" content="releases" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li class="active"><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Announcing Scala.js 0.6.26</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="small">Nov 29, 2018.</span>
+            </p>
+            <p>We are pleased to announce the release of Scala.js 0.6.26!</p>
+
+<p>The highlight of this release is the support for ECMAScript modules.
+It also fixes a few issues.</p>
+
+<p>Starting from 0.6.26 in the 0.6.x branch, Scala.js has been relicensed under the Apache License 2.0, following the corresponding relicensing of Scala upstream.
+Scala.js 1.x milestones have also been relicensed since version 1.0.0-M6.</p>
+
+<p>Read on for more details.</p>
+
+<!--more-->
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>If you are new to Scala.js, head over to
+<a href="/tutorial/">the tutorial</a>.</p>
+
+<h2 id="release-notes">Release notes</h2>
+
+<p>If you use <code class="highlighter-rouge">.scala</code> build files in <code class="highlighter-rouge">project/</code> and are upgrading from Scala.js 0.6.22 or earlier, do read <a href="/news/2018/05/22/announcing-scalajs-0.6.23/">the release notes of 0.6.23</a>, which contain a source breaking change in that situation.</p>
+
+<p>If upgrading from Scala.js 0.6.14 or earlier, make sure to read <a href="/news/2017/03/21/announcing-scalajs-0.6.15/">the release notes of 0.6.15</a>, which contain important migration information.</p>
+
+<p>As a minor release, 0.6.26 is backward binary compatible with previous releases in the 0.6.x series.
+Libraries compiled with earlier versions can be used with 0.6.26 without change.
+0.6.26 is also forward binary compatible with 0.6.{17-25}, but not with earlier releases: libraries compiled with 0.6.26 cannot be used by projects using 0.6.{0-16}.</p>
+
+<p>Please report any issues <a href="https://github.com/scala-js/scala-js/issues">on GitHub</a>.</p>
+
+<h2 id="top-level-exports-with-namespaces-are-deprecated">Top-level exports with namespaces are deprecated</h2>
+
+<p>Top-level exports with namespaces, such as</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@JSExportTopLevel</span><span class="o">(</span><span class="s">"foo.Bar"</span><span class="o">)</span>
+<span class="k">object</span> <span class="nc">Bar</span></code></pre></figure>
+
+<p>are deprecated, as they do not have a good equivalent in ECMAScript modules.</p>
+
+<p>If necessary, you can use the following idiom instead:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">package</span> <span class="nn">mypack</span>
+
+<span class="c1">// not directly exported
+</span><span class="k">object</span> <span class="nc">Bar</span>
+
+<span class="k">object</span> <span class="nc">TopLevelExports</span> <span class="o">{</span>
+  <span class="nd">@JSExportTopLevel</span><span class="o">(</span><span class="s">"foo"</span><span class="o">)</span>
+  <span class="k">val</span> <span class="n">foo</span> <span class="k">=</span> <span class="k">new</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="nc">Bar</span> <span class="k">=</span> <span class="n">mypack</span><span class="o">.</span><span class="nc">Bar</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>The deprecation warning can be silenced in the 0.6.x series with</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalacOptions</span> <span class="o">+=</span> <span class="s">"-P:scalajs:suppressExportDeprecations"</span></code></pre></figure>
+
+<h2 id="support-for-ecmascript-modules">Support for ECMAScript modules</h2>
+
+<p>Scala.js can now emit a project as an ECMAScript module, in addition to a script or a CommonJS module.
+This can be enabled with</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scalaJSLinkerConfig</span> <span class="o">~=</span> <span class="o">{</span> <span class="k">_</span><span class="o">.</span><span class="n">withModuleKind</span><span class="o">(</span><span class="nc">ModuleKind</span><span class="o">.</span><span class="nc">ESModule</span><span class="o">)</span> <span class="o">}</span></code></pre></figure>
+
+<p>In that case, <code class="highlighter-rouge">@JSImport</code> and <code class="highlighter-rouge">@JSExportTopLevel</code> will straightforwardly map to ECMAScript <code class="highlighter-rouge">import</code> and <code class="highlighter-rouge">export</code> statements:</p>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">Scala.js</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@JSExportTopLevel</span><span class="o">(</span><span class="s">"foo"</span><span class="o">)</span>
+<span class="k">object</span> <span class="nc">Bar</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">ECMAScript</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="p">{</span> <span class="nx">Bar</span> <span class="k">as</span> <span class="nx">foo</span> <span class="p">}</span></code></pre></figure>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">Scala.js</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSImport</span><span class="o">(</span><span class="s">"mod.js"</span><span class="o">,</span> <span class="s">"foo"</span><span class="o">)</span>
+<span class="k">object</span> <span class="nc">Bar</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">ECMAScript</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">foo</span> <span class="k">as</span> <span class="nx">Bar</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"mod.js"</span></code></pre></figure>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">Scala.js</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSImport</span><span class="o">(</span><span class="s">"mod.js"</span><span class="o">,</span> <span class="nc">JSImport</span><span class="o">.</span><span class="nc">Namespace</span><span class="o">)</span>
+<span class="k">object</span> <span class="nc">Bar</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">ECMAScript</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">Bar</span> <span class="k">from</span> <span class="s2">"mod.js"</span></code></pre></figure>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-6"><h6 class="code-block-header">Scala.js</h6><figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@js</span><span class="o">.</span><span class="n">native</span>
+<span class="nd">@JSImport</span><span class="o">(</span><span class="s">"mod.js"</span><span class="o">,</span> <span class="nc">JSImport</span><span class="o">.</span><span class="nc">Default</span><span class="o">)</span>
+<span class="k">object</span> <span class="nc">Bar</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">Object</span></code></pre></figure>
+</div>
+
+<div class="col-md-6"><h6 class="code-block-header">ECMAScript</h6><figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="nx">Bar</span> <span class="k">from</span> <span class="s2">"mod.js"</span></code></pre></figure>
+</div>
+</div>
+
+<p>To run and test such a project, Node.js v10.2.0 or later is required.
+We recommend v10.12.0 or later, as it is the version that we continuously test.
+In addition, you will need a few additional settings:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">jsEnv</span> <span class="o">:=</span> <span class="o">{</span>
+  <span class="k">new</span> <span class="n">org</span><span class="o">.</span><span class="n">scalajs</span><span class="o">.</span><span class="n">jsenv</span><span class="o">.</span><span class="nc">NodeJSEnv</span><span class="o">(</span>
+      <span class="n">org</span><span class="o">.</span><span class="n">scalajs</span><span class="o">.</span><span class="n">jsenv</span><span class="o">.</span><span class="nc">NODEJSEnv</span><span class="o">.</span><span class="nc">Config</span><span class="o">()</span>
+        <span class="o">.</span><span class="n">withArguments</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="s">"--experimental-modules"</span><span class="o">))</span>
+  <span class="o">)</span>
+<span class="o">}</span>
+
+<span class="n">artifactPath</span> <span class="n">in</span> <span class="o">(</span><span class="n">proj</span><span class="o">,</span> <span class="nc">Compile</span><span class="o">,</span> <span class="n">fastOptJS</span><span class="o">)</span> <span class="o">:=</span>
+  <span class="o">(</span><span class="n">crossTarget</span> <span class="n">in</span> <span class="o">(</span><span class="n">proj</span><span class="o">,</span> <span class="nc">Compile</span><span class="o">)).</span><span class="n">value</span> <span class="o">/</span> <span class="s">"myproject.mjs"</span>
+
+<span class="n">artifactPath</span> <span class="n">in</span> <span class="o">(</span><span class="n">proj</span><span class="o">,</span> <span class="nc">Test</span><span class="o">,</span> <span class="n">fastOptJS</span><span class="o">)</span> <span class="o">:=</span>
+  <span class="o">(</span><span class="n">crossTarget</span> <span class="n">in</span> <span class="o">(</span><span class="n">proj</span><span class="o">,</span> <span class="nc">Test</span><span class="o">)).</span><span class="n">value</span> <span class="o">/</span> <span class="s">"myproject-test.mjs"</span></code></pre></figure>
+
+<p>The first setting is required to enable the support of ES modules in Node.js.
+The other two make sure that the JavaScript produced have the extension <code class="highlighter-rouge">.mjs</code>, which is required for Node.js to interpret them as ES modules.</p>
+
+<p>The support for running and testing ES modules with Node.js is <em>experimental</em>, as the support of ES modules by Node.js is itself experimental.
+Things could change in future versions of Node.js and/or Scala.js.</p>
+
+<h2 id="bug-fixes">Bug fixes</h2>
+
+<p>Among others, the following bugs have been fixed in 0.6.26:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/3445">#3445</a> Linking error on <code class="highlighter-rouge">Array()</code> pattern with Scala.js 0.6.25 and Scala 2.13.0-M4</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/3280">#3280</a> Matcher.groupCount behaviour inconsistent between JS and JVM</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/3492">#3492</a> Double underscore <code class="highlighter-rouge">__</code> should not be forbidden in top-level exports</li>
+</ul>
+
+<p>You can find the full list <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av0.6.26+is%3Aclosed">on GitHub</a>.</p>
+
+            <div class="spacing"></div>
+            <nav>
+                <ul class="pager">
+                    
+                    <li class="previous"><a href="/news/2018/10/24/announcing-scalajs-1.0.0-M6/"
+                                            title="Announcing Scala.js 1.0.0-M6">&larr; Previous</a></li>
+                    
+                    
+                    <li class="next disabled"><a>Next &rarr;</a>
+                        
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

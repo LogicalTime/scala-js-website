@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/news/2017/06/28/announcing-scalajs-0.6.18/">
+
+    <title> Announcing Scala.js 0.6.18 - Scala.js</title>
+
+    <meta property="og:title" content="Announcing Scala.js 0.6.18" /><meta property="og:type" content="article" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" /><meta property="article:published_time" content="2017-06-28T00:00:00-04:00" /><meta property="article:tag" content="releases" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li class="active"><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Announcing Scala.js 0.6.18</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="small">Jun 28, 2017.</span>
+            </p>
+            <p>We are pleased to announce the release of Scala.js 0.6.18!</p>
+
+<p>This release is mostly a bug-fix release, but it also brings one new feature: the ability to recognize “standard” <code class="highlighter-rouge">main</code> methods (with <code class="highlighter-rouge">args: Array[String]</code>) in addition to <code class="highlighter-rouge">js.JSApp</code> objects.</p>
+
+<p>Read on for more details.</p>
+
+<!--more-->
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>If you are new to Scala.js, head over to
+<a href="/tutorial/">the tutorial</a>.</p>
+
+<h2 id="release-notes">Release notes</h2>
+
+<p>If upgrading from Scala.js 0.6.14 or earlier, make sure to read <a href="/news/2017/03/21/announcing-scalajs-0.6.15/">the release notes of 0.6.15</a>, which contain important migration information.</p>
+
+<p>As a minor release, 0.6.18 is backward source and binary compatible with previous releases in the 0.6.x series.
+Libraries compiled with earlier versions can be used with 0.6.18 without change.
+0.6.18 is also forward binary compatible with 0.6.17, but not with earlier releases: libraries compiled with 0.6.18 cannot be used by projects using 0.6.{0-16}.</p>
+
+<p>Please report any issues <a href="https://github.com/scala-js/scala-js/issues">on GitHub</a>.</p>
+
+<h2 id="new-features">New features</h2>
+
+<h3 id="support-for-standard-main-methods">Support for “standard” <code class="highlighter-rouge">main</code> methods</h3>
+
+<p>Until Scala.js 0.6.17, in order for the sbt plugin to recognize an <code class="highlighter-rouge">object</code> as a <em>main</em> object, and call its main method (either through the deprecated <em>launchers</em>, or more recently with <code class="highlighter-rouge">scalaJSUseMainModuleInitializer := true</code>), that object had to extend <code class="highlighter-rouge">js.JSApp</code>.
+For example, a hello world would look like:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.scalajs.js</span>
+
+<span class="k">object</span> <span class="nc">HelloWorld</span> <span class="k">extends</span> <span class="n">js</span><span class="o">.</span><span class="nc">JSApp</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">main</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">println</span><span class="o">(</span><span class="s">"Hello world!"</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>With this release onwards, the “standard” shape of main objects, JVM-style, are also recognized.
+The above example can be rewritten as</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">HelloWorld</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">println</span><span class="o">(</span><span class="s">"Hello world!"</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>and truly be cross-platform.
+This style of main objects is only supported with <code class="highlighter-rouge">scalaJSUseMainModuleInitializer := true</code> (not with the deprecated <em>launchers</em>).</p>
+
+<h3 id="simplified-sbt-setting-to-configure-all-aspects-of-scalajs">Simplified sbt setting to configure all aspects of Scala.js</h3>
+
+<p>In preparation for Scala.js 1.x, we introduce a new sbt setting to configure all aspects of the Scala.js linker: <code class="highlighter-rouge">scalaJSLinkerConfig</code>.
+That settings aggregates and replaces the following settings:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">scalaJSSemantics</code></li>
+  <li><code class="highlighter-rouge">scalaJSModuleKind</code></li>
+  <li><code class="highlighter-rouge">scalaJSOutputMode</code></li>
+  <li><code class="highlighter-rouge">emitSourceMaps</code></li>
+  <li><code class="highlighter-rouge">relativeSourceMaps</code></li>
+  <li><code class="highlighter-rouge">scalaJSOutputWrapper</code></li>
+  <li><code class="highlighter-rouge">scalaJSOptimizerOptions</code></li>
+</ul>
+
+<p>The old settings will of course continue to work in 0.6.x, but they will be dropped in Scala.js 1.x.
+New builds are encouraged to use <code class="highlighter-rouge">scalaJSLinkerConfig</code>.</p>
+
+<p>Note that, due to backward compatibility concerns, in 0.6.x the value of <code class="highlighter-rouge">scalaJSLinkerConfig</code> is only relevant in the project scope (not scoped per config like with <code class="highlighter-rouge">in Compile</code>), and in the fully-qualified scope (project, config, <em>and</em>, <code class="highlighter-rouge">fastOptJS</code>/<code class="highlighter-rouge">fullOptJS</code>).
+Usually, it will only be set in the project scope, in which case you have nothing to worry about.</p>
+
+<h2 id="bug-fixes">Bug fixes</h2>
+
+<p>Among others, the following bugs have been fixed in 0.6.18:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/2945">#2945</a> Scala.js sbt plugin ignores <code class="highlighter-rouge">logBuffered</code> setting</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/3025">#3025</a> <code class="highlighter-rouge">@noinline</code> breaks the optimizer</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/3013">#3013</a> Super call to a mixin of an outer class confuses the codegen in 2.12+</li>
+</ul>
+
+<p>You can find the full list <a href="https://github.com/scala-js/scala-js/issues?q=is%3Aissue+milestone%3Av0.6.18+is%3Aclosed">on GitHub</a>.</p>
+
+            <div class="spacing"></div>
+            <nav>
+                <ul class="pager">
+                    
+                    <li class="previous"><a href="/news/2017/06/04/announcing-scalajs-0.6.17/"
+                                            title="Announcing Scala.js 0.6.17">&larr; Previous</a></li>
+                    
+                    
+                    <li class="next"><a href="/news/2017/07/03/announcing-scalajs-1.0.0-M1/"
+                                        title="Announcing Scala.js 1.0.0-M1">Next &rarr;</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>

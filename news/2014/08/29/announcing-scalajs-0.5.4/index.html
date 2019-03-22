@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/img/scala-js-logo-32.png">
+    <link rel="canonical" href="https://www.scala-js.org/news/2014/08/29/announcing-scalajs-0.5.4/">
+
+    <title> Announcing Scala.js 0.5.4 - Scala.js</title>
+
+    <meta property="og:title" content="Announcing Scala.js 0.5.4" /><meta property="og:type" content="article" /><meta property="og:description" content="Build robust front-end web applications in Scala with Scala.js" /><meta property="og:site_name" content="Scala.js" /><meta property="og:image" content="https://www.scala-js.org/assets/img/scala-js-logo-256.png" /><meta property="article:published_time" content="2014-08-29T00:00:00-04:00" /><meta property="article:tag" content="releases" />
+
+
+    <link type="text/css" rel="stylesheet" href="/assets/bundle-91bdfeed9789c079530f8a6a05da4b23fd93b28c59e0b7729fc9c2199700d3da.css">
+
+    <script>
+      var onloadFunctions = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img width="120" alt="Scala.js" src="/assets/img/scala-js-site-logo.svg"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/doc/">DOCUMENTATION</a></li>
+        <li ><a href="/libraries/">LIBRARIES</a></li>
+        <li ><a href="/community/">COMMUNITY</a></li>
+        <li class="active"><a href="/news/">NEWS</a></li>
+        <li><a href="#" id="search-icon"><i style="font-size: 20px" class="fa fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="search-view" class="container">
+    <div id="search-box">
+            <input type="text" class="form-control" placeholder="Search" id="search-term">
+        <div id="search-results" class="container"></div>
+    </div>
+</div>
+<div id="wrap">
+    <div id="main">
+        <div id="blue">
+    <div class="container">
+        <div class="row">
+            <h3>Announcing Scala.js 0.5.4</h3>
+        </div><!-- /row -->
+    </div> <!-- /container -->
+</div><!-- /blue -->
+
+<div class="container mtb">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="small">Aug 29, 2014.</span>
+            </p>
+            <p>We are excited to announce the release of Scala.js 0.5.4!</p>
+
+<p>This release contains various bug fixes and enhancements to both the compiler and the sbt plugin.
+<!--more--></p>
+
+<p>Scala.js 0.5.4 is backward binary compatible with older versions of the 0.5.x branch. However, it is <em>not</em> forward binary compatible. This means:</p>
+
+<ul>
+  <li>You don’t need to re-publish libraries</li>
+  <li>You must upgrade to Scala.js 0.5.4 if any library you depend on uses Scala.js 0.5.4</li>
+</ul>
+
+<p>If you choose to re-publish a library, make sure to bump its version.</p>
+
+<p>Please report any issues <a href="https://github.com/scala-js/scala-js/issues">on GitHub</a>.</p>
+
+<h2 id="upgrading-from-053-an-below">Upgrading from 0.5.3 an below</h2>
+
+<p>Simply change the version number in <code class="highlighter-rouge">project/plugins.sbt</code>, as usual.</p>
+
+<p>If you use <a href="https://github.com/lihaoyi/utest">uTest</a>, you need to upgrade it to version 0.2.3 or later.
+This is due to a binary incompatible change in the sbt plugin.</p>
+
+<h2 id="improvements-in-the-054-release">Improvements in the 0.5.4 release</h2>
+
+<p>For changes introduced in 0.5.0, how to upgrade, getting started etc. have a look at the <a href="/news/2014/06/13/announcing-scalajs-0.5.0/">0.5.0 announcement</a> (see also the announcements for <a href="/news/2014/06/30/announcing-scalajs-0.5.1/">0.5.1</a>, <a href="/news/2014/07/09/announcing-scalajs-0.5.2/">0.5.2</a> and <a href="/news/2014/07/30/announcing-scalajs-0.5.3/">0.5.3</a>).</p>
+
+<h3 id="javascript-export-facilities">JavaScript Export Facilities</h3>
+
+<p>A few improvements have been made to <code class="highlighter-rouge">@JSExport</code>-related features, to export Scala.js APIs to JavaScript:</p>
+
+<ul>
+  <li><a href="/doc/interoperability/export-to-javascript.html#JSExportNamed">Export methods with named arguments</a></li>
+  <li><a href="/doc/interoperability/export-to-javascript.html#JSExportAll">Automatically export all public members of a class/object</a></li>
+  <li><a href="/doc/interoperability/export-to-javascript.html#constructor-params">Export fields declared as constructor parameters</a></li>
+</ul>
+
+<h3 id="phantomjs">PhantomJS</h3>
+
+<p>The interface to the PhantomJS interpreter has been enhanced with two features:</p>
+
+<ul>
+  <li><a href="/doc/project/js-environments.html#phantomjs-arguments">Passing command-line arguments to PhantomJS</a></li>
+  <li><a href="/doc/project/js-environments.html#phantomjs-no-auto-terminate">Configuring PhantomJS not to terminate automatically when the <code class="highlighter-rouge">main()</code> method returns</a></li>
+  <li>You can use <code class="highlighter-rouge">java.lang.System.exit(exitCode)</code> to explicitly terminate the PhantomJS environment</li>
+</ul>
+
+<h3 id="conversions">Conversions</h3>
+
+<p>The new object <a href="http://www.scala-js.org/api/scalajs-library/0.5.4/#scala.scalajs.js.JSConverters$">JSConverters</a> provides extension methods to convert between JavaScript collections and Scala collections (maps, sequences and option).</p>
+
+<p><a href="/doc/interoperability/types.html">More information in the documentation</a></p>
+
+<h3 id="source-maps-for-fulloptjs">Source maps for fullOptJS</h3>
+
+<p>Source maps are now generated for <code class="highlighter-rouge">fullOptJS</code> as well.</p>
+
+<p>To support this, we have changed the way we integrate the Google Closure Compiler.
+Should you experience any regression, please file an issue, and use the following fallback to revert to the old mechanism (which will not generate source maps):</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nc">ScalaJSKeys</span><span class="o">.</span><span class="n">directFullOptJS</span> <span class="o">:=</span> <span class="kc">false</span></code></pre></figure>
+
+<h3 id="-cross-versioning">%%% Cross versioning</h3>
+
+<p>The <code class="highlighter-rouge">%%%</code> operator used to build library dependencies for Scala.js has been enhanced.
+It is now able to determine whether it is used inside a Scala.js project or a Scala/JVM project.
+In the latter, it will be equivalent to <code class="highlighter-rouge">%%</code>.
+This allows to use <code class="highlighter-rouge">%%%</code> consistently for cross-compiling projects.</p>
+
+<p><a href="/doc/project/dependencies.html">More information in the documentation</a></p>
+
+<h3 id="auto-detect-whether-the-dom-is-required">Auto-detect whether the DOM is required</h3>
+
+<p>The setting <code class="highlighter-rouge">requiresDOM</code> will now default to <code class="highlighter-rouge">true</code> if the special <code class="highlighter-rouge">RuntimeDOM</code> dependency is listed in the (transitive) <code class="highlighter-rouge">jsDependencies</code> of your project.
+To specify that your library or program depends on the DOM, use the following setting:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nc">ScalaJSKeys</span><span class="o">.</span><span class="n">jsDependencies</span> <span class="o">+=</span> <span class="n">scala</span><span class="o">.</span><span class="n">scalajs</span><span class="o">.</span><span class="n">sbtplugin</span><span class="o">.</span><span class="nc">RuntimeDOM</span></code></pre></figure>
+
+<p>It is still possible to override this behavior by explicitly setting <code class="highlighter-rouge">requiresDOM</code>, as before.</p>
+
+<h3 id="toolsjs">Tools.js</h3>
+
+<p>Our tools API now cross-compiles for Scala/JVM and Scala.js.
+It can therefore be used in Scala.js, for example to link and optimize Scala.js IR on the client.</p>
+
+<h4 id="bugfixes">Bugfixes</h4>
+
+<p>The following bugs have been fixed since 0.5.3:</p>
+
+<ul>
+  <li><a href="https://github.com/scala-js/scala-js/issues/897">#897</a> fastOptJS crash: Invalid lhs for Assign: This()</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/898">#898</a> PhantomJS polyfill doesn’t work</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/899">#899</a> Compiler should always unbox arguments to reflective calls</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/904">#904</a> Stack overflow in fast optimizer</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/906">#906</a> Assignment to exported var gives “Unhandled type class” warning</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/907">#907</a> fastOptJS crash: statements before Dictionary.delete() in exported functions</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/908">#908</a> Calling Dictionary.delete() with js.Object property throws RuntimeException</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/919">#919</a> sbt: Inspecting does not work with scalaJSSettings</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/920">#920</a> Return type lifting for JSExports fails on RefinedTypes</li>
+  <li><a href="https://github.com/scala-js/scala-js/issues/940">#940</a> Compiler crash on strange pattern match</li>
+</ul>
+
+            <div class="spacing"></div>
+            <nav>
+                <ul class="pager">
+                    
+                    <li class="previous"><a href="/news/2014/07/30/announcing-scalajs-0.5.3/"
+                                            title="Announcing Scala.js 0.5.3">&larr; Previous</a></li>
+                    
+                    
+                    <li class="next"><a href="/news/2014/09/18/announcing-scalajs-0.5.5/"
+                                        title="Announcing Scala.js 0.5.5">Next &rarr;</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>LEARN</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="/doc/">Documentation</a><br/>
+                <a class="grey-text text-lighten-3" href="/tutorial/">Tutorial</a><br/>
+                <a class="grey-text text-lighten-3" href="/doc/faq.html">FAQ</a>
+            </div>
+            <div class="col-md-4">
+                <h4>COMMUNITY</h4>
+
+                <div class="hline-w"></div>
+                <a class="grey-text text-lighten-3" href="https://gitter.im/scala-js/scala-js">Gitter chat</a><br/>
+                <a class="grey-text text-lighten-3" href="http://stackoverflow.com/questions/tagged/scala.js">Stackoverflow</a><br/>
+                <a class="grey-text text-lighten-3" href="https://groups.google.com/forum/?fromgroups#!forum/scala-js">Mailing list</a><br/>
+                <a class="grey-text text-lighten-3" href="http://twitter.com/scala_js">Twitter <i aria-hidden="true" class="fa fa-twitter"></i></a><br/>
+                <a href="http://github.com/scala-js/scala-js">GitHub <i aria-hidden="true" class="fa fa-github"></i></a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+// delay loading of all JS assets only after first render
+function downloadJSAtOnload() {
+  var element = document.createElement("script");
+  element.src = "/assets/bundle-9889fa9840f41fa2ac0f78fcdf8ed4ec89ec5f10123708d991b965a5cad032b1.js";
+  document.body.appendChild(element);
+}
+if (window.addEventListener)
+  window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+  window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+
+
+
+</body>
+</html>
